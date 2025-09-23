@@ -5,6 +5,7 @@ import {
   Youtube,
   Mic,
   BookMarked,
+  ShoppingCart,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -61,6 +62,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Electric Paradise',
         url: 'https://electric-paradise.start.page',
         icon: Globe,
+      },
+      {
+        title: 'NWO Shop',
+        url: 'https://beacons.ai/nwo.shop',
+        icon: ShoppingCart,
       },
     ],
   },
