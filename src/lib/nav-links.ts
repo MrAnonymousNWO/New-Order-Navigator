@@ -65,6 +65,11 @@ export const navigationLinks: NavCategory[] = [
         icon: BookMarked,
       },
       {
+        title: 'UBI Storybook',
+        url: 'https://g.co/gemini/share/4a457895642b',
+        icon: BookMarked,
+      },
+      {
         title: 'Electric Paradise',
         url: 'https://electric-paradise.start.page',
         icon: Globe,
