@@ -5,6 +5,7 @@ import {
   LifeBuoy,
   PlayCircle,
   Users,
+  Dog,
   type LucideProps,
 } from 'lucide-react';
 
@@ -20,6 +21,16 @@ export interface NavCategory {
 }
 
 export const navigationLinks: NavCategory[] = [
+  {
+    title: 'Apps',
+    links: [
+      {
+        title: 'Pet Analyzer',
+        url: '/pet-analyzer',
+        icon: Dog,
+      },
+    ],
+  },
   {
     title: 'Websites',
     links: [

@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "1",
+      "description": "A cute golden retriever puppy sitting on the grass.",
+      "imageUrl": "https://images.unsplash.com/photo-1615233500064-caa995e2f9dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2xkZW4lMjByZXRyaWV2ZXIlMjBwdXBweXxlbnwwfHx8fDE3NTg2MTMxNzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "golden retriever puppy"
+    }
+  ]
 }
