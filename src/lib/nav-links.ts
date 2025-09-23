@@ -390,6 +390,51 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://worldsold.wixsite.com/world-sold/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds',
         icon: Rss,
       },
+      {
+        title: 'Blog (EN): World Sold',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): System Comparison',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/system_comparison-1',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): State Encyclopedia',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/state_encyclopedia-1',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Electronic Technocracy',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/elektronische-technokratie-1',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): NWO World Revolution Day X',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/nwo-worldrevolution-day-x',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Cost of the World',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/cost-of-the-world',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Blacksite Tales',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/blacksite-tales',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Lexicon Wiki',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/lexicon_wiki-1',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Between Nightmare and Warning',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds-1',
+        icon: Rss,
+      },
     ],
   },
 ];
