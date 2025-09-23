@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="h-full bg-background p-4 sm:p-6 md:p-8">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-8 text-center">
+        <div className="mb-8">
           <h1 className="font-headline text-5xl tracking-tight">
             Sovereign Navigator
           </h1>

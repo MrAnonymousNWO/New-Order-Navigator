@@ -3,6 +3,7 @@ import './globals.css';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { Toaster } from '@/components/ui/toaster';
+import { AppHeader } from '@/components/app-header';
 
 export const metadata: Metadata = {
   title: 'Sovereign Navigator',
@@ -37,7 +38,10 @@ export default function RootLayout({
         <SidebarProvider>
           <div className="flex min-h-screen">
             <AppSidebar />
-            <main className="flex-1">{children}</main>
+            <div className="flex flex-1 flex-col">
+              <AppHeader />
+              <main className="flex-1">{children}</main>
+            </div>
           </div>
         </SidebarProvider>
       </body>
