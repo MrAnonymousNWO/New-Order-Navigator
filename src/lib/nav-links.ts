@@ -300,6 +300,51 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/digitale-gesellschaft',
         icon: Rss,
       },
+      {
+        title: 'Blog (EN): Electric Paradise',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Future Innovations',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/future-innovations',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Technological Singularity',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/technological-singularity',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Future of AI',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/future-of-ai',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Tech Governance',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/tech-governance',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Digital Society',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/digital-society',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Electric Technocracy',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/electric-technocracy',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Artificial Superintelligence',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/artificial-superintelligence',
+        icon: Rss,
+      },
+      {
+        title: 'Blog (EN): Longevity',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/electric-paradise-blog/categories/longevity',
+        icon: Rss,
+      },
     ],
   },
 ];
