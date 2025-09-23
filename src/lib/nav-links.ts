@@ -33,6 +33,16 @@ export interface NavCategory {
 
 export const navigationLinks: NavCategory[] = [
   {
+    title: 'Home',
+    links: [
+      {
+        title: 'Startpage',
+        url: '/',
+        icon: Home,
+      },
+    ],
+  },
+  {
     title: 'Websites',
     links: [
       {
@@ -190,6 +200,11 @@ export const navigationLinks: NavCategory[] = [
         url: 'http://merch.page.gd',
         icon: ShoppingCart,
       },
+      {
+        title: 'Donate',
+        url: 'https://ko-fi.com/electric_technocrat',
+        icon: Heart,
+      },
     ],
   },
   {
@@ -240,15 +255,50 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://worldsold.wixsite.com/world-sold/post/deinen-eigenen-staat-gründen-souveraenität-mit-ki-chat-begleitung',
         icon: FileText,
       },
-    ],
-  },
-  {
-    title: 'Home',
-    links: [
       {
-        title: 'Startpage',
-        url: '/',
-        icon: Home,
+        title: 'Electric Paradise Blog',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Elektro-Technokratie',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/elektro-technokratie',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Künstliche Superintelligenz',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/kuenstliche-superintelligenz',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Langlebigkeit',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/langlebigkeit',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Tech-Regierung',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/tech-regierung',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Innovation & Zukunft',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/innovation-zukunft',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Zukunft der KI',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/zukunft-der-ki',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Technologische Singularität',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/technologische-singularitaet',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Digitale Gesellschaft',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/digitale-gesellschaft',
+        icon: Rss,
       },
     ],
   },
