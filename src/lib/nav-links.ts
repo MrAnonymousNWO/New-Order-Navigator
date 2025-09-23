@@ -2,6 +2,9 @@ import type { ComponentType } from 'react';
 import {
   Globe,
   type LucideProps,
+  Youtube,
+  Mic,
+  BookMarked,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -38,6 +41,21 @@ export const navigationLinks: NavCategory[] = [
         title: 'World Sold (EN)',
         url: 'https://worldsold.wixsite.com/world-sold/en',
         icon: Globe,
+      },
+      {
+        title: 'Staatensukzessionsurkunde',
+        url: 'https://www.youtube.com/@Staatensukzessionsurkunde-1400',
+        icon: Youtube,
+      },
+      {
+        title: 'World Succession Deed Podcast',
+        url: 'https://creators.spotify.com/pod/show/world-succession-deed',
+        icon: Mic,
+      },
+      {
+        title: 'Kreuzbergkaserne Zweibrücken',
+        url: 'https://de.m.wikipedia.org/wiki/Kreuzbergkaserne_Zweibr%C3%BCcken',
+        icon: BookMarked,
       },
     ],
   },
