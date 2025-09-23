@@ -115,4 +115,14 @@ export const navigationLinks: NavCategory[] = [
       },
     ],
   },
+  {
+    title: 'Home',
+    links: [
+      {
+        title: 'Startpage',
+        url: '/',
+        icon: Home,
+      },
+    ],
+  },
 ];

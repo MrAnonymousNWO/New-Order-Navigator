@@ -60,9 +60,14 @@ export function SidebarNav() {
       });
     }
   };
+  
+  const isExternalUrl = (url: string) =>
+    url.startsWith('http://') || url.startsWith('https://');
 
   const isActive = (url: string) => {
-    // This is a simple check, a more robust solution might be needed for complex routing
+    if (url === '/') {
+      return pathname === '/';
+    }
     return pathname === `/view?url=${encodeURIComponent(url)}`;
   };
 
@@ -87,12 +92,17 @@ export function SidebarNav() {
                     data-active={isActive(link.url)}
                   >
                     <Link
-                      href={`/view?url=${encodeURIComponent(link.url)}`}
+                      href={
+                        isExternalUrl(link.url)
+                          ? `/view?url=${encodeURIComponent(link.url)}`
+                          : link.url
+                      }
                       className="flex flex-1 items-center gap-3 p-2"
                     >
                       <link.icon className="h-4 w-4 shrink-0 text-accent" />
                       <span className="truncate">{link.title}</span>
                     </Link>
+                    {isExternalUrl(link.url) && (
                     <Popover onOpenChange={(open) => open && handleGetSummary(link.url)}>
                       <PopoverTrigger asChild>
                         <Button
@@ -131,6 +141,7 @@ export function SidebarNav() {
                         </div>
                       </PopoverContent>
                     </Popover>
+                    )}
                   </li>
                 ))}
               </ul>
