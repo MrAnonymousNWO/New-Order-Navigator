@@ -1,3 +1,4 @@
+
 import type { ComponentType } from 'react';
 import {
   Globe,
@@ -92,6 +93,16 @@ export const navigationLinks: NavCategory[] = [
       {
         title: 'Anti-war music',
         url: 'http://music.page.gd',
+        icon: Music,
+      },
+      {
+        title: 'Songs vs ww3 (Riffusion)',
+        url: 'https://www.riffusion.com/World_Succession_Deed',
+        icon: Music,
+      },
+      {
+        title: 'Songs vs ww3 (Suno)',
+        url: 'https://suno.com/@sukzession1998',
         icon: Music,
       },
     ],
