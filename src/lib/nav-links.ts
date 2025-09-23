@@ -68,6 +68,11 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://beacons.ai/nwo.shop',
         icon: ShoppingCart,
       },
+      {
+        title: 'NWO Spring Shop',
+        url: 'https://nwo-9.creator-spring.com',
+        icon: ShoppingCart,
+      },
     ],
   },
 ];
