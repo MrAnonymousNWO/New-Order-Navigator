@@ -57,6 +57,11 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://de.m.wikipedia.org/wiki/Kreuzbergkaserne_Zweibr%C3%BCcken',
         icon: BookMarked,
       },
+      {
+        title: 'Electric Paradise',
+        url: 'https://electric-paradise.start.page',
+        icon: Globe,
+      },
     ],
   },
 ];
