@@ -233,111 +233,6 @@ export const navigationLinks: NavCategory[] = [
     ],
   },
   {
-    title: 'Blog Posts (German)',
-    links: [
-      {
-        title: 'BGE und die Elektronische Technokratie',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/post/bge-bedingungsloses-grundeinkommen-elektronische-technokratie',
-        icon: FileText,
-      },
-      {
-        title: 'Deinen eigenen Staat gründen – Souveränität mit KI',
-        url: 'https://worldsold.wixsite.com/world-sold/post/deinen-eigenen-staat-gründen-souveraenität-mit-ki-chat-begleitung',
-        icon: FileText,
-      },
-      {
-        title: 'Electric Paradise Blog',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Elektro-Technokratie',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/elektro-technokratie',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Künstliche Superintelligenz',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/kuenstliche-superintelligenz',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Langlebigkeit',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/langlebigkeit',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Tech-Regierung',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/tech-regierung',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Innovation & Zukunft',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/innovation-zukunft',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Zukunft der KI',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/zukunft-der-ki',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Technologische Singularität',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/technologische-singularitaet',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Digitale Gesellschaft',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/digitale-gesellschaft',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: World Sold',
-        url: 'https://worldsold.wixsite.com/world-sold/blog',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: System Comparison',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/system_comparison',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Lexicon Wiki',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/lexicon_wiki',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Elektronische Technokratie',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/elektronische-technokratie',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: State Encyclopedia',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/state_encyclopedia',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Blacksite Geschichten',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/blacksite-geschichten',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: NWO Weltrevolution Tag X',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/nwo-weltrevolution-tag-x',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Was kostet die Welt',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/was-kostet-die-welt',
-        icon: Rss,
-      },
-      {
-        title: 'Blog: Between Nightmare and Warning',
-        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds',
-        icon: Rss,
-      },
-    ],
-  },
-  {
     title: 'Blog Posts (English)',
     links: [
       {
@@ -438,6 +333,111 @@ export const navigationLinks: NavCategory[] = [
       {
         title: 'Blog (EN): Between Nightmare and Warning',
         url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds-1',
+        icon: Rss,
+      },
+    ],
+  },
+  {
+    title: 'Blog Posts (German)',
+    links: [
+      {
+        title: 'BGE und die Elektronische Technokratie',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/post/bge-bedingungsloses-grundeinkommen-elektronische-technokratie',
+        icon: FileText,
+      },
+      {
+        title: 'Deinen eigenen Staat gründen – Souveränität mit KI',
+        url: 'https://worldsold.wixsite.com/world-sold/post/deinen-eigenen-staat-gründen-souveraenität-mit-ki-chat-begleitung',
+        icon: FileText,
+      },
+      {
+        title: 'Electric Paradise Blog',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Elektro-Technokratie',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/elektro-technokratie',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Künstliche Superintelligenz',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/kuenstliche-superintelligenz',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Langlebigkeit',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/langlebigkeit',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Tech-Regierung',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/tech-regierung',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Innovation & Zukunft',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/innovation-zukunft',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Zukunft der KI',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/zukunft-der-ki',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Technologische Singularität',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/technologische-singularitaet',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Digitale Gesellschaft',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/digitale-gesellschaft',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: World Sold',
+        url: 'https://worldsold.wixsite.com/world-sold/blog',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: System Comparison',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/system_comparison',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Lexicon Wiki',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/lexicon_wiki',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Elektronische Technokratie',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/elektronische-technokratie',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: State Encyclopedia',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/state_encyclopedia',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Blacksite Geschichten',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/blacksite-geschichten',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: NWO Weltrevolution Tag X',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/nwo-weltrevolution-tag-x',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Was kostet die Welt',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/was-kostet-die-welt',
+        icon: Rss,
+      },
+      {
+        title: 'Blog: Between Nightmare and Warning',
+        url: 'https://worldsold.wixsite.com/world-sold/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds',
         icon: Rss,
       },
     ],
