@@ -6,6 +6,11 @@ import {
   Mic,
   BookMarked,
   ShoppingCart,
+  Users,
+  Music,
+  MessageSquare,
+  Link as LinkIcon,
+  Home,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -72,6 +77,41 @@ export const navigationLinks: NavCategory[] = [
         title: 'NWO Spring Shop',
         url: 'https://nwo-9.creator-spring.com',
         icon: ShoppingCart,
+      },
+    ],
+  },
+  {
+    title: 'Social',
+    links: [
+      {
+        title: 'Facebook-Gruppe',
+        url: 'https://facebook.com/groups/528455169898378/',
+        icon: Users,
+      },
+      {
+        title: 'SoundCloud Musik Profil',
+        url: 'https://soundcloud.com/world-succession-deed',
+        icon: Music,
+      },
+      {
+        title: 'X - WW3 Präkognition',
+        url: 'https://x.com/WW3Precognition',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - Welt verkauft offiziell',
+        url: 'https://x.com/NWO_BOOKS',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Linkübersicht - Bitly',
+        url: 'https://bit.ly/m/world-succession-deed',
+        icon: LinkIcon,
+      },
+      {
+        title: 'Startseite Linkübersicht',
+        url: 'https://electrictechnocracy.start.page',
+        icon: Home,
       },
     ],
   },
