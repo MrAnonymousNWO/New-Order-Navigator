@@ -11,6 +11,7 @@ import {
   MessageSquare,
   Link as LinkIcon,
   Home,
+  Heart,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -112,6 +113,16 @@ export const navigationLinks: NavCategory[] = [
         title: 'Startseite Linkübersicht',
         url: 'https://electrictechnocracy.start.page',
         icon: Home,
+      },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      {
+        title: 'Donate',
+        url: 'https://ko-fi.com/electric_technocrat',
+        icon: Heart,
       },
     ],
   },
