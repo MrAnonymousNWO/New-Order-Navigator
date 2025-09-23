@@ -6,6 +6,7 @@ import {
   PlayCircle,
   Users,
   Dog,
+  MessageCircle,
   type LucideProps,
 } from 'lucide-react';
 
@@ -28,6 +29,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Pet Analyzer',
         url: '/pet-analyzer',
         icon: Dog,
+      },
+       {
+        title: 'Chatbot',
+        url: '/chatbot',
+        icon: MessageCircle,
       },
     ],
   },
