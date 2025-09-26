@@ -2,7 +2,14 @@
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Printer, Languages, ExternalLink, Bookmark } from 'lucide-react';
+import {
+  Printer,
+  Languages,
+  ExternalLink,
+  Bookmark,
+  FileText,
+  Loader2,
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
@@ -11,11 +18,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
+import { useState } from 'react';
+import { getWebpageSummary } from '@/app/actions';
 
 export function AppHeader() {
   const { toast } = useToast();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [summary, setSummary] = useState<string | null>(null);
+  const [isSummarizing, setIsSummarizing] = useState(false);
+  const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
 
   const handlePrint = () => {
     window.print();
@@ -57,56 +79,130 @@ export function AppHeader() {
     });
   };
 
+  const handleSummarize = async () => {
+    const urlToSummarize = searchParams.get('url');
+    if (!urlToSummarize) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'No URL to summarize.',
+      });
+      return;
+    }
+
+    setIsSummarizing(true);
+    setSummary(null);
+    setSummaryError(null);
+    setIsSummaryDialogOpen(true);
+
+    try {
+      const result = await getWebpageSummary(urlToSummarize);
+      setSummary(result);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'An unknown error occurred.';
+      setSummaryError(errorMessage);
+    } finally {
+      setIsSummarizing(false);
+    }
+  };
+
+  const canSummarize = pathname === '/view' && !!searchParams.get('url');
+
   return (
-    <header className="sticky top-0 z-10 flex h-12 items-center gap-2 border-b bg-background px-4 sm:px-6">
-      <SidebarTrigger className="md:hidden" />
-      <div className="flex-grow" />
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={handleBookmark}>
-              <Bookmark className="h-5 w-5" />
-              <span className="sr-only">Bookmark Page</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Bookmark Page</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={handleOpenExternal}>
-              <ExternalLink className="h-5 w-5" />
-              <span className="sr-only">Open in new tab</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Open in Browser</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={handlePrint}>
-              <Printer className="h-5 w-5" />
-              <span className="sr-only">Print / Download PDF</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Print / Download PDF</p>
-          </TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="icon" onClick={handleTranslate}>
-              <Languages className="h-5 w-5" />
-              <span className="sr-only">Translate Page</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Translate Page</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </header>
+    <>
+      <header className="sticky top-0 z-10 flex h-12 items-center gap-2 border-b bg-background px-4 sm:px-6">
+        <SidebarTrigger className="md:hidden" />
+        <div className="flex-grow" />
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleSummarize}
+                disabled={!canSummarize || isSummarizing}
+              >
+                <FileText className="h-5 w-5" />
+                <span className="sr-only">Summarize Page</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Summarize Page</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleBookmark}>
+                <Bookmark className="h-5 w-5" />
+                <span className="sr-only">Bookmark Page</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Bookmark Page</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleOpenExternal}>
+                <ExternalLink className="h-5 w-5" />
+                <span className="sr-only">Open in new tab</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Open in Browser</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handlePrint}>
+                <Printer className="h-5 w-5" />
+                <span className="sr-only">Print / Download PDF</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Print / Download PDF</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleTranslate}>
+                <Languages className="h-5 w-5" />
+                <span className="sr-only">Translate Page</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Translate Page</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </header>
+
+      <AlertDialog
+        open={isSummaryDialogOpen}
+        onOpenChange={setIsSummaryDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>AI Page Summary</AlertDialogTitle>
+            <AlertDialogDescription>
+              {isSummarizing && (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Generating summary...</span>
+                </div>
+              )}
+              {summary && <p className="whitespace-pre-wrap">{summary}</p>}
+              {summaryError && (
+                <p className="text-destructive">{summaryError}</p>
+              )}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
