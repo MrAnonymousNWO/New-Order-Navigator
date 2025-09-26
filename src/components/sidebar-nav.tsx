@@ -20,7 +20,8 @@ import type { NavLink, NavCategory } from '@/lib/nav-links';
 import { useState, useMemo } from 'react';
 import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useSidebar } from '@/components/ui/sidebar';
 
 interface SummaryState {
   summary?: string;
@@ -36,6 +37,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
   const { toast } = useToast();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { setOpenMobile } = useSidebar();
 
   const filteredLinks = useMemo(() => {
     if (!searchTerm.trim()) {
@@ -88,7 +91,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     if (url === '/') {
       return pathname === '/';
     }
-    return pathname === `/view?url=${encodeURIComponent(url)}`;
+    const currentUrl = searchParams.get('url');
+    return pathname === '/view' && currentUrl === url;
   };
 
   const defaultActiveCategories = useMemo(() => {
@@ -97,6 +101,10 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     }
     return navigationLinks.map((c) => c.title);
   }, [searchTerm, filteredLinks]);
+
+  const handleLinkClick = () => {
+    setOpenMobile(false);
+  };
 
 
   return (
@@ -117,7 +125,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
                 {category.links.map((link: NavLink) => (
                   <li
                     key={link.url}
-                    className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent"
+                    className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
                     data-active={isActive(link.url)}
                   >
                     <Link
@@ -126,6 +134,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
                           ? `/view?url=${encodeURIComponent(link.url)}`
                           : link.url
                       }
+                      onClick={handleLinkClick}
                       className="flex flex-1 items-center gap-3 p-2"
                     >
                       <link.icon className="h-4 w-4 shrink-0 text-accent" />
