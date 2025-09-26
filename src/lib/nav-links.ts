@@ -102,7 +102,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Cassandra Cries - AI Music',
-        url: 'http://listen.free.nf',
+        url: 'https://soundcloud.com/world-succession-deed',
         icon: Music,
       },
       {
