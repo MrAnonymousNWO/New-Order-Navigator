@@ -9,6 +9,7 @@ import {
   Bookmark,
   FileText,
   Loader2,
+  Share2,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -107,6 +108,56 @@ export function AppHeader() {
     }
   };
 
+  const handleShare = async () => {
+    let urlToShare;
+    if (pathname === '/view') {
+      urlToShare = searchParams.get('url');
+    } else {
+      urlToShare = window.location.href;
+    }
+
+    if (!urlToShare) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not determine the URL to share.',
+      });
+      return;
+    }
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: document.title,
+          url: urlToShare,
+        });
+      } else {
+        await navigator.clipboard.writeText(urlToShare);
+        toast({
+          title: 'Link Copied',
+          description: 'The URL has been copied to your clipboard.',
+        });
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback for when sharing is cancelled or fails
+      try {
+        await navigator.clipboard.writeText(urlToShare);
+        toast({
+          title: 'Link Copied',
+          description:
+            'Sharing failed. The URL has been copied to your clipboard instead.',
+        });
+      } catch (copyError) {
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Could not share or copy the URL.',
+        });
+      }
+    }
+  };
+
   const canSummarize = pathname === '/view' && !!searchParams.get('url');
 
   return (
@@ -129,6 +180,17 @@ export function AppHeader() {
             </TooltipTrigger>
             <TooltipContent>
               <p>Summarize Page</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleShare}>
+                <Share2 className="h-5 w-5" />
+                <span className="sr-only">Share Page</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Share Page</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
