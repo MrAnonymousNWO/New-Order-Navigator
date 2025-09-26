@@ -52,7 +52,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Electric Technocracy',
-        url: 'http://ep.ct.ws',
+        url: 'https://worldsold.wixsite.com/electric-technocracy',
         icon: Globe,
       },
       {
