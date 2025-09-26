@@ -22,18 +22,6 @@ import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { useRouter } from 'next/navigation';
-
 
 interface SummaryState {
   summary?: string;
@@ -51,12 +39,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setOpenMobile } = useSidebar();
-  const router = useRouter();
-
-  const [dialogState, setDialogState] = useState({
-    isOpen: false,
-    link: null as NavLink | null,
-  });
 
   const linksThatBlockEmbedding = [
     'https://bit.ly/m/world-succession-deed',
@@ -131,23 +113,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
       e.preventDefault();
-      setDialogState({ isOpen: true, link });
-    } else {
-      setOpenMobile(false);
+      window.open(link.url, '_blank', 'noopener,noreferrer');
     }
-  };
-
-  const handleDialogAction = (action: 'newTab' | 'inApp') => {
-    const linkUrl = dialogState.link?.url;
-    if (!linkUrl) return;
-
-    if (action === 'newTab') {
-      window.open(linkUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      router.push(`/view?url=${encodeURIComponent(linkUrl)}`);
-    }
-
-    setDialogState({ isOpen: false, link: null });
     setOpenMobile(false);
   };
 
@@ -248,33 +215,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
           )}
         </Accordion>
       </nav>
-
-      <AlertDialog
-        open={dialogState.isOpen}
-        onOpenChange={(isOpen) =>
-          setDialogState((prev) => ({ ...prev, isOpen }))
-        }
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>How would you like to open this link?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Some websites block being embedded and may not display correctly inside the app. Opening in a new tab is recommended for the best experience.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setDialogState({ isOpen: false, link: null })}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={() => handleDialogAction('inApp')}>
-              Open in App
-            </AlertDialogAction>
-            <AlertDialogAction onClick={() => handleDialogAction('newTab')}>
-              Open in New Tab
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </>
   );
 }
