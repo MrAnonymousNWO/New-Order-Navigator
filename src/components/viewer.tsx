@@ -17,6 +17,7 @@ export function Viewer() {
   const url = searchParams.get('url');
 
   const handleBack = () => router.back();
+  const handlePrint = () => window.print();
 
   if (!url) {
     return (
@@ -74,13 +75,13 @@ export function Viewer() {
 
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled>
+              <Button variant="ghost" size="icon" onClick={handlePrint}>
                 <Download className="h-5 w-5" />
-                <span className="sr-only">Download</span>
+                <span className="sr-only">Download as PDF</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Downloads must be started from the website content.</p>
+              <p>Download as PDF</p>
             </TooltipContent>
           </Tooltip>
 
