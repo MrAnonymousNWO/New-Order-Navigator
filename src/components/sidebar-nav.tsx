@@ -45,14 +45,17 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
       return navigationLinks;
     }
     const lowercasedFilter = searchTerm.toLowerCase();
-    
-    return navigationLinks.map(category => {
-      const filtered = category.links.filter(link => 
-        link.title.toLowerCase().includes(lowercasedFilter)
-      );
-      return { ...category, links: filtered };
-    }).filter(category => category.links.length > 0);
 
+    return navigationLinks
+      .map((category) => {
+        const filtered = category.links.filter(
+          (link) =>
+            link.title.toLowerCase().includes(lowercasedFilter) ||
+            link.url.toLowerCase().includes(lowercasedFilter)
+        );
+        return { ...category, links: filtered };
+      })
+      .filter((category) => category.links.length > 0);
   }, [searchTerm]);
 
   const handleGetSummary = async (url: string) => {
@@ -83,7 +86,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
       });
     }
   };
-  
+
   const isExternalUrl = (url: string) =>
     url.startsWith('http://') || url.startsWith('https://');
 
@@ -97,7 +100,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
 
   const defaultActiveCategories = useMemo(() => {
     if (searchTerm.trim()) {
-      return filteredLinks.map(c => c.title);
+      return filteredLinks.map((c) => c.title);
     }
     return navigationLinks.map((c) => c.title);
   }, [searchTerm, filteredLinks]);
@@ -105,7 +108,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const handleLinkClick = () => {
     setOpenMobile(false);
   };
-
 
   return (
     <nav className="flex flex-col">
@@ -123,76 +125,86 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
             <AccordionContent>
               <ul className="flex flex-col gap-1 px-2">
                 {category.links.map((link: NavLink) => {
-                  const opensInNewTab = link.url === 'https://bit.ly/m/world-succession-deed';
+                  const opensInNewTab =
+                    link.url === 'https://bit.ly/m/world-succession-deed';
                   return (
-                  <li
-                    key={link.url}
-                    className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
-                    data-active={isActive(link.url)}
-                  >
-                    <Link
-                      href={
-                        opensInNewTab
-                          ? link.url
-                          : isExternalUrl(link.url)
-                          ? `/view?url=${encodeURIComponent(link.url)}`
-                          : link.url
-                      }
-                      target={opensInNewTab ? '_blank' : undefined}
-                      rel={opensInNewTab ? 'noopener noreferrer' : undefined}
-                      onClick={handleLinkClick}
-                      className="flex flex-1 items-center gap-3 p-2"
+                    <li
+                      key={link.url}
+                      className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
+                      data-active={isActive(link.url)}
                     >
-                      <link.icon className="h-4 w-4 shrink-0 text-accent" />
-                      <span className="truncate">{link.title}</span>
-                    </Link>
-                    {isExternalUrl(link.url) && !opensInNewTab && (
-                    <Popover onOpenChange={(open) => open && handleGetSummary(link.url)}>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
-                          aria-label={`Summarize ${link.title}`}
+                      <Link
+                        href={
+                          opensInNewTab
+                            ? link.url
+                            : isExternalUrl(link.url)
+                            ? `/view?url=${encodeURIComponent(link.url)}`
+                            : link.url
+                        }
+                        target={opensInNewTab ? '_blank' : undefined}
+                        rel={opensInNewTab ? 'noopener noreferrer' : undefined}
+                        onClick={handleLinkClick}
+                        className="flex flex-1 items-center gap-3 p-2"
+                      >
+                        <link.icon className="h-4 w-4 shrink-0 text-accent" />
+                        <span className="truncate">{link.title}</span>
+                      </Link>
+                      {isExternalUrl(link.url) && !opensInNewTab && (
+                        <Popover
+                          onOpenChange={(open) =>
+                            open && handleGetSummary(link.url)
+                          }
                         >
-                          <Sparkles className="h-4 w-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent side="right" align="start" className="w-80">
-                        <div className="space-y-2">
-                          <h4 className="font-headline font-medium leading-none">
-                            AI Summary
-                          </h4>
-                          <p className="text-sm font-semibold text-primary">
-                            {link.title}
-                          </p>
-                          {summaries[link.url]?.isLoading && (
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                              <span>Generating summary...</span>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
+                              aria-label={`Summarize ${link.title}`}
+                            >
+                              <Sparkles className="h-4 w-4" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            side="right"
+                            align="start"
+                            className="w-80"
+                          >
+                            <div className="space-y-2">
+                              <h4 className="font-headline font-medium leading-none">
+                                AI Summary
+                              </h4>
+                              <p className="text-sm font-semibold text-primary">
+                                {link.title}
+                              </p>
+                              {summaries[link.url]?.isLoading && (
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <span>Generating summary...</span>
+                                </div>
+                              )}
+                              {summaries[link.url]?.summary && (
+                                <p className="text-sm text-muted-foreground">
+                                  {summaries[link.url]?.summary}
+                                </p>
+                              )}
+                              {summaries[link.url]?.error && (
+                                <p className="text-sm text-destructive">
+                                  {summaries[link.url]?.error}
+                                </p>
+                              )}
                             </div>
-                          )}
-                          {summaries[link.url]?.summary && (
-                            <p className="text-sm text-muted-foreground">
-                              {summaries[link.url]?.summary}
-                            </p>
-                          )}
-                          {summaries[link.url]?.error && (
-                             <p className="text-sm text-destructive">
-                              {summaries[link.url]?.error}
-                            </p>
-                          )}
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                    )}
-                  </li>
-                )})}
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </AccordionContent>
           </AccordionItem>
         ))}
-         {filteredLinks.length === 0 && (
+        {filteredLinks.length === 0 && (
           <div className="p-4 text-center text-sm text-muted-foreground">
             No results found.
           </div>

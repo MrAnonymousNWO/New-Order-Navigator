@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink, Camera, Download } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Camera, Download, Search, X } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -10,15 +10,44 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Card } from './ui/card';
+import { useRef, useState, type KeyboardEvent } from 'react';
+import { Input } from './ui/input';
+import { cn } from '@/lib/utils';
 
 export function Viewer() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const url = searchParams.get('url');
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleBack = () => router.back();
   const handlePrint = () => window.print();
 
+  const handleSearch = () => {
+    if (iframeRef.current && searchTerm) {
+      try {
+        iframeRef.current.contentWindow?.find(searchTerm);
+      } catch (e) {
+        console.error('Could not access iframe content for searching:', e);
+        // This can happen due to cross-origin restrictions, even with sandbox.
+        // Alerting the user might be a good idea here.
+      }
+    }
+  };
+
+  const handleSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const toggleSearch = () => {
+    setIsSearchVisible(!isSearchVisible);
+    setSearchTerm(''); // Reset search on close
+  };
+  
   if (!url) {
     return (
       <div className="flex h-full items-center justify-center p-4">
@@ -54,11 +83,45 @@ export function Viewer() {
           </Tooltip>
         </TooltipProvider>
 
-        <div className="flex-1 truncate rounded-md bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+        <div
+          className={cn(
+            'flex-1 truncate rounded-md bg-muted px-3 py-1.5 text-sm text-muted-foreground',
+            isSearchVisible && 'hidden sm:block'
+          )}
+        >
           {url}
         </div>
 
+        {isSearchVisible && (
+           <div className="relative flex-1">
+             <Input
+                type="text"
+                placeholder="Search in page..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
+                className="h-8 pr-8"
+                autoFocus
+              />
+              <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-8 w-8" onClick={handleSearch}>
+                <Search className="h-4 w-4" />
+              </Button>
+           </div>
+        )}
+
         <TooltipProvider delayDuration={100}>
+           <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={toggleSearch}>
+                {isSearchVisible ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
+                <span className="sr-only">{isSearchVisible ? "Close Search" : "Search in Page"}</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{isSearchVisible ? "Close Search" : "Search in Page"}</p>
+            </TooltipContent>
+          </Tooltip>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled>
@@ -100,6 +163,7 @@ export function Viewer() {
       </header>
       <div className="flex-1 overflow-hidden">
         <iframe
+          ref={iframeRef}
           src={url}
           title={url}
           className="h-full w-full border-0"
