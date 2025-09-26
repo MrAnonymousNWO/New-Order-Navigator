@@ -107,7 +107,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Anti-war music',
-        url: 'http://music.page.gd',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/song-music-resist-world-war',
         icon: Music,
       },
       {
