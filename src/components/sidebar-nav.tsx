@@ -122,7 +122,9 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
             </AccordionTrigger>
             <AccordionContent>
               <ul className="flex flex-col gap-1 px-2">
-                {category.links.map((link: NavLink) => (
+                {category.links.map((link: NavLink) => {
+                  const opensInNewTab = link.url === 'https://bit.ly/m/world-succession-deed';
+                  return (
                   <li
                     key={link.url}
                     className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
@@ -130,17 +132,21 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
                   >
                     <Link
                       href={
-                        isExternalUrl(link.url)
+                        opensInNewTab
+                          ? link.url
+                          : isExternalUrl(link.url)
                           ? `/view?url=${encodeURIComponent(link.url)}`
                           : link.url
                       }
+                      target={opensInNewTab ? '_blank' : undefined}
+                      rel={opensInNewTab ? 'noopener noreferrer' : undefined}
                       onClick={handleLinkClick}
                       className="flex flex-1 items-center gap-3 p-2"
                     >
                       <link.icon className="h-4 w-4 shrink-0 text-accent" />
                       <span className="truncate">{link.title}</span>
                     </Link>
-                    {isExternalUrl(link.url) && (
+                    {isExternalUrl(link.url) && !opensInNewTab && (
                     <Popover onOpenChange={(open) => open && handleGetSummary(link.url)}>
                       <PopoverTrigger asChild>
                         <Button
@@ -181,7 +187,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
                     </Popover>
                     )}
                   </li>
-                ))}
+                )})}
               </ul>
             </AccordionContent>
           </AccordionItem>
