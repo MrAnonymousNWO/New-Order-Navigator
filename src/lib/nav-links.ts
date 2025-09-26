@@ -6,7 +6,6 @@ import {
   Youtube,
   Mic,
   BookOpen,
-  Rocket,
   MessageSquare,
   BookText,
   Map,
@@ -18,6 +17,7 @@ import {
   Home,
   FileText,
   Video,
+  Link,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -66,14 +66,9 @@ export const navigationLinks: NavCategory[] = [
         icon: Globe,
       },
       {
-        title: 'Start-Page WSD & Electric Paradise',
-        url: 'http://paradise.gt.tc',
-        icon: Rocket,
-      },
-      {
-        title: 'Blacksite Blog',
-        url: 'http://blacksite.iblogger.org',
-        icon: Rss,
+        title: 'Bit.ly Links',
+        url: 'https://bit.ly/m/world-succession-deed',
+        icon: Link,
       },
     ],
   },
