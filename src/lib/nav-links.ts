@@ -302,7 +302,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Blog (EN): State Encyclopedia',
-        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/state_ encyclopedia-1',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/state_encyclopedia-1',
         icon: Rss,
       },
       {
