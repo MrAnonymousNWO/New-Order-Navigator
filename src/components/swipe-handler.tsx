@@ -39,7 +39,7 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     const dx = touchEnd.x - touchStart.current.x;
     const dy = touchEnd.y - touchStart.current.y;
 
-    // Check for horizontal swipe
+    // Only handle horizontal swipes for navigation
     if (Math.abs(dx) > Math.abs(dy)) {
       if (Math.abs(dx) > SWIPE_THRESHOLD) {
         if (dx > 0) {
@@ -50,19 +50,8 @@ export function SwipeHandler({ children }: PropsWithChildren) {
           router.back();
         }
       }
-    } 
-    // Check for vertical swipe
-    else {
-      if (Math.abs(dy) > SWIPE_THRESHOLD) {
-        if (dy < 0) {
-          // Swipe Up
-           router.push('/');
-        } else {
-          // Swipe Down
-          window.location.reload();
-        }
-      }
     }
+    // Vertical swipes are now ignored, allowing for native scrolling.
 
     touchStart.current = null;
   };
