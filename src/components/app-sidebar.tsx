@@ -16,32 +16,14 @@ import { SidebarNav } from '@/components/sidebar-nav';
 import {
   Globe,
   Search,
-  Printer,
-  Languages,
   Bookmark,
-  ExternalLink,
 } from 'lucide-react';
 import { useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
 export function AppSidebar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { toast } = useToast();
-
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleTranslate = () => {
-    const currentUrl = window.location.href;
-    const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(
-      currentUrl
-    )}`;
-    window.open(googleTranslateUrl, '_blank', 'noopener,noreferrer');
-  };
 
   const handleBookmark = () => {
     const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -50,25 +32,6 @@ export function AppSidebar() {
       title: 'Bookmark this page',
       description: `Press ${shortcut} to add this page to your bookmarks.`,
     });
-  };
-
-  const handleOpenExternal = () => {
-    let externalUrl;
-    if (pathname === '/view') {
-      externalUrl = searchParams.get('url');
-    } else {
-      externalUrl = window.location.href;
-    }
-
-    if (externalUrl) {
-      window.open(externalUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Could not determine the URL to open.',
-      });
-    }
   };
 
   return (
@@ -100,24 +63,6 @@ export function AppSidebar() {
             <SidebarMenuButton onClick={handleBookmark}>
               <Bookmark />
               <span>Bookmark Page</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleOpenExternal}>
-              <ExternalLink />
-              <span>Open in Browser</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={handlePrint}>
-              <Printer />
-              <span>Print / Download PDF</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleTranslate}>
-              <Languages />
-              <span>Translate Page</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
