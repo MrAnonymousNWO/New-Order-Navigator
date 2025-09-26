@@ -82,7 +82,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: "The Buyer's Memoir",
-        url: 'http://ab.page.gd',
+        url: 'https://worldsold.wixsite.com/world-sold/en/autobiography-memoiren?i=1',
         icon: BookText,
       },
     ],
