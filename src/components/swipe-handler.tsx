@@ -60,7 +60,7 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     <div
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      style={{ touchAction: 'pan-x' }} // Allows horizontal scroll while capturing vertical swipes
+      className="h-full"
     >
       {children}
     </div>
