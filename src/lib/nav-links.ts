@@ -92,12 +92,12 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'YouTube Channel',
-        url: 'http://videos.xo.je',
+        url: 'https://www.youtube.com/@Staatensukzessionsurkunde-1400',
         icon: Youtube,
       },
       {
         title: 'Podcast Show',
-        url: 'http://nwo.likesyou.org',
+        url: 'https://creators.spotify.com/pod/show/world-succession-deed',
         icon: Mic,
       },
       {
