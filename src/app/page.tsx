@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <div className="flex h-full flex-col bg-background">
+    <div className="h-full w-full bg-background">
       <iframe
         src="https://electric-paradise.start.page"
         title="Electric Paradise Startpage"

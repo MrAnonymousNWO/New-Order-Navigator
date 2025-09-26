@@ -38,11 +38,11 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <Toaster />
         <SidebarProvider>
-          <div className="flex min-h-screen">
+          <div className="flex h-screen w-full overflow-hidden">
             <AppSidebar />
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col overflow-hidden">
               <AppHeader />
-              <main className="flex-1">
+              <main className="flex-1 overflow-auto">
                 <SwipeHandler>{children}</SwipeHandler>
               </main>
             </div>

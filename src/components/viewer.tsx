@@ -21,7 +21,7 @@ export function Viewer() {
 
   if (!url) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex h-full items-center justify-center p-4">
         <Card className="p-8 text-center">
           <h2 className="text-2xl font-headline">Invalid URL</h2>
           <p className="text-muted-foreground">
@@ -38,7 +38,7 @@ export function Viewer() {
   const handleOpenExternal = () => window.open(url, '_blank', 'noopener,noreferrer');
 
   return (
-    <div className="flex h-screen flex-col bg-background">
+    <div className="flex h-full w-full flex-col bg-background">
       <header className="flex shrink-0 items-center gap-2 border-b border-border p-2">
         <TooltipProvider delayDuration={100}>
           <Tooltip>
@@ -98,13 +98,15 @@ export function Viewer() {
           </Tooltip>
         </TooltipProvider>
       </header>
-      <iframe
-        src={url}
-        title={url}
-        className="h-full w-full border-0"
-        sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts"
-        referrerPolicy="no-referrer"
-      />
+      <div className="flex-1 overflow-hidden">
+        <iframe
+          src={url}
+          title={url}
+          className="h-full w-full border-0"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts"
+          referrerPolicy="no-referrer"
+        />
+      </div>
     </div>
   );
 }
