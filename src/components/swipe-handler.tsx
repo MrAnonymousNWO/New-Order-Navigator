@@ -54,12 +54,12 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     // Check for vertical swipe
     else {
       if (Math.abs(dy) > SWIPE_THRESHOLD) {
-        if (dy > 0) {
+        if (dy < 0) {
+          // Swipe Up
+           router.push('/');
+        } else {
           // Swipe Down
           window.location.reload();
-        } else {
-          // Swipe Up
-          router.push('/');
         }
       }
     }
@@ -72,7 +72,6 @@ export function SwipeHandler({ children }: PropsWithChildren) {
       onTouchStart={isTouchDevice ? handleTouchStart : undefined}
       onTouchEnd={isTouchDevice ? handleTouchEnd : undefined}
       className="h-full"
-      style={{ touchAction: 'pan-y' }} 
     >
       {children}
     </div>
