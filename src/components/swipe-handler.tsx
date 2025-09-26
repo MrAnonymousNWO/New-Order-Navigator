@@ -33,10 +33,10 @@ export function SwipeHandler({ children }: PropsWithChildren) {
       // Horizontal swipe
       if (Math.abs(dx) > SWIPE_THRESHOLD) {
         if (dx > 0) {
-          // Swipe Right
+          // Swipe Right (forward)
           router.forward();
         } else {
-          // Swipe Left
+          // Swipe Left (back)
           router.back();
         }
       }
@@ -44,10 +44,10 @@ export function SwipeHandler({ children }: PropsWithChildren) {
       // Vertical swipe
       if (Math.abs(dy) > SWIPE_THRESHOLD) {
         if (dy > 0) {
-          // Swipe Down
+          // Swipe Down (reload)
           window.location.reload();
         } else {
-          // Swipe Up
+          // Swipe Up (home)
           router.push('/');
         }
       }
@@ -60,7 +60,7 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     <div
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      style={{ touchAction: 'pan-y' }} // Allows vertical scroll while capturing horizontal swipes
+      style={{ touchAction: 'pan-x' }} // Allows horizontal scroll while capturing vertical swipes
     >
       {children}
     </div>
