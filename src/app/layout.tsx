@@ -4,6 +4,7 @@ import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { Toaster } from '@/components/ui/toaster';
 import { AppHeader } from '@/components/app-header';
+import { SwipeHandler } from '@/components/swipe-handler';
 
 export const metadata: Metadata = {
   title: 'Sovereign Navigator',
@@ -40,7 +41,9 @@ export default function RootLayout({
             <AppSidebar />
             <div className="flex flex-1 flex-col">
               <AppHeader />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1">
+                <SwipeHandler>{children}</SwipeHandler>
+              </main>
             </div>
           </div>
         </SidebarProvider>
