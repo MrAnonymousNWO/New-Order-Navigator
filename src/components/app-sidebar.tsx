@@ -13,11 +13,23 @@ import {
   SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '@/components/sidebar-nav';
-import { Globe, Search, Printer, Languages } from 'lucide-react';
+import {
+  Globe,
+  Search,
+  Printer,
+  Languages,
+  Bookmark,
+  ExternalLink,
+} from 'lucide-react';
 import { useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
 
 export function AppSidebar() {
   const [searchTerm, setSearchTerm] = useState('');
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { toast } = useToast();
 
   const handlePrint = () => {
     window.print();
@@ -29,6 +41,34 @@ export function AppSidebar() {
       currentUrl
     )}`;
     window.open(googleTranslateUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleBookmark = () => {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const shortcut = isMac ? 'Cmd+D' : 'Ctrl+D';
+    toast({
+      title: 'Bookmark this page',
+      description: `Press ${shortcut} to add this page to your bookmarks.`,
+    });
+  };
+
+  const handleOpenExternal = () => {
+    let externalUrl;
+    if (pathname === '/view') {
+      externalUrl = searchParams.get('url');
+    } else {
+      externalUrl = window.location.href;
+    }
+
+    if (externalUrl) {
+      window.open(externalUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not determine the URL to open.',
+      });
+    }
   };
 
   return (
@@ -56,6 +96,18 @@ export function AppSidebar() {
       <SidebarSeparator />
       <SidebarFooter>
         <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={handleBookmark}>
+              <Bookmark />
+              <span>Bookmark Page</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton onClick={handleOpenExternal}>
+              <ExternalLink />
+              <span>Open in Browser</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton onClick={handlePrint}>
               <Printer />
