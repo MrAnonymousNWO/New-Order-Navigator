@@ -61,7 +61,7 @@ export const navigationLinks: NavCategory[] = [
         icon: Globe,
       },
       {
-        title: 'Electric Technocracy (DE)',
+        title: 'Elektronische Technokratie',
         url: 'https://worldsold.wixsite.com/electric-technocracy/de',
         icon: Globe,
       },
