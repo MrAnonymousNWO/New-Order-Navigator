@@ -77,7 +77,7 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'Read the eBooks & Download free PDF',
-        url: 'http://4u.free.nf',
+        url: 'https://worldsold.wixsite.com/world-sold/en/download',
         icon: BookOpen,
       },
       {
@@ -381,7 +381,7 @@ export const navigationLinks: NavCategory[] = [
         icon: Rss,
       },
       {
-        title: 'Blog: Innovation & Zukunft',
+        title: 'Blog: Innovation &amp; Zukunft',
         url: 'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/innovation-zukunft',
         icon: Rss,
       },
