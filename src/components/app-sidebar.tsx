@@ -5,34 +5,17 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarFooter,
   SidebarInput,
-  SidebarSeparator,
-  SidebarMenuItem,
-  SidebarMenu,
-  SidebarMenuButton,
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '@/components/sidebar-nav';
 import {
   Globe,
   Search,
-  Bookmark,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 
 export function AppSidebar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const { toast } = useToast();
-
-  const handleBookmark = () => {
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    const shortcut = isMac ? 'Cmd+D' : 'Ctrl+D';
-    toast({
-      title: 'Bookmark this page',
-      description: `Press ${shortcut} to add this page to your bookmarks.`,
-    });
-  };
 
   return (
     <Sidebar>
@@ -56,17 +39,6 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarNav searchTerm={searchTerm} />
       </SidebarContent>
-      <SidebarSeparator />
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleBookmark}>
-              <Bookmark />
-              <span>Bookmark Page</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

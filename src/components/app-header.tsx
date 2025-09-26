@@ -2,7 +2,7 @@
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Printer, Languages, ExternalLink } from 'lucide-react';
+import { Printer, Languages, ExternalLink, Bookmark } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import {
@@ -48,11 +48,31 @@ export function AppHeader() {
     }
   };
 
+  const handleBookmark = () => {
+    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+    const shortcut = isMac ? 'Cmd+D' : 'Ctrl+D';
+    toast({
+      title: 'Bookmark this page',
+      description: `Press ${shortcut} to add this page to your bookmarks.`,
+    });
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-12 items-center gap-2 border-b bg-background px-4 sm:px-6">
       <SidebarTrigger className="md:hidden" />
       <div className="flex-grow" />
       <TooltipProvider delayDuration={100}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="icon" onClick={handleBookmark}>
+              <Bookmark className="h-5 w-5" />
+              <span className="sr-only">Bookmark Page</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Bookmark Page</p>
+          </TooltipContent>
+        </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant="ghost" size="icon" onClick={handleOpenExternal}>
