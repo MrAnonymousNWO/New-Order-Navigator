@@ -43,6 +43,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const linksThatBlockEmbedding = [
     'https://bit.ly/m/world-succession-deed',
     'https://www.youtube.com/@Staatensukzessionsurkunde-1400',
+    'https://soundcloud.com/world-succession-deed',
   ];
 
   const filteredLinks = useMemo(() => {
