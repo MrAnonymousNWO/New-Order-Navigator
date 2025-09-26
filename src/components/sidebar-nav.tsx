@@ -22,6 +22,18 @@ import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import { useRouter } from 'next/navigation';
+
 
 interface SummaryState {
   summary?: string;
@@ -39,6 +51,17 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setOpenMobile } = useSidebar();
+  const router = useRouter();
+
+  const [dialogState, setDialogState] = useState({
+    isOpen: false,
+    link: null as NavLink | null,
+  });
+
+  const linksThatBlockEmbedding = [
+    'https://bit.ly/m/world-succession-deed',
+    'https://www.youtube.com/@Staatensukzessionsurkunde-1400',
+  ];
 
   const filteredLinks = useMemo(() => {
     if (!searchTerm.trim()) {
@@ -105,113 +128,153 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     return navigationLinks.map((c) => c.title);
   }, [searchTerm, filteredLinks]);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
+    if (linksThatBlockEmbedding.includes(link.url)) {
+      e.preventDefault();
+      setDialogState({ isOpen: true, link });
+    } else {
+      setOpenMobile(false);
+    }
+  };
+
+  const handleDialogAction = (action: 'newTab' | 'inApp') => {
+    const linkUrl = dialogState.link?.url;
+    if (!linkUrl) return;
+
+    if (action === 'newTab') {
+      window.open(linkUrl, '_blank', 'noopener,noreferrer');
+    } else {
+      router.push(`/view?url=${encodeURIComponent(linkUrl)}`);
+    }
+
+    setDialogState({ isOpen: false, link: null });
     setOpenMobile(false);
   };
 
   return (
-    <nav className="flex flex-col">
-      <Accordion
-        type="multiple"
-        defaultValue={defaultActiveCategories}
-        key={searchTerm} // Force re-mount on search to apply new defaults
-        className="w-full"
-      >
-        {filteredLinks.map((category) => (
-          <AccordionItem value={category.title} key={category.title}>
-            <AccordionTrigger className="px-2 text-base hover:no-underline">
-              {category.title}
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul className="flex flex-col gap-1 px-2">
-                {category.links.map((link: NavLink) => {
-                  const opensInNewTab =
-                    link.url === 'https://bit.ly/m/world-succession-deed' ||
-                    link.url ===
-                      'https://www.youtube.com/@Staatensukzessionsurkunde-1400';
-                  return (
-                    <li
-                      key={link.url}
-                      className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
-                      data-active={isActive(link.url)}
-                    >
-                      <Link
-                        href={
-                          opensInNewTab
-                            ? link.url
-                            : isExternalUrl(link.url)
-                            ? `/view?url=${encodeURIComponent(link.url)}`
-                            : link.url
-                        }
-                        target={opensInNewTab ? '_blank' : undefined}
-                        rel={opensInNewTab ? 'noopener noreferrer' : undefined}
-                        onClick={handleLinkClick}
-                        className="flex flex-1 items-center gap-3 p-2"
+    <>
+      <nav className="flex flex-col">
+        <Accordion
+          type="multiple"
+          defaultValue={defaultActiveCategories}
+          key={searchTerm} // Force re-mount on search to apply new defaults
+          className="w-full"
+        >
+          {filteredLinks.map((category) => (
+            <AccordionItem value={category.title} key={category.title}>
+              <AccordionTrigger className="px-2 text-base hover:no-underline">
+                {category.title}
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul className="flex flex-col gap-1 px-2">
+                  {category.links.map((link: NavLink) => {
+                    return (
+                      <li
+                        key={link.url}
+                        className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
+                        data-active={isActive(link.url)}
                       >
-                        <link.icon className="h-4 w-4 shrink-0 text-accent" />
-                        <span className="truncate">{link.title}</span>
-                      </Link>
-                      {isExternalUrl(link.url) && !opensInNewTab && (
-                        <Popover
-                          onOpenChange={(open) =>
-                            open && handleGetSummary(link.url)
+                        <Link
+                          href={
+                             isExternalUrl(link.url)
+                              ? `/view?url=${encodeURIComponent(link.url)}`
+                              : link.url
                           }
+                          onClick={(e) => handleLinkClick(e, link)}
+                          className="flex flex-1 items-center gap-3 p-2"
                         >
-                          <PopoverTrigger asChild>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
-                              aria-label={`Summarize ${link.title}`}
-                            >
-                              <Sparkles className="h-4 w-4" />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent
-                            side="right"
-                            align="start"
-                            className="w-80"
+                          <link.icon className="h-4 w-4 shrink-0 text-accent" />
+                          <span className="truncate">{link.title}</span>
+                        </Link>
+                        {isExternalUrl(link.url) && !linksThatBlockEmbedding.includes(link.url) && (
+                          <Popover
+                            onOpenChange={(open) =>
+                              open && handleGetSummary(link.url)
+                            }
                           >
-                            <div className="space-y-2">
-                              <h4 className="font-headline font-medium leading-none">
-                                AI Summary
-                              </h4>
-                              <p className="text-sm font-semibold text-primary">
-                                {link.title}
-                              </p>
-                              {summaries[link.url]?.isLoading && (
-                                <div className="flex items-center gap-2 text-muted-foreground">
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                  <span>Generating summary...</span>
-                                </div>
-                              )}
-                              {summaries[link.url]?.summary && (
-                                <p className="text-sm text-muted-foreground">
-                                  {summaries[link.url]?.summary}
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
+                                aria-label={`Summarize ${link.title}`}
+                              >
+                                <Sparkles className="h-4 w-4" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              side="right"
+                              align="start"
+                              className="w-80"
+                            >
+                              <div className="space-y-2">
+                                <h4 className="font-headline font-medium leading-none">
+                                  AI Summary
+                                </h4>
+                                <p className="text-sm font-semibold text-primary">
+                                  {link.title}
                                 </p>
-                              )}
-                              {summaries[link.url]?.error && (
-                                <p className="text-sm text-destructive">
-                                  {summaries[link.url]?.error}
-                                </p>
-                              )}
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-        {filteredLinks.length === 0 && (
-          <div className="p-4 text-center text-sm text-muted-foreground">
-            No results found.
-          </div>
-        )}
-      </Accordion>
-    </nav>
+                                {summaries[link.url]?.isLoading && (
+                                  <div className="flex items-center gap-2 text-muted-foreground">
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    <span>Generating summary...</span>
+                                  </div>
+                                )}
+                                {summaries[link.url]?.summary && (
+                                  <p className="text-sm text-muted-foreground">
+                                    {summaries[link.url]?.summary}
+                                  </p>
+                                )}
+                                {summaries[link.url]?.error && (
+                                  <p className="text-sm text-destructive">
+                                    {summaries[link.url]?.error}
+                                  </p>
+                                )}
+                              </div>
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+          {filteredLinks.length === 0 && (
+            <div className="p-4 text-center text-sm text-muted-foreground">
+              No results found.
+            </div>
+          )}
+        </Accordion>
+      </nav>
+
+      <AlertDialog
+        open={dialogState.isOpen}
+        onOpenChange={(isOpen) =>
+          setDialogState((prev) => ({ ...prev, isOpen }))
+        }
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>How would you like to open this link?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Some websites block being embedded and may not display correctly inside the app. Opening in a new tab is recommended for the best experience.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDialogState({ isOpen: false, link: null })}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={() => handleDialogAction('inApp')}>
+              Open in App
+            </AlertDialogAction>
+            <AlertDialogAction onClick={() => handleDialogAction('newTab')}>
+              Open in New Tab
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
