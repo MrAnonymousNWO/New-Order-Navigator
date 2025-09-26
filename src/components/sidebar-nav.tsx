@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -15,8 +16,8 @@ import {
 import { navigationLinks } from '@/lib/nav-links';
 import Link from 'next/link';
 import { Loader2, Sparkles } from 'lucide-react';
-import type { NavLink } from '@/lib/nav-links';
-import { useState } from 'react';
+import type { NavLink, NavCategory } from '@/lib/nav-links';
+import { useState, useMemo } from 'react';
 import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname } from 'next/navigation';
@@ -27,10 +28,29 @@ interface SummaryState {
   error?: string;
 }
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  searchTerm: string;
+}
+
+export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
   const { toast } = useToast();
   const pathname = usePathname();
+
+  const filteredLinks = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return navigationLinks;
+    }
+    const lowercasedFilter = searchTerm.toLowerCase();
+    
+    return navigationLinks.map(category => {
+      const filtered = category.links.filter(link => 
+        link.title.toLowerCase().includes(lowercasedFilter)
+      );
+      return { ...category, links: filtered };
+    }).filter(category => category.links.length > 0);
+
+  }, [searchTerm]);
 
   const handleGetSummary = async (url: string) => {
     if (summaries[url]?.summary) return;
@@ -71,14 +91,23 @@ export function SidebarNav() {
     return pathname === `/view?url=${encodeURIComponent(url)}`;
   };
 
+  const defaultActiveCategories = useMemo(() => {
+    if (searchTerm.trim()) {
+      return filteredLinks.map(c => c.title);
+    }
+    return navigationLinks.map((c) => c.title);
+  }, [searchTerm, filteredLinks]);
+
+
   return (
     <nav className="flex flex-col">
       <Accordion
         type="multiple"
-        defaultValue={navigationLinks.map((c) => c.title)}
+        defaultValue={defaultActiveCategories}
+        key={searchTerm} // Force re-mount on search to apply new defaults
         className="w-full"
       >
-        {navigationLinks.map((category) => (
+        {filteredLinks.map((category) => (
           <AccordionItem value={category.title} key={category.title}>
             <AccordionTrigger className="px-2 text-base hover:no-underline">
               {category.title}
@@ -148,6 +177,11 @@ export function SidebarNav() {
             </AccordionContent>
           </AccordionItem>
         ))}
+         {filteredLinks.length === 0 && (
+          <div className="p-4 text-center text-sm text-muted-foreground">
+            No results found.
+          </div>
+        )}
       </Accordion>
     </nav>
   );
