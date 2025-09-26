@@ -47,12 +47,22 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'WSD - World Succession Deed',
-        url: 'http://world.rf.gd',
+        url: 'https://worldsold.wixsite.com/world-sold/en',
+        icon: Globe,
+      },
+       {
+        title: 'WSD - World Succession Deed (DE)',
+        url: 'https://worldsold.wixsite.com/world-sold',
         icon: Globe,
       },
       {
         title: 'Electric Technocracy',
         url: 'https://worldsold.wixsite.com/electric-technocracy',
+        icon: Globe,
+      },
+      {
+        title: 'Electric Technocracy (DE)',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de',
         icon: Globe,
       },
       {
@@ -347,7 +357,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Deinen eigenen Staat gründen – Souveränität mit KI',
-        url: 'https://worldsold.wixsite.com/world-sold/post/deinen-eigenen-staat-gründen-souveraenität-mit-ki-chat-begleitung',
+        url: 'https://worldsold.wixsite.com/world-sold/post/deinen-eigenen-staat-gr%C3%BCnden-souveraenit%C3%A4t-mit-ki-chat-begleitung',
         icon: FileText,
       },
       {
