@@ -51,7 +51,7 @@ export const navigationLinks: NavCategory[] = [
         icon: Globe,
       },
        {
-        title: 'WSD - World Succession Deed (DE)',
+        title: 'Staatensukzessionsurkunde 1400/98',
         url: 'https://worldsold.wixsite.com/world-sold',
         icon: Globe,
       },
