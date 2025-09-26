@@ -13,7 +13,12 @@ export function SwipeHandler({ children }: PropsWithChildren) {
 
   useEffect(() => {
     // This check ensures swipe handlers are only active on touch-enabled devices.
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const checkTouchDevice = () => {
+      setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    };
+    checkTouchDevice();
+    window.addEventListener('resize', checkTouchDevice);
+    return () => window.removeEventListener('resize', checkTouchDevice);
   }, []);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -34,19 +39,26 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     const dx = touchEnd.x - touchStart.current.x;
     const dy = touchEnd.y - touchStart.current.y;
 
+    // Check for horizontal swipe
     if (Math.abs(dx) > Math.abs(dy)) {
       if (Math.abs(dx) > SWIPE_THRESHOLD) {
-        if (dx < 0) {
-          router.back();
-        } else {
+        if (dx > 0) {
+          // Swipe Right
           router.forward();
+        } else {
+          // Swipe Left
+          router.back();
         }
       }
-    } else {
+    } 
+    // Check for vertical swipe
+    else {
       if (Math.abs(dy) > SWIPE_THRESHOLD) {
         if (dy > 0) {
+          // Swipe Down
           window.location.reload();
         } else {
+          // Swipe Up
           router.push('/');
         }
       }
@@ -57,10 +69,10 @@ export function SwipeHandler({ children }: PropsWithChildren) {
 
   return (
     <div
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      onTouchStart={isTouchDevice ? handleTouchStart : undefined}
+      onTouchEnd={isTouchDevice ? handleTouchEnd : undefined}
       className="h-full"
-      style={{ touchAction: 'pan-y' }}
+      style={{ touchAction: 'pan-y' }} 
     >
       {children}
     </div>
