@@ -126,7 +126,9 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
               <ul className="flex flex-col gap-1 px-2">
                 {category.links.map((link: NavLink) => {
                   const opensInNewTab =
-                    link.url === 'https://bit.ly/m/world-succession-deed';
+                    link.url === 'https://bit.ly/m/world-succession-deed' ||
+                    link.url ===
+                      'https://www.youtube.com/@Staatensukzessionsurkunde-1400';
                   return (
                     <li
                       key={link.url}
