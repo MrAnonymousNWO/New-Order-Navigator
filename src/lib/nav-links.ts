@@ -18,6 +18,7 @@ import {
   FileText,
   Video,
   Link,
+  Bookmark,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -39,6 +40,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Startpage',
         url: '/',
         icon: Home,
+      },
+       {
+        title: 'Bookmarks',
+        url: '/bookmarks',
+        icon: Bookmark,
       },
     ],
   },

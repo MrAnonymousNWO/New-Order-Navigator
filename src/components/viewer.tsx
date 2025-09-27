@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Camera, Search, X } from 'lucide-react';
+import { ArrowLeft, Camera, Search, X, Bookmark } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -10,9 +10,11 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Card } from './ui/card';
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent, useEffect } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
+import { useBookmarks } from '@/hooks/use-bookmarks';
+import { useToast } from '@/hooks/use-toast';
 
 export function Viewer() {
   const searchParams = useSearchParams();
@@ -21,14 +23,36 @@ export function Viewer() {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
+  const { toast } = useToast();
+  const [pageTitle, setPageTitle] = useState('');
+
+  const isBookmarked = url ? bookmarks.some((b) => b.url === url) : false;
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const handleLoad = () => {
+      try {
+        const title = iframe.contentWindow?.document.title || url || '';
+        setPageTitle(title);
+      } catch (e) {
+        console.error('Could not access iframe title:', e);
+        setPageTitle(url || '');
+      }
+    };
+    iframe.addEventListener('load', handleLoad);
+    return () => {
+      iframe.removeEventListener('load', handleLoad);
+    };
+  }, [url]);
 
   const handleBack = () => router.back();
 
   const handleSearch = () => {
     if (iframeRef.current && searchTerm) {
       try {
-        // The find() method is not universally supported and may be blocked by cross-origin policies.
-        // It's a progressive enhancement.
         iframeRef.current.contentWindow?.find(searchTerm);
       } catch (e) {
         console.error('Could not access iframe content for searching:', e);
@@ -48,7 +72,24 @@ export function Viewer() {
       setSearchTerm(''); // Reset search on close
     }
   };
-  
+
+  const handleToggleBookmark = () => {
+    if (!url) return;
+    if (isBookmarked) {
+      removeBookmark(url);
+      toast({
+        title: 'Bookmark removed',
+        description: pageTitle,
+      });
+    } else {
+      addBookmark({ url, title: pageTitle });
+      toast({
+        title: 'Bookmark added!',
+        description: pageTitle,
+      });
+    }
+  };
+
   if (!url) {
     return (
       <div className="flex h-full items-center justify-center p-4">
@@ -92,32 +133,62 @@ export function Viewer() {
         </div>
 
         {isSearchVisible && (
-           <div className="relative flex-1">
-             <Input
-                type="text"
-                placeholder="Search in page..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleSearchKeyDown}
-                className="h-8 pr-8"
-                autoFocus
-              />
-              <Button variant="ghost" size="icon" className="absolute right-0 top-0 h-8 w-8" onClick={handleSearch}>
-                <Search className="h-4 w-4" />
-              </Button>
-           </div>
+          <div className="relative flex-1">
+            <Input
+              type="text"
+              placeholder="Search in page..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              className="h-8 pr-8"
+              autoFocus
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-0 top-0 h-8 w-8"
+              onClick={handleSearch}
+            >
+              <Search className="h-4 w-4" />
+            </Button>
+          </div>
         )}
 
         <TooltipProvider delayDuration={100}>
-           <Tooltip>
+          <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" onClick={toggleSearch}>
-                {isSearchVisible ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
-                <span className="sr-only">{isSearchVisible ? "Close Search" : "Search in Page"}</span>
+                {isSearchVisible ? (
+                  <X className="h-5 w-5" />
+                ) : (
+                  <Search className="h-5 w-5" />
+                )}
+                <span className="sr-only">
+                  {isSearchVisible ? 'Close Search' : 'Search in Page'}
+                </span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{isSearchVisible ? "Close Search" : "Search in Page"}</p>
+              <p>{isSearchVisible ? 'Close Search' : 'Search in Page'}</p>
+            </TooltipContent>
+          </Tooltip>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleToggleBookmark}>
+                <Bookmark
+                  className={cn(
+                    'h-5 w-5',
+                    isBookmarked && 'fill-primary text-primary'
+                  )}
+                />
+                <span className="sr-only">
+                  {isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+                </span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}</p>
             </TooltipContent>
           </Tooltip>
 
@@ -130,7 +201,8 @@ export function Viewer() {
             </TooltipTrigger>
             <TooltipContent>
               <p>
-                Use your system's screenshot tool (e.g., Cmd+Shift+4, Win+Shift+S)
+                Use your system's screenshot tool (e.g., Cmd+Shift+4,
+                Win+Shift+S)
               </p>
             </TooltipContent>
           </Tooltip>
