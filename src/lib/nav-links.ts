@@ -18,7 +18,6 @@ import {
   FileText,
   Video,
   Link,
-  Bookmark,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -41,11 +40,6 @@ export const navigationLinks: NavCategory[] = [
         url: '/',
         icon: Home,
       },
-      {
-        title: 'Manage Bookmarks',
-        url: '/bookmarks',
-        icon: Bookmark,
-      }
     ],
   },
   {

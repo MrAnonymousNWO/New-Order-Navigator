@@ -7,7 +7,6 @@ import {
   Printer,
   Languages,
   ExternalLink,
-  Bookmark,
   FileText,
   Loader2,
   Share2,
@@ -31,7 +30,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
 import { getWebpageSummary } from '@/app/actions';
-import { useBookmarks } from '@/hooks/use-bookmarks';
 
 export function AppHeader() {
   const { toast } = useToast();
@@ -41,7 +39,6 @@ export function AppHeader() {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [summaryError, setSummaryError] = useState<string | null>(null);
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
-  const { addBookmark } = useBookmarks();
 
   const handlePrint = () => {
     toast({
@@ -60,7 +57,6 @@ export function AppHeader() {
         urlToTranslate = url;
       }
     }
-    // Use a more robust Google Translate URL
     const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(
       urlToTranslate
     )}`;
@@ -83,32 +79,6 @@ export function AppHeader() {
         title: 'Error',
         description: 'Could not determine the URL to open.',
       });
-    }
-  };
-
-  const handleBookmark = () => {
-    let urlToBookmark = '';
-    if (pathname === '/view') {
-        urlToBookmark = searchParams.get('url') || '';
-    } else if (pathname === '/') {
-        urlToBookmark = '/';
-    } else {
-        urlToBookmark = window.location.href;
-    }
-    
-    if (urlToBookmark) {
-      const title = document.title || 'Untitled Page';
-      addBookmark({ title, url: urlToBookmark });
-      toast({
-        title: 'Bookmarked!',
-        description: `"${title}" has been added to your bookmarks.`,
-      });
-    } else {
-        toast({
-            variant: 'destructive',
-            title: 'Error',
-            description: 'Could not bookmark this page.',
-        });
     }
   };
 
@@ -172,13 +142,11 @@ export function AppHeader() {
         });
       }
     } catch (error) {
-      // Don't show an error if the user cancels the share dialog.
       if (error instanceof Error && error.name === 'AbortError') {
         return;
       }
 
       console.error('Error sharing:', error);
-      // Fallback for when sharing is cancelled or fails
       try {
         await navigator.clipboard.writeText(urlToShare);
         toast({
@@ -229,17 +197,6 @@ export function AppHeader() {
             </TooltipTrigger>
             <TooltipContent>
               <p>Share Page</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleBookmark}>
-                <Bookmark className="h-5 w-5" />
-                <span className="sr-only">Bookmark Page</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Bookmark Page</p>
             </TooltipContent>
           </Tooltip>
           <Tooltip>

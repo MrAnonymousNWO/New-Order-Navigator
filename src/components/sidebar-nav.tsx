@@ -15,14 +15,13 @@ import {
 } from '@/components/ui/popover';
 import { navigationLinks } from '@/lib/nav-links';
 import Link from 'next/link';
-import { Loader2, Sparkles, Bookmark as BookmarkIcon } from 'lucide-react';
+import { Loader2, Sparkles } from 'lucide-react';
 import type { NavLink, NavCategory } from '@/lib/nav-links';
 import { useState, useMemo, useEffect } from 'react';
 import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
-import { useBookmarks } from '@/hooks/use-bookmarks';
 
 interface SummaryState {
   summary?: string;
@@ -40,7 +39,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setOpenMobile } = useSidebar();
-  const { bookmarks } = useBookmarks();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -68,24 +66,13 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
   ];
 
-  const allLinks = useMemo(() => {
-    const dynamicLinks = [...navigationLinks];
-    if (isClient && bookmarks.length > 0) {
-      dynamicLinks.push({
-        title: 'Bookmarks',
-        links: bookmarks.map(bookmark => ({...bookmark, icon: BookmarkIcon})),
-      });
-    }
-    return dynamicLinks;
-  }, [bookmarks, isClient]);
-
   const filteredLinks = useMemo(() => {
     if (!searchTerm.trim()) {
-      return allLinks;
+      return navigationLinks;
     }
     const lowercasedFilter = searchTerm.toLowerCase();
 
-    return allLinks
+    return navigationLinks
       .map((category) => {
         const filtered = category.links.filter(
           (link) =>
@@ -95,7 +82,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
         return { ...category, links: filtered };
       })
       .filter((category) => category.links.length > 0);
-  }, [searchTerm, allLinks]);
+  }, [searchTerm]);
 
   const handleGetSummary = async (url: string) => {
     if (summaries[url]?.summary) return;
@@ -141,8 +128,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     if (searchTerm.trim()) {
       return filteredLinks.map((c) => c.title);
     }
-    return allLinks.map((c) => c.title);
-  }, [searchTerm, filteredLinks, allLinks]);
+    return navigationLinks.map((c) => c.title);
+  }, [searchTerm, filteredLinks]);
 
   const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
@@ -158,7 +145,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
         <Accordion
           type="multiple"
           defaultValue={defaultActiveCategories}
-          key={searchTerm || bookmarks.length} // Force re-mount on search or bookmark change to apply new defaults
+          key={searchTerm}
           className="w-full"
         >
           {filteredLinks.map((category) => (
