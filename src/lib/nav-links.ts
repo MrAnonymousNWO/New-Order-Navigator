@@ -210,11 +210,6 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://nwo-9.creator-spring.com',
         icon: ShoppingCart,
       },
-      {
-        title: 'Donate',
-        url: 'https://ko-fi.com/electric_technocrat',
-        icon: Heart,
-      },
     ],
   },
   {
