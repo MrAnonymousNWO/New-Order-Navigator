@@ -1,7 +1,12 @@
-
 'use client';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from 'react';
 
 const BOOKMARKS_STORAGE_KEY = 'sovereign_navigator_bookmarks';
 
@@ -17,7 +22,9 @@ interface BookmarkContextType {
   isBookmarked: (url: string) => boolean;
 }
 
-const BookmarkContext = createContext<BookmarkContextType | undefined>(undefined);
+const BookmarkContext = createContext<BookmarkContextType | undefined>(
+  undefined
+);
 
 export function BookmarkProvider({ children }: { children: ReactNode }) {
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
@@ -25,52 +32,51 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const storedBookmarks = localStorage.getItem(BOOKMARKS_STORAGE_KEY);
-      if (storedBookmarks) {
-        setBookmarks(JSON.parse(storedBookmarks));
+      const item = window.localStorage.getItem(BOOKMARKS_STORAGE_KEY);
+      if (item) {
+        setBookmarks(JSON.parse(item));
       }
     } catch (error) {
-      console.error('Failed to load bookmarks from localStorage', error);
+      console.error('Error reading bookmarks from localStorage', error);
+    } finally {
+      setIsLoaded(true);
     }
-    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
     if (isLoaded) {
       try {
-        localStorage.setItem(BOOKMARKS_STORAGE_KEY, JSON.stringify(bookmarks));
+        window.localStorage.setItem(
+          BOOKMARKS_STORAGE_KEY,
+          JSON.stringify(bookmarks)
+        );
       } catch (error) {
-        console.error('Failed to save bookmarks to localStorage', error);
+        console.error('Error saving bookmarks to localStorage', error);
       }
     }
   }, [bookmarks, isLoaded]);
 
-  const addBookmark = (newBookmark: Bookmark) => {
-    setBookmarks((prevBookmarks) => {
-      // Avoid adding duplicate URLs
-      if (prevBookmarks.some(b => b.url === newBookmark.url)) {
-        return prevBookmarks;
+  const addBookmark = (bookmark: Bookmark) => {
+    setBookmarks((prev) => {
+      if (prev.some((b) => b.url === bookmark.url)) {
+        return prev;
       }
-      return [...prevBookmarks, newBookmark];
+      return [...prev, bookmark];
     });
   };
 
   const removeBookmark = (url: string) => {
-    setBookmarks((prevBookmarks) =>
-      prevBookmarks.filter((bookmark) => bookmark.url !== url)
-    );
+    setBookmarks((prev) => prev.filter((b) => b.url !== url));
   };
-  
+
   const isBookmarked = (url: string) => {
-    return bookmarks.some(bookmark => bookmark.url === url);
+    return bookmarks.some((b) => b.url === url);
   };
 
   const value = { bookmarks, addBookmark, removeBookmark, isBookmarked };
 
   return (
-    <BookmarkContext.Provider value={value}>
-      {children}
-    </BookmarkContext.Provider>
+    <BookmarkContext.Provider value={value}>{children}</BookmarkContext.Provider>
   );
 }
 
