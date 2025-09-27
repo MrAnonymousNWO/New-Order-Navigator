@@ -165,7 +165,12 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://youtu.be/zGXLeYJsAtc',
         icon: Video,
       },
-      {
+    ],
+  },
+  {
+    title: 'YouTube Videos',
+    links: [
+        {
         title: 'Video: How to Start Your Own Country',
         url: 'https://youtu.be/KTL6imKT3_w',
         icon: Video,
@@ -185,7 +190,7 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://youtu.be/JSk13GnVMdU',
         icon: Video,
       },
-    ],
+    ]
   },
   {
     title: 'Support',
