@@ -141,6 +141,11 @@ export function AppHeader() {
         });
       }
     } catch (error) {
+      // Don't show an error if the user cancels the share dialog.
+      if (error instanceof Error && error.name === 'AbortError') {
+        return;
+      }
+
       console.error('Error sharing:', error);
       // Fallback for when sharing is cancelled or fails
       try {
