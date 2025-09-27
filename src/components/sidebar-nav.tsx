@@ -29,11 +29,7 @@ interface SummaryState {
   error?: string;
 }
 
-interface SidebarNavProps {
-  searchQuery: string;
-}
-
-export function SidebarNav({ searchQuery }: SidebarNavProps) {
+export function SidebarNav() {
   const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
   const { toast } = useToast();
   const pathname = usePathname();
@@ -65,21 +61,6 @@ export function SidebarNav({ searchQuery }: SidebarNavProps) {
     'https://g.co/gemini/share/4a457895642b',
     'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
   ];
-
-  const filteredLinks = useMemo(() => {
-    if (!searchQuery) {
-      return navigationLinks;
-    }
-    const lowercasedQuery = searchQuery.toLowerCase();
-    return navigationLinks
-      .map((category) => {
-        const filtered = category.links.filter((link) =>
-          link.title.toLowerCase().includes(lowercasedQuery)
-        );
-        return { ...category, links: filtered };
-      })
-      .filter((category) => category.links.length > 0);
-  }, [searchQuery]);
 
   const handleGetSummary = async (url: string) => {
     if (summaries[url]?.summary) return;
@@ -122,12 +103,8 @@ export function SidebarNav({ searchQuery }: SidebarNavProps) {
   };
 
   const defaultActiveCategories = useMemo(() => {
-    if (searchQuery) {
-      // If searching, expand all filtered categories
-      return filteredLinks.map((c) => c.title);
-    }
     return navigationLinks.map((c) => c.title);
-  }, [searchQuery, filteredLinks]);
+  }, []);
 
   const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
@@ -145,7 +122,7 @@ export function SidebarNav({ searchQuery }: SidebarNavProps) {
           value={defaultActiveCategories}
           className="w-full"
         >
-          {filteredLinks.map((category) => (
+          {navigationLinks.map((category) => (
             <AccordionItem value={category.title} key={category.title}>
               <AccordionTrigger className="px-2 text-base hover:no-underline">
                 {category.title}

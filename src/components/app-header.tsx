@@ -10,6 +10,7 @@ import {
   Loader2,
   Share2,
   Bookmark,
+  Code,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -27,11 +28,13 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogCancel,
+  AlertDialogAction,
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
 import { getWebpageSummary } from '@/app/actions';
 import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
 import { cn } from '@/lib/utils';
+import { Textarea } from './ui/textarea';
 
 export function AppHeader() {
   const { toast } = useToast();
@@ -44,6 +47,7 @@ export function AppHeader() {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [summaryError, setSummaryError] = useState<string | null>(null);
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
+  const [isEmbedDialogOpen, setIsEmbedDialogOpen] = useState(false);
 
   // Bookmark state and functions
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
@@ -164,6 +168,26 @@ export function AppHeader() {
     }
   };
 
+  const embedCode = `<iframe src="${
+    typeof window !== 'undefined' ? window.location.origin : ''
+  }" width="100%" height="800" style="border:none;" allowfullscreen></iframe>`;
+
+  const handleCopyEmbedCode = async () => {
+    try {
+      await navigator.clipboard.writeText(embedCode);
+      toast({
+        title: 'Copied to Clipboard',
+        description: 'The embed code has been copied.',
+      });
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Copy Failed',
+        description: 'Could not copy the embed code.',
+      });
+    }
+  };
+
   const isViewPage = pathname === '/view' && !!url;
 
   return (
@@ -233,6 +257,17 @@ export function AppHeader() {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={() => setIsEmbedDialogOpen(true)}>
+                <Code className="h-5 w-5" />
+                <span className="sr-only">Embed App</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Embed App</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" onClick={handleOpenExternal} disabled={!isViewPage}>
                 <ExternalLink className="h-5 w-5" />
                 <span className="sr-only">Open in new tab</span>
@@ -267,6 +302,29 @@ export function AppHeader() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        open={isEmbedDialogOpen}
+        onOpenChange={setIsEmbedDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Embed This App</AlertDialogTitle>
+            <AlertDialogDescription>
+              Copy and paste this HTML code into your website to embed the Sovereign Navigator.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <Textarea
+            readOnly
+            value={embedCode}
+            className="my-4 h-32 resize-none bg-muted font-code"
+          />
+          <AlertDialogFooter>
+            <AlertDialogCancel>Close</AlertDialogCancel>
+            <AlertDialogAction onClick={handleCopyEmbedCode}>Copy Code</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
