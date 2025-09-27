@@ -19,6 +19,7 @@ import {
   Video,
   Link,
   Bookmark,
+  Search,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -45,6 +46,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Bookmarks',
         url: '/bookmarks',
         icon: Bookmark,
+      },
+      {
+        title: 'Search',
+        url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
+        icon: Search,
       },
     ],
   },

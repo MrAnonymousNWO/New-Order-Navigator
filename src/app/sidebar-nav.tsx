@@ -22,6 +22,7 @@ import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
+import { Input } from '@/components/ui/input';
 
 interface SummaryState {
   summary?: string;
@@ -36,6 +37,7 @@ export function SidebarNav() {
   const searchParams = useSearchParams();
   const { setOpenMobile } = useSidebar();
   const [isClient, setIsClient] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     setIsClient(true);
@@ -103,9 +105,23 @@ export function SidebarNav() {
     return pathname === '/view' && currentUrl === url;
   };
 
+  const filteredLinks = useMemo(() => {
+    if (!searchTerm) {
+      return navigationLinks;
+    }
+    return navigationLinks
+      .map((category) => ({
+        ...category,
+        links: category.links.filter((link) =>
+          link.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ),
+      }))
+      .filter((category) => category.links.length > 0);
+  }, [searchTerm]);
+
   const defaultActiveCategories = useMemo(() => {
-    return navigationLinks.map((c) => c.title);
-  }, []);
+    return filteredLinks.map((c) => c.title);
+  }, [filteredLinks]);
 
   const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
@@ -123,7 +139,7 @@ export function SidebarNav() {
           value={defaultActiveCategories}
           className="w-full"
         >
-          {navigationLinks.map((category) => (
+          {filteredLinks.map((category) => (
             <AccordionItem value={category.title} key={category.title}>
               <AccordionTrigger className="px-2 text-base hover:no-underline">
                 {category.title}
