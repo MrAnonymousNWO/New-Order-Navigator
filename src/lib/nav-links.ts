@@ -217,7 +217,7 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'Universal Basic Income Links',
-        url: 'http://ubi.gt.tc',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/universal-basic-income-ubi-bge?i=1',
         icon: DollarSign,
       },
       {
