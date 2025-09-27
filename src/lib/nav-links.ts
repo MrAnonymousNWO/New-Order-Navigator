@@ -20,6 +20,7 @@ import {
   Link,
   Bookmark,
   Search,
+  List,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -48,15 +49,15 @@ export const navigationLinks: NavCategory[] = [
         icon: Bookmark,
       },
       {
+        title: 'Link List',
+        url: '/link-list',
+        icon: List,
+      },
+      {
         title: 'Search',
         url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
         icon: Search,
       },
-      {
-        title: 'Search Page',
-        url: '/search',
-        icon: Search,
-      }
     ],
   },
   {
