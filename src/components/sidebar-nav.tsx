@@ -49,6 +49,12 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'http://chat-et.rf.gd',
     'http://chat-kb.rf.gd',
     'https://g.co/gemini/share/9fe07106afff',
+    'https://youtu.be/zGXLeYJsAtc',
+    'https://youtu.be/KTL6imKT3_w',
+    'https://youtu.be/ToPHDtEA-JI',
+    'https://youtu.be/WsJetlIjF5Q',
+    'https://youtu.be/JSk13GnVMdU',
+    'https://youtu.be/cbyME1y4m4o',
   ];
 
   const filteredLinks = useMemo(() => {
