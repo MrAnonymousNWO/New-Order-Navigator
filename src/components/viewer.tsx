@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Camera, Search, X, Bookmark } from 'lucide-react';
+import { ArrowLeft, Search, X, Bookmark } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -13,7 +13,7 @@ import { Card } from './ui/card';
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
-import { useBookmarks } from '@/hooks/use-bookmarks';
+import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
 import { useToast } from '@/hooks/use-toast';
 
 export function Viewer() {
@@ -38,8 +38,9 @@ export function Viewer() {
         toast({
           variant: 'destructive',
           title: 'Search Error',
-          description: 'Could not search content in this frame due to security restrictions.'
-        })
+          description:
+            'Could not search content in this frame due to security restrictions.',
+        });
         console.error('Could not access iframe content for searching:', e);
       }
     }
@@ -60,7 +61,7 @@ export function Viewer() {
 
   const handleToggleBookmark = () => {
     if (!url) return;
-    const pageTitle = url; // Use URL as title to avoid cross-origin errors
+    const pageTitle = url;
 
     if (isBookmarked) {
       removeBookmark(url);
@@ -176,21 +177,6 @@ export function Viewer() {
             </TooltipTrigger>
             <TooltipContent>
               <p>{isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}</p>
-            </TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled>
-                <Camera className="h-5 w-5" />
-                <span className="sr-only">Screenshot</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>
-                Use your system's screenshot tool (e.g., Cmd+Shift+4,
-                Win+Shift+S)
-              </p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
