@@ -45,6 +45,9 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'https://www.youtube.com/@Staatensukzessionsurkunde-1400',
     'https://soundcloud.com/world-succession-deed',
     'https://suno.com/@sukzession1998',
+    'http://chat-wsd.rf.gd',
+    'http://chat-et.rf.gd',
+    'http://chat-kb.rf.gd',
   ];
 
   const filteredLinks = useMemo(() => {
