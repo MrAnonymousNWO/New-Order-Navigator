@@ -157,7 +157,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Found your own state',
-        url: 'http://micronation.page.gd',
+        url: 'https://worldsold.wixsite.com/world-sold/en/post/ai-chat-now-or-never-establish-your-own-state?i=1',
         icon: Map,
       },
       {
