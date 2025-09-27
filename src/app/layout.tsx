@@ -5,6 +5,7 @@ import { AppSidebar } from '@/components/app-sidebar';
 import { Toaster } from '@/components/ui/toaster';
 import { AppHeader } from '@/components/app-header';
 import { SwipeHandler } from '@/components/swipe-handler';
+import { CookieConsent } from '@/components/cookie-consent';
 
 export const metadata: Metadata = {
   title: 'Sovereign Navigator',
@@ -48,6 +49,7 @@ export default function RootLayout({
             </div>
           </div>
         </SidebarProvider>
+        <CookieConsent />
       </body>
     </html>
   );
