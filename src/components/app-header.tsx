@@ -98,7 +98,8 @@ export function AppHeader() {
     setIsSummaryDialogOpen(true);
 
     try {
-      const result = await getWebpageSummary(urlToSummarize);
+      const userLang = navigator.language || 'en';
+      const result = await getWebpageSummary(urlToSummarize, userLang);
       setSummary(result);
     } catch (error) {
       const errorMessage =

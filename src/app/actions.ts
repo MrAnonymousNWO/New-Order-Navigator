@@ -13,9 +13,12 @@ export async function getWebsiteSummary(url: string): Promise<string> {
   }
 }
 
-export async function getWebpageSummary(url: string): Promise<string> {
+export async function getWebpageSummary(
+  url: string,
+  targetLanguage?: string
+): Promise<string> {
   try {
-    const result = await summarizeWebpage({ url });
+    const result = await summarizeWebpage({ url, targetLanguage });
     return result.summary;
   } catch (error) {
     console.error(`Error summarizing webpage at ${url}:`, error);

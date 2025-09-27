@@ -12,6 +12,12 @@ import { z } from 'genkit';
 
 const SummarizeWebpageInputSchema = z.object({
   url: z.string().url().describe('The URL of the website to summarize.'),
+  targetLanguage: z
+    .string()
+    .optional()
+    .describe(
+      'The target language for the summary (e.g., "German", "Spanish"). Defaults to the original language of the page if not provided.'
+    ),
 });
 export type SummarizeWebpageInput = z.infer<typeof SummarizeWebpageInputSchema>;
 
@@ -38,6 +44,10 @@ const prompt = ai.definePrompt({
 
   Given the URL of a website, your task is to summarize its content in a clear and concise manner, highlighting the key topics, main points, and purpose of the site.
   The summary should be detailed enough to give the user a good understanding of the page content without having to read it all.
+
+  {{#if targetLanguage}}
+  The final summary MUST be translated into the following language: {{{targetLanguage}}}.
+  {{/if}}
 
   URL: {{{url}}}`,
 });
