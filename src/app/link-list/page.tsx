@@ -4,7 +4,7 @@ import { Link as LinkIcon } from 'lucide-react';
 
 const linkGroups = [
   {
-    title: '🌐 Gruppe 1: Hauptseiten & strategische Domains (14)',
+    title: '🌐 Group 1: Main Pages & Strategic Domains (14)',
     links: [
       'http://world.rf.gd',
       'http://ep.ct.ws',
@@ -23,7 +23,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '📚 Gruppe 2: FlipHTML5-Dokumente (12)',
+    title: '📚 Group 2: FlipHTML5 Documents (12)',
     links: [
       'https://fliphtml5.com/bookcase/gjiqf',
       'https://online.fliphtml5.com/mwven/llvo',
@@ -40,7 +40,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '📄 Gruppe 3: Yumpu-Dokumente (16)',
+    title: '📄 Group 3: Yumpu Documents (16)',
     links: [
       'https://www.yumpu.com/de/document/view/70322199/elektrische-technokratie-staatensukzessionsurkunde',
       'https://www.yumpu.com/en/document/view/70322241/electric-technocracy-ai-governance-for-the-world-succession-deed',
@@ -61,7 +61,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '📊 Gruppe 4: Slideshare & SlideOrbit (12)',
+    title: '📊 Group 4: Slideshare & SlideOrbit (12)',
     links: [
       'https://de.slideshare.net/slideshow/die-welt-ist-verkauft-staatensukzessionsurkunde-1400-98/271862293',
       'https://de.slideshare.net/slideshow/un-united-nations-nato-world-sold-state-succession-deed-1400-98/272558581',
@@ -78,7 +78,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '🗃️ Gruppe 5: Archive.org (9)',
+    title: '🗃️ Group 5: Archive.org (9)',
     links: [
       'https://archive.org/details/welt-verkauft-staatensukzessionsurkunde-1400',
       'https://archive.org/details/electric-technocracy',
@@ -92,7 +92,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '🧠 Gruppe 6: Lexika, Wikis & politische Plattformen (5)',
+    title: '🧠 Group 6: Encyclopedias, Wikis & Political Platforms (5)',
     links: [
       'https://de.m.wikipedia.org/wiki/Technokratische_Bewegung',
       'https://de.micronations.wiki/wiki/Königreich_Kreuzberg',
@@ -102,7 +102,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '🎧 Gruppe 7: Podcasts & Audio-Plattformen (8)',
+    title: '🎧 Group 7: Podcasts & Audio Platforms (8)',
     links: [
       'https://iheart.com/podcast/246661302',
       'https://music.amazon.de/podcasts/e25a5879-9fb6-45b5-93b5-2f7716cdc8fa/world-soldworld-succession-deed-1400-98-httpsworldsoldwixsitecomworldsolden',
@@ -115,7 +115,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '💬 Gruppe 8: Social Media & Ko-fi (10)',
+    title: '💬 Group 8: Social Media & Ko-fi (10)',
     links: [
       'https://x.com/NWO_Support',
       'https://x.com/NWO_BOOKS',
@@ -130,7 +130,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '🧪 Gruppe 9: Google Gemini & NotebookLM (5)',
+    title: '🧪 Group 9: Google Gemini & NotebookLM (5)',
     links: [
       'https://g.co/gemini/share/9fe07106afff',
       'https://g.co/gemini/share/4a457895642b',
@@ -140,7 +140,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '📚 Gruppe 10: HostingAuthors & Groops (4)',
+    title: '📚 Group 10: HostingAuthors & Groops (4)',
     links: [
       'https://www.hostingauthors.com/books/electric_technocracy',
       'https://www.hostingauthors.com/books/World_Succession_Deed',
@@ -149,7 +149,7 @@ const linkGroups = [
     ],
   },
   {
-    title: '🧭 Gruppe 11: Wix-Blog-Kategorien & Clusterstruktur (60)',
+    title: '🧭 Group 11: Wix Blog Categories & Cluster Structure (60)',
     links: [
       'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/digitale-gesellschaft',
       'https://worldsold.wixsite.com/electric-technocracy/de/electric-paradise-blog/categories/technologische-singularitaet',
