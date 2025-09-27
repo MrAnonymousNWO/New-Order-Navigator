@@ -1,12 +1,10 @@
 
 'use client';
 
-import { useState } from 'react';
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
-  SidebarInput,
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '@/components/sidebar-nav';
 import {
@@ -25,9 +23,9 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useToast } from '@/hooks/use-toast';
 import { Textarea } from './ui/textarea';
+import { useState } from 'react';
 
 export function AppSidebar() {
-  const [searchQuery, setSearchQuery] = useState('');
   const [isEmbedDialogOpen, setIsEmbedDialogOpen] = useState(false);
   const { toast } = useToast();
 
@@ -63,11 +61,7 @@ export function AppSidebar() {
             </h1>
           </div>
            <div className="flex items-center gap-2 pt-2">
-            <SidebarInput
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+            <div className="gcse-searchbox-only"></div>
             <Button variant="ghost" size="icon" onClick={() => setIsEmbedDialogOpen(true)}>
               <Code className="h-5 w-5" />
               <span className="sr-only">Embed App</span>
@@ -75,7 +69,7 @@ export function AppSidebar() {
           </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarNav searchQuery={searchQuery} />
+          <SidebarNav searchQuery="" />
         </SidebarContent>
       </Sidebar>
        <AlertDialog

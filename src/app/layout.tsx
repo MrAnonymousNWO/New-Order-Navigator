@@ -7,6 +7,7 @@ import { AppHeader } from '@/components/app-header';
 import { SwipeHandler } from '@/components/swipe-handler';
 import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Sovereign Navigator',
@@ -38,6 +39,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
+        <Script
+          async
+          src="https://cse.google.com/cse.js?cx=86021a982e3a14848"
+        ></Script>
         <Toaster />
         <BookmarkProvider>
           <SidebarProvider>
