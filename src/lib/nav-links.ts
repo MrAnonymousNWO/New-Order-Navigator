@@ -166,6 +166,66 @@ export const navigationLinks: NavCategory[] = [
     ],
   },
   {
+    title: 'Social Media',
+    links: [
+      {
+        title: 'Facebook world sold',
+        url: 'https://www.facebook.com/share/1ER7GbN7kM/',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Facebook Electric Technocracy',
+        url: 'https://www.facebook.com/share/1DEMSyrrAt/',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Facebook Humans & Machines Unite',
+        url: 'https://www.facebook.com/groups/528455169898378/',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Facebook Profile',
+        url: 'https://www.facebook.com/share/1CZ2JE3Sjb/',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - WW3 Precognition',
+        url: 'https://x.com/WW3Precognition',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - WW3 Precognition List',
+        url: 'https://x.com/i/lists/1890805076249182663?t=Ha_ioLR_itUriLE_7WdZMg&s=09',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - Welt verkauft offiziell',
+        url: 'https://x.com/NWO_BOOKS',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - Welt verkauft List',
+        url: 'https://x.com/i/lists/1880937835307425922?t=1TaGjr6ExIAK0QYFePTV8g&s=09',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - NWO Support',
+        url: 'https://x.com/NWO_Support',
+        icon: MessageSquare,
+      },
+      {
+        title: 'X - NWO Support List',
+        url: 'https://x.com/i/lists/1952924134679150999',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Reddit Profile',
+        url: 'https://www.reddit.com/u/WSD1400/s/EJXoGigczB',
+        icon: MessageSquare,
+      },
+    ],
+  },
+  {
     title: 'YouTube Videos',
     links: [
         {
@@ -220,7 +280,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'UBI Storybook',
-        url: 'https://g.co/gemini/share/4a457895642b',
+        url: 'https://g.co/gemini/share/4a45789b',
         icon: BookText,
       },
       {
