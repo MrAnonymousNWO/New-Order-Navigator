@@ -63,6 +63,17 @@ export function SidebarNav() {
     'https://g.co/gemini/share/4a457895642b',
     'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
     'https://cse.google.com/cse?cx=86021a982e3a14848',
+    'https://www.facebook.com/share/1ER7GbN7kM/',
+    'https://www.facebook.com/share/1DEMSyrrAt/',
+    'https://www.facebook.com/groups/528455169898378/',
+    'https://www.facebook.com/share/1CZ2JE3Sjb/',
+    'https://x.com/WW3Precognition',
+    'https://x.com/i/lists/1890805076249182663?t=Ha_ioLR_itUriLE_7WdZMg&s=09',
+    'https://x.com/NWO_BOOKS',
+    'https://x.com/i/lists/1880937835307425922?t=1TaGjr6ExIAK0QYFePTV8g&s=09',
+    'https://x.com/NWO_Support',
+    'https://x.com/i/lists/1952924134679150999',
+    'https://www.reddit.com/u/WSD1400/s/EJXoGigczB',
   ];
 
   const handleGetSummary = async (url: string) => {
