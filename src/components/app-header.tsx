@@ -314,7 +314,7 @@ export function AppHeader() {
           <AlertDialogHeader>
             <AlertDialogTitle>Embed This App</AlertDialogTitle>
             <AlertDialogDescription>
-              Copy and paste this HTML code into your website to embed the Sovereign Navigator.
+              Copy and paste this HTML code into your website to embed the New Order Navigator.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <Textarea

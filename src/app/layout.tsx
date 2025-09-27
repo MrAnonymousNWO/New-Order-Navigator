@@ -10,7 +10,7 @@ import { BookmarkProvider } from '@/hooks/use-bookmarks';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Sovereign Navigator',
+  title: 'New Order Navigator',
   description: 'Navigate the sovereign web.',
 };
 
