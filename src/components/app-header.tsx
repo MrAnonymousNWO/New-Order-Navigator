@@ -1,3 +1,4 @@
+
 'use client';
 
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -249,14 +250,14 @@ export function AppHeader() {
             <AlertDialogTitle>AI Page Summary</AlertDialogTitle>
             <AlertDialogDescription>
               {isSummarizing && (
-                <div className="flex items-center gap-2">
+                <span className="flex items-center gap-2">
                   <Loader2 className="h-4 w-4 animate-spin" />
                   <span>Generating summary...</span>
-                </div>
+                </span>
               )}
-              {summary && <p className="whitespace-pre-wrap">{summary}</p>}
+              {summary && <span className="whitespace-pre-wrap">{summary}</span>}
               {summaryError && (
-                <p className="text-destructive">{summaryError}</p>
+                <span className="text-destructive">{summaryError}</span>
               )}
             </AlertDialogDescription>
           </AlertDialogHeader>
