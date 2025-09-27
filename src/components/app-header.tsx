@@ -31,6 +31,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useState } from 'react';
 import { getWebpageSummary } from '@/app/actions';
+import { useBookmarks } from '@/hooks/use-bookmarks';
 
 export function AppHeader() {
   const { toast } = useToast();
@@ -40,6 +41,7 @@ export function AppHeader() {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [summaryError, setSummaryError] = useState<string | null>(null);
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
+  const { addBookmark } = useBookmarks();
 
   const handlePrint = () => {
     toast({
@@ -85,12 +87,29 @@ export function AppHeader() {
   };
 
   const handleBookmark = () => {
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    const shortcut = isMac ? 'Cmd+D' : 'Ctrl+D';
-    toast({
-      title: 'Bookmark this page',
-      description: `Press ${shortcut} to add this page to your bookmarks.`,
-    });
+    let urlToBookmark = '';
+    if (pathname === '/view') {
+        urlToBookmark = searchParams.get('url') || '';
+    } else if (pathname === '/') {
+        urlToBookmark = '/';
+    } else {
+        urlToBookmark = window.location.href;
+    }
+    
+    if (urlToBookmark) {
+      const title = document.title || 'Untitled Page';
+      addBookmark({ title, url: urlToBookmark });
+      toast({
+        title: 'Bookmarked!',
+        description: `"${title}" has been added to your bookmarks.`,
+      });
+    } else {
+        toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not bookmark this page.',
+        });
+    }
   };
 
   const handleSummarize = async () => {
