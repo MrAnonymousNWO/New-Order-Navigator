@@ -292,17 +292,6 @@ export function AppHeader() {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleOpenExternal} disabled={!isViewPage}>
-                <ExternalLink className="h-5 w-5" />
-                <span className="sr-only">Open in new tab</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Open in Browser</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" onClick={handlePrint}>
                 <Printer className="h-5 w-5" />
                 <span className="sr-only">Print / Download PDF</span>
@@ -310,6 +299,17 @@ export function AppHeader() {
             </TooltipTrigger>
             <TooltipContent>
               <p>Print / Download PDF</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" onClick={handleOpenExternal} disabled={!isViewPage}>
+                <ExternalLink className="h-5 w-5" />
+                <span className="sr-only">Open in new tab</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Open in Browser</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
