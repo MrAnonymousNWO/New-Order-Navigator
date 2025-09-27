@@ -1,25 +1,17 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Cookie } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 const COOKIE_NAME = 'sovereign_navigator_cookie_consent';
 
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // This check needs to run only on the client-side
-    const consent = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith(`${COOKIE_NAME}=`));
-    
-    if (!consent) {
-      setIsVisible(true);
-    }
-  }, []);
+  const pathname = usePathname();
 
   const handleAccept = () => {
     const expiryDate = new Date();
@@ -27,6 +19,24 @@ export function CookieConsent() {
     document.cookie = `${COOKIE_NAME}=true; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax; Secure`;
     setIsVisible(false);
   };
+
+  useEffect(() => {
+    const consent = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith(`${COOKIE_NAME}=`));
+
+    if (consent) {
+      setIsVisible(false);
+      return;
+    }
+
+    // If on the /view page and no consent is given, automatically accept.
+    if (pathname === '/view') {
+      handleAccept();
+    } else {
+      setIsVisible(true);
+    }
+  }, [pathname]);
 
   if (!isVisible) {
     return null;
