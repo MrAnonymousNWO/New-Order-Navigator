@@ -197,17 +197,17 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'Support our Mission',
-        url: 'http://donate.gt.tc',
+        url: 'https://ko-fi.com/electric_technocrat',
         icon: Heart,
       },
       {
         title: 'Support Shop',
-        url: 'http://nwo.page.gd',
+        url: 'https://beacons.ai/nwo.shop',
         icon: ShoppingCart,
       },
       {
         title: 'Support Store',
-        url: 'http://merch.page.gd',
+        url: 'https://nwo-9.creator-spring.com',
         icon: ShoppingCart,
       },
       {
