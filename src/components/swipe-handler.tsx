@@ -43,15 +43,14 @@ export function SwipeHandler({ children }: PropsWithChildren) {
     if (Math.abs(dx) > Math.abs(dy)) {
       if (Math.abs(dx) > SWIPE_THRESHOLD) {
         if (dx > 0) {
-          // Swipe Right
+          // Swipe Right (forward)
           router.forward();
         } else {
-          // Swipe Left
+          // Swipe Left (back)
           router.back();
         }
       }
     }
-    // Vertical swipes are now ignored, allowing for native scrolling.
 
     touchStart.current = null;
   };
