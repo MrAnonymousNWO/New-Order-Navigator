@@ -194,18 +194,8 @@ export const navigationLinks: NavCategory[] = [
         icon: MessageSquare,
       },
       {
-        title: 'X - WW3 Precognition List',
-        url: 'https://x.com/i/lists/1890805076249182663?t=Ha_ioLR_itUriLE_7WdZMg&s=09',
-        icon: MessageSquare,
-      },
-      {
         title: 'X - Welt verkauft offiziell',
         url: 'https://x.com/NWO_BOOKS',
-        icon: MessageSquare,
-      },
-      {
-        title: 'X - Welt verkauft List',
-        url: 'https://x.com/i/lists/1880937835307425922?t=1TaGjr6ExIAK0QYFePTV8g&s=09',
         icon: MessageSquare,
       },
       {
