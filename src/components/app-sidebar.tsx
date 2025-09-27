@@ -16,14 +16,12 @@ export function AppSidebar() {
     <>
       <Sidebar>
         <SidebarHeader>
-          <div className="flex items-center gap-3">
+          <div className="gcse-searchbox"></div>
+          <div className="flex items-center gap-3 pt-4">
             <Globe className="h-8 w-8 text-primary" />
             <h1 className="font-headline text-xl font-semibold">
               Sovereign Navigator
             </h1>
-          </div>
-           <div className="flex items-center gap-2 pt-2">
-            <div className="gcse-searchbox-only"></div>
           </div>
         </SidebarHeader>
         <SidebarContent>
