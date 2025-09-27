@@ -55,6 +55,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'https://youtu.be/WsJetlIjF5Q',
     'https://youtu.be/JSk13GnVMdU',
     'https://youtu.be/cbyME1y4m4o',
+    'https://g.co/gemini/share/4a457895642b',
+    'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
   ];
 
   const filteredLinks = useMemo(() => {
