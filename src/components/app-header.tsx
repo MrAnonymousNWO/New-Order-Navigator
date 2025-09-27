@@ -9,9 +9,7 @@ import {
   FileText,
   Loader2,
   Share2,
-  Search,
   Bookmark,
-  X,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -30,11 +28,10 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
-import { useState, type KeyboardEvent } from 'react';
+import { useState } from 'react';
 import { getWebpageSummary } from '@/app/actions';
 import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
 import { cn } from '@/lib/utils';
-import { Input } from './ui/input';
 
 export function AppHeader() {
   const { toast } = useToast();
@@ -51,10 +48,6 @@ export function AppHeader() {
   // Bookmark state and functions
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
   const isBookmarked = url ? bookmarks.some((b) => b.url === url) : false;
-
-  // Search state
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const handlePrint = () => {
     toast({
@@ -171,77 +164,14 @@ export function AppHeader() {
     }
   };
 
-  const handleSearch = () => {
-    // We need to send a message to the iframe to perform the search
-    // This is a placeholder for a more robust solution if direct find is blocked
-    console.log('Searching for:', searchTerm);
-    // In a real app, you might use postMessage to communicate with the iframe
-  };
-  
-  const handleSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
-
-  const toggleSearch = () => {
-    setIsSearchVisible(!isSearchVisible);
-    if (isSearchVisible) {
-      setSearchTerm(''); // Reset search on close
-    }
-  };
-
-
   const isViewPage = pathname === '/view' && !!url;
 
   return (
     <>
       <header className="sticky top-0 z-10 flex h-12 items-center gap-2 border-b bg-background px-4 sm:px-6">
         <SidebarTrigger className="md:hidden" />
-         {isSearchVisible && isViewPage ? (
-          <div className="relative flex-1">
-            <Input
-              type="text"
-              placeholder="Search in page..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={handleSearchKeyDown}
-              className="h-8 pr-8"
-              autoFocus
-            />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-0 top-0 h-8 w-8"
-              onClick={handleSearch}
-            >
-              <Search className="h-4 w-4" />
-            </Button>
-          </div>
-        ) : (
-          <div className="flex-grow" />
-        )}
+        <div className="flex-grow" />
         <TooltipProvider delayDuration={100}>
-          {isViewPage && (
-             <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" onClick={toggleSearch}>
-                  {isSearchVisible ? (
-                    <X className="h-5 w-5" />
-                  ) : (
-                    <Search className="h-5 w-5" />
-                  )}
-                  <span className="sr-only">
-                    {isSearchVisible ? 'Close Search' : 'Search in Page'}
-                  </span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{isSearchVisible ? 'Close Search' : 'Search in Page'}</p>
-              </TooltipContent>
-            </Tooltip>
-          )}
-
           {isViewPage && (
             <Tooltip>
               <TooltipTrigger asChild>

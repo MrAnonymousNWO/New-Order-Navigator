@@ -16,7 +16,7 @@ import {
 import { navigationLinks } from '@/lib/nav-links';
 import Link from 'next/link';
 import { Loader2, Sparkles } from 'lucide-react';
-import type { NavLink, NavCategory } from '@/lib/nav-links';
+import type { NavLink } from '@/lib/nav-links';
 import { useState, useMemo, useEffect } from 'react';
 import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
@@ -29,11 +29,7 @@ interface SummaryState {
   error?: string;
 }
 
-interface SidebarNavProps {
-  searchTerm: string;
-}
-
-export function SidebarNav({ searchTerm }: SidebarNavProps) {
+export function SidebarNav() {
   const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
   const { toast } = useToast();
   const pathname = usePathname();
@@ -65,24 +61,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'https://g.co/gemini/share/4a457895642b',
     'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
   ];
-
-  const filteredLinks = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return navigationLinks;
-    }
-    const lowercasedFilter = searchTerm.toLowerCase();
-
-    return navigationLinks
-      .map((category) => {
-        const filtered = category.links.filter(
-          (link) =>
-            link.title.toLowerCase().includes(lowercasedFilter) ||
-            link.url.toLowerCase().includes(lowercasedFilter)
-        );
-        return { ...category, links: filtered };
-      })
-      .filter((category) => category.links.length > 0);
-  }, [searchTerm]);
 
   const handleGetSummary = async (url: string) => {
     if (summaries[url]?.summary) return;
@@ -125,11 +103,8 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
   };
 
   const defaultActiveCategories = useMemo(() => {
-    if (searchTerm.trim()) {
-      return filteredLinks.map((c) => c.title);
-    }
     return navigationLinks.map((c) => c.title);
-  }, [searchTerm, filteredLinks]);
+  }, []);
 
   const handleLinkClick = (e: React.MouseEvent, link: NavLink) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
@@ -145,10 +120,9 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
         <Accordion
           type="multiple"
           defaultValue={defaultActiveCategories}
-          key={searchTerm}
           className="w-full"
         >
-          {filteredLinks.map((category) => (
+          {navigationLinks.map((category) => (
             <AccordionItem value={category.title} key={category.title}>
               <AccordionTrigger className="px-2 text-base hover:no-underline">
                 {category.title}
@@ -229,11 +203,6 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
               </AccordionContent>
             </AccordionItem>
           ))}
-          {filteredLinks.length === 0 && (
-            <div className="p-4 text-center text-sm text-muted-foreground">
-              No results found.
-            </div>
-          )}
         </Accordion>
       </nav>
     </>
