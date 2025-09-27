@@ -147,7 +147,7 @@ export const navigationLinks: NavCategory[] = [
     links: [
       {
         title: 'Micronation Links',
-        url: 'http://micro.page.gd',
+        url: 'https://worldsold.wixsite.com/world-sold/en/post/micronations-made-easy-the-lazy-rebel-guide-to-independence',
         icon: Map,
       },
       {
