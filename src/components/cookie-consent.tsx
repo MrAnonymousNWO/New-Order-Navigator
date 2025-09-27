@@ -11,19 +11,17 @@ export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Check if the cookie exists
+    // This check needs to run only on the client-side
     const consent = document.cookie
       .split('; ')
       .find((row) => row.startsWith(`${COOKIE_NAME}=`));
     
-    // Only show the banner if the cookie is not found
     if (!consent) {
       setIsVisible(true);
     }
   }, []);
 
   const handleAccept = () => {
-    // Set a cookie that expires in 1 year
     const expiryDate = new Date();
     expiryDate.setFullYear(expiryDate.getFullYear() + 1);
     document.cookie = `${COOKIE_NAME}=true; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax; Secure`;
