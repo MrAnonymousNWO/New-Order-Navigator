@@ -42,13 +42,24 @@ export function AppHeader() {
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
 
   const handlePrint = () => {
-    window.print();
+    toast({
+      title: 'Print / Download PDF',
+      description:
+        'To print or save as PDF, please open the page in a new tab using the "Open in Browser" button and use your browser\'s print function (Ctrl+P or Cmd+P).',
+      duration: 8000,
+    });
   };
 
   const handleTranslate = () => {
-    const currentUrl = window.location.href;
+    let urlToTranslate = window.location.href;
+    if (pathname === '/view') {
+      const url = searchParams.get('url');
+      if (url) {
+        urlToTranslate = url;
+      }
+    }
     const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(
-      currentUrl
+      urlToTranslate
     )}`;
     window.open(googleTranslateUrl, '_blank', 'noopener,noreferrer');
   };
