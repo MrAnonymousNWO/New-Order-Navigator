@@ -96,8 +96,13 @@ export const navigationLinks: NavCategory[] = [
         icon: Youtube,
       },
       {
-        title: 'Podcast Show',
+        title: 'Podcast Spotify',
         url: 'https://creators.spotify.com/pod/show/world-succession-deed',
+        icon: Mic,
+      },
+      {
+        title: 'Apple Podcast',
+        url: 'https://podcasts.apple.com/de/podcast/world-sold-world-succession-deed-1400-98-http-world/id1786462631',
         icon: Mic,
       },
       {
