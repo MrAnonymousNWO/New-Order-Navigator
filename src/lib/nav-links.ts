@@ -160,16 +160,16 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://worldsold.wixsite.com/world-sold/en/post/ai-chat-now-or-never-establish-your-own-state?i=1',
         icon: Map,
       },
-      {
-        title: 'Video: Dream Your Own State',
-        url: 'https://youtu.be/zGXLeYJsAtc',
-        icon: Video,
-      },
     ],
   },
   {
     title: 'YouTube Videos',
     links: [
+        {
+        title: 'Video: Dream Your Own State',
+        url: 'https://youtu.be/zGXLeYJsAtc',
+        icon: Video,
+      },
         {
         title: 'Video: How to Start Your Own Country',
         url: 'https://youtu.be/KTL6imKT3_w',
