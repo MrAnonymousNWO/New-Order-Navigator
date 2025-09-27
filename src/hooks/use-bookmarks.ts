@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   type ReactNode,
+  useCallback,
 } from 'react';
 
 const BOOKMARKS_STORAGE_KEY = 'sovereign_navigator_bookmarks';
@@ -38,9 +39,8 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
       }
     } catch (error) {
       console.error('Error reading bookmarks from localStorage', error);
-    } finally {
-      setIsLoaded(true);
     }
+    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -56,27 +56,32 @@ export function BookmarkProvider({ children }: { children: ReactNode }) {
     }
   }, [bookmarks, isLoaded]);
 
-  const addBookmark = (bookmark: Bookmark) => {
+  const addBookmark = useCallback((bookmark: Bookmark) => {
     setBookmarks((prev) => {
       if (prev.some((b) => b.url === bookmark.url)) {
-        return prev;
+        return prev; // Already bookmarked
       }
       return [...prev, bookmark];
     });
-  };
+  }, []);
 
-  const removeBookmark = (url: string) => {
+  const removeBookmark = useCallback((url: string) => {
     setBookmarks((prev) => prev.filter((b) => b.url !== url));
-  };
+  }, []);
 
-  const isBookmarked = (url: string) => {
-    return bookmarks.some((b) => b.url === url);
-  };
+  const isBookmarked = useCallback(
+    (url: string) => {
+      return bookmarks.some((b) => b.url === url);
+    },
+    [bookmarks]
+  );
 
   const value = { bookmarks, addBookmark, removeBookmark, isBookmarked };
 
   return (
-    <BookmarkContext.Provider value={value}>{children}</BookmarkContext.Provider>
+    <BookmarkContext.Provider value={value}>
+      {children}
+    </BookmarkContext.Provider>
   );
 }
 
