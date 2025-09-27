@@ -48,6 +48,7 @@ export function SidebarNav({ searchTerm }: SidebarNavProps) {
     'http://chat-wsd.rf.gd',
     'http://chat-et.rf.gd',
     'http://chat-kb.rf.gd',
+    'https://g.co/gemini/share/9fe07106afff',
   ];
 
   const filteredLinks = useMemo(() => {
