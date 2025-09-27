@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Card } from './ui/card';
-import { useRef, useState, type KeyboardEvent, useEffect } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import { useBookmarks } from '@/hooks/use-bookmarks';
@@ -25,28 +25,8 @@ export function Viewer() {
   const [searchTerm, setSearchTerm] = useState('');
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
   const { toast } = useToast();
-  const [pageTitle, setPageTitle] = useState('');
 
   const isBookmarked = url ? bookmarks.some((b) => b.url === url) : false;
-
-  useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-
-    const handleLoad = () => {
-      try {
-        const title = iframe.contentWindow?.document.title || url || '';
-        setPageTitle(title);
-      } catch (e) {
-        console.error('Could not access iframe title:', e);
-        setPageTitle(url || '');
-      }
-    };
-    iframe.addEventListener('load', handleLoad);
-    return () => {
-      iframe.removeEventListener('load', handleLoad);
-    };
-  }, [url]);
 
   const handleBack = () => router.back();
 
@@ -55,6 +35,11 @@ export function Viewer() {
       try {
         iframeRef.current.contentWindow?.find(searchTerm);
       } catch (e) {
+        toast({
+          variant: 'destructive',
+          title: 'Search Error',
+          description: 'Could not search content in this frame due to security restrictions.'
+        })
         console.error('Could not access iframe content for searching:', e);
       }
     }
@@ -75,6 +60,8 @@ export function Viewer() {
 
   const handleToggleBookmark = () => {
     if (!url) return;
+    const pageTitle = url; // Use URL as title to avoid cross-origin errors
+
     if (isBookmarked) {
       removeBookmark(url);
       toast({
