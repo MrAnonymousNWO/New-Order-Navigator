@@ -148,26 +148,6 @@ export const navigationLinks: NavCategory[] = [
     ],
   },
   {
-    title: 'Micronation',
-    links: [
-      {
-        title: 'Micronation Links',
-        url: 'https://worldsold.wixsite.com/world-sold/en/post/micronations-made-easy-the-lazy-rebel-guide-to-independence',
-        icon: Map,
-      },
-      {
-        title: 'Micronation Storybook',
-        url: 'https://g.co/gemini/share/9fe07106afff',
-        icon: BookText,
-      },
-      {
-        title: 'Found your own state',
-        url: 'https://worldsold.wixsite.com/world-sold/en/post/ai-chat-now-or-never-establish-your-own-state?i=1',
-        icon: Map,
-      },
-    ],
-  },
-  {
     title: 'YouTube Videos',
     links: [
         {
@@ -209,26 +189,6 @@ export const navigationLinks: NavCategory[] = [
         title: 'Original Treaty that sold the World Original German Name Kaufvertrag Urkundenrolle 1400/98',
         url: 'https://archive.org/details/turenne_kaserne_vertrag_1400_98_06_10_1998_nato_brd_nl_vn_itu_hns',
         icon: FileText,
-      },
-    ],
-  },
-  {
-    title: 'Support',
-    links: [
-      {
-        title: 'Support our Mission',
-        url: 'https://ko-fi.com/electric_technocrat',
-        icon: Heart,
-      },
-      {
-        title: 'Support Shop',
-        url: 'https://beacons.ai/nwo.shop',
-        icon: ShoppingCart,
-      },
-      {
-        title: 'Support Store',
-        url: 'https://nwo-9.creator-spring.com',
-        icon: ShoppingCart,
       },
     ],
   },
@@ -464,6 +424,46 @@ export const navigationLinks: NavCategory[] = [
         title: 'Blog: Between Nightmare and Warning',
         url: 'https://worldsold.wixsite.com/world-sold/blog/categories/between_nightmare_and_warning_exploring_dystopian_worlds',
         icon: Rss,
+      },
+    ],
+  },
+  {
+    title: 'Micronation',
+    links: [
+      {
+        title: 'Micronation Links',
+        url: 'https://worldsold.wixsite.com/world-sold/en/post/micronations-made-easy-the-lazy-rebel-guide-to-independence',
+        icon: Map,
+      },
+      {
+        title: 'Micronation Storybook',
+        url: 'https://g.co/gemini/share/9fe07106afff',
+        icon: BookText,
+      },
+      {
+        title: 'Found your own state',
+        url: 'https://worldsold.wixsite.com/world-sold/en/post/ai-chat-now-or-never-establish-your-own-state?i=1',
+        icon: Map,
+      },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      {
+        title: 'Support our Mission',
+        url: 'https://ko-fi.com/electric_technocrat',
+        icon: Heart,
+      },
+      {
+        title: 'Support Shop',
+        url: 'https://beacons.ai/nwo.shop',
+        icon: ShoppingCart,
+      },
+      {
+        title: 'Support Store',
+        url: 'https://nwo-9.creator-spring.com',
+        icon: ShoppingCart,
       },
     ],
   },
