@@ -198,6 +198,21 @@ export const navigationLinks: NavCategory[] = [
     ]
   },
   {
+    title: 'Ground Zero Files',
+    links: [
+      {
+        title: 'Wikipedia to Sold NATO Base',
+        url: 'https://de.m.wikipedia.org/wiki/Kreuzbergkaserne_Zweibr%C3%BCcken',
+        icon: FileText,
+      },
+      {
+        title: 'Original Treaty that sold the World Original German Name Kaufvertrag Urkundenrolle 1400/98',
+        url: 'https://archive.org/details/turenne_kaserne_vertrag_1400_98_06_10_1998_nato_brd_nl_vn_itu_hns',
+        icon: FileText,
+      },
+    ],
+  },
+  {
     title: 'Support',
     links: [
       {
