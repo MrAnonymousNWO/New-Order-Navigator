@@ -58,6 +58,7 @@ export function AppHeader() {
         urlToTranslate = url;
       }
     }
+    // Use a more robust Google Translate URL
     const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(
       urlToTranslate
     )}`;
