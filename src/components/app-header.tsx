@@ -5,11 +5,13 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import {
   Printer,
-  Languages,
   ExternalLink,
   FileText,
   Loader2,
   Share2,
+  Search,
+  Bookmark,
+  X,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -28,17 +30,31 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
-import { useState } from 'react';
+import { useState, type KeyboardEvent } from 'react';
 import { getWebpageSummary } from '@/app/actions';
+import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
+import { cn } from '@/lib/utils';
+import { Input } from './ui/input';
 
 export function AppHeader() {
   const { toast } = useToast();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const url = searchParams.get('url');
+
+  // Summary state
   const [summary, setSummary] = useState<string | null>(null);
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [summaryError, setSummaryError] = useState<string | null>(null);
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
+
+  // Bookmark state and functions
+  const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
+  const isBookmarked = url ? bookmarks.some((b) => b.url === url) : false;
+
+  // Search state
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handlePrint = () => {
     toast({
@@ -49,30 +65,9 @@ export function AppHeader() {
     });
   };
 
-  const handleTranslate = () => {
-    let urlToTranslate = window.location.href;
-    if (pathname === '/view') {
-      const url = searchParams.get('url');
-      if (url) {
-        urlToTranslate = url;
-      }
-    }
-    const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(
-      urlToTranslate
-    )}`;
-    window.open(googleTranslateUrl, '_blank', 'noopener,noreferrer');
-  };
-
   const handleOpenExternal = () => {
-    let externalUrl;
-    if (pathname === '/view') {
-      externalUrl = searchParams.get('url');
-    } else {
-      externalUrl = window.location.href;
-    }
-
-    if (externalUrl) {
-      window.open(externalUrl, '_blank', 'noopener,noreferrer');
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
     } else {
       toast({
         variant: 'destructive',
@@ -83,8 +78,7 @@ export function AppHeader() {
   };
 
   const handleSummarize = async () => {
-    const urlToSummarize = searchParams.get('url');
-    if (!urlToSummarize) {
+    if (!url) {
       toast({
         variant: 'destructive',
         title: 'Error',
@@ -100,7 +94,7 @@ export function AppHeader() {
 
     try {
       const userLang = navigator.language || 'en';
-      const result = await getWebpageSummary(urlToSummarize, userLang);
+      const result = await getWebpageSummary(url, userLang);
       setSummary(result);
     } catch (error) {
       const errorMessage =
@@ -112,12 +106,7 @@ export function AppHeader() {
   };
 
   const handleShare = async () => {
-    let urlToShare;
-    if (pathname === '/view') {
-      urlToShare = searchParams.get('url');
-    } else {
-      urlToShare = window.location.href;
-    }
+    const urlToShare = pathname === '/view' ? url : window.location.href;
 
     if (!urlToShare) {
       toast({
@@ -164,21 +153,123 @@ export function AppHeader() {
     }
   };
 
-  const canSummarize = pathname === '/view' && !!searchParams.get('url');
+  const handleToggleBookmark = () => {
+    if (!url) return;
+
+    if (isBookmarked) {
+      removeBookmark(url);
+      toast({
+        title: 'Bookmark removed',
+        description: url,
+      });
+    } else {
+      addBookmark({ url, title: url });
+      toast({
+        title: 'Bookmark added!',
+        description: url,
+      });
+    }
+  };
+
+  const handleSearch = () => {
+    // We need to send a message to the iframe to perform the search
+    // This is a placeholder for a more robust solution if direct find is blocked
+    console.log('Searching for:', searchTerm);
+    // In a real app, you might use postMessage to communicate with the iframe
+  };
+  
+  const handleSearchKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const toggleSearch = () => {
+    setIsSearchVisible(!isSearchVisible);
+    if (isSearchVisible) {
+      setSearchTerm(''); // Reset search on close
+    }
+  };
+
+
+  const isViewPage = pathname === '/view' && !!url;
 
   return (
     <>
       <header className="sticky top-0 z-10 flex h-12 items-center gap-2 border-b bg-background px-4 sm:px-6">
         <SidebarTrigger className="md:hidden" />
-        <div className="flex-grow" />
+         {isSearchVisible && isViewPage ? (
+          <div className="relative flex-1">
+            <Input
+              type="text"
+              placeholder="Search in page..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+              className="h-8 pr-8"
+              autoFocus
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-0 top-0 h-8 w-8"
+              onClick={handleSearch}
+            >
+              <Search className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <div className="flex-grow" />
+        )}
         <TooltipProvider delayDuration={100}>
+          {isViewPage && (
+             <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={toggleSearch}>
+                  {isSearchVisible ? (
+                    <X className="h-5 w-5" />
+                  ) : (
+                    <Search className="h-5 w-5" />
+                  )}
+                  <span className="sr-only">
+                    {isSearchVisible ? 'Close Search' : 'Search in Page'}
+                  </span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isSearchVisible ? 'Close Search' : 'Search in Page'}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+
+          {isViewPage && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button variant="ghost" size="icon" onClick={handleToggleBookmark}>
+                  <Bookmark
+                    className={cn(
+                      'h-5 w-5',
+                      isBookmarked && 'fill-primary text-primary'
+                    )}
+                  />
+                  <span className="sr-only">
+                    {isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}
+                  </span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isBookmarked ? 'Remove Bookmark' : 'Add Bookmark'}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={handleSummarize}
-                disabled={!canSummarize || isSummarizing}
+                disabled={!isViewPage || isSummarizing}
               >
                 <FileText className="h-5 w-5" />
                 <span className="sr-only">Summarize Page</span>
@@ -201,7 +292,7 @@ export function AppHeader() {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleOpenExternal}>
+              <Button variant="ghost" size="icon" onClick={handleOpenExternal} disabled={!isViewPage}>
                 <ExternalLink className="h-5 w-5" />
                 <span className="sr-only">Open in new tab</span>
               </Button>
@@ -219,17 +310,6 @@ export function AppHeader() {
             </TooltipTrigger>
             <TooltipContent>
               <p>Print / Download PDF</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleTranslate}>
-                <Languages className="h-5 w-5" />
-                <span className="sr-only">Translate Page</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Translate Page</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
