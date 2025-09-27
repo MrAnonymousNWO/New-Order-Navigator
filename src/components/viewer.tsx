@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ExternalLink, Camera, Download, Search, X } from 'lucide-react';
+import { ArrowLeft, Camera, Search, X } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -23,16 +23,15 @@ export function Viewer() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleBack = () => router.back();
-  const handlePrint = () => window.print();
 
   const handleSearch = () => {
     if (iframeRef.current && searchTerm) {
       try {
+        // The find() method is not universally supported and may be blocked by cross-origin policies.
+        // It's a progressive enhancement.
         iframeRef.current.contentWindow?.find(searchTerm);
       } catch (e) {
         console.error('Could not access iframe content for searching:', e);
-        // This can happen due to cross-origin restrictions, even with sandbox.
-        // Alerting the user might be a good idea here.
       }
     }
   };
@@ -45,7 +44,9 @@ export function Viewer() {
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
-    setSearchTerm(''); // Reset search on close
+    if (isSearchVisible) {
+      setSearchTerm(''); // Reset search on close
+    }
   };
   
   if (!url) {
@@ -63,8 +64,6 @@ export function Viewer() {
       </div>
     );
   }
-
-  const handleOpenExternal = () => window.open(url, '_blank', 'noopener,noreferrer');
 
   return (
     <div className="flex h-full w-full flex-col bg-background">
@@ -133,30 +132,6 @@ export function Viewer() {
               <p>
                 Use your system's screenshot tool (e.g., Cmd+Shift+4, Win+Shift+S)
               </p>
-            </TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handlePrint}>
-                <Download className="h-5 w-5" />
-                <span className="sr-only">Download as PDF</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Download as PDF</p>
-            </TooltipContent>
-          </Tooltip>
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleOpenExternal}>
-                <ExternalLink className="h-5 w-5" />
-                <span className="sr-only">Open in new tab</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Open in new tab</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
