@@ -33,3 +33,26 @@ If you want, I can:
 - Add keystore handling to the app workflow
 - Create a release tagging flow that only builds when a GitHub Release is created
 - Add Slack/Telegram notifications after deploys
+
+---
+
+Project details (provided):
+
+- Projektname: New Order Navigator studio-
+- Projekt-ID: 1019060788-38f81
+- Projektnummer / Schlüssel: 984861078908
+- App-Nickname: New Order Navigator
+- App-ID: 1:984861078908:web:428ef070e3be8541cca0f9
+
+Set secrets via GitHub web UI or gh CLI examples:
+
+```bash
+# Set FIREBASE_TOKEN (run locally `firebase login:ci` and paste token)
+gh secret set FIREBASE_TOKEN --body '<PASTE TOKEN HERE>'
+
+# Optional: set project and app id
+gh secret set FIREBASE_PROJECT --body '1019060788-38f81'
+gh secret set FIREBASE_APP_ID --body '1:984861078908:web:428ef070e3be8541cca0f9'
+```
+
+Security note: treat these tokens and IDs as secrets. If a token is ever leaked, revoke and generate a new one.
