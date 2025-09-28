@@ -19,7 +19,7 @@ const PodcastScriptSchema = z.object({
     ),
 });
 
-const PodcastResponseSchema = PodcastScriptSchema.extend({
+export const PodcastResponseSchema = PodcastScriptSchema.extend({
   audioDataUri: z.string().optional().describe('The generated audio as a base64-encoded data URI.'),
 });
 export type PodcastResponse = z.infer<typeof PodcastResponseSchema>;
