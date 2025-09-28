@@ -2,12 +2,26 @@
 import type { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Search } from 'lucide-react';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const socialImage = generateSocialImage('🔍');
 
 export const metadata: Metadata = {
   title: 'Search Results',
   description: 'Find search results from across the entire New Order Navigator network of sites and documents. Powered by Google Custom Search.',
   keywords: ['search', 'find', 'results', 'Google Custom Search'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Search Results',
+    description: 'Find search results from across the entire New Order Navigator network.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Search Results',
+    description: 'Find search results from across the entire New Order Navigator network.',
+    images: [socialImage],
+  },
 };
 
 export default function SearchPage() {

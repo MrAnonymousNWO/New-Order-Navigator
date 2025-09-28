@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Ground Zero Files'
+);
+const socialImage = generateSocialImage(category?.emoji || '📁');
 
 export const metadata: Metadata = {
   title: 'Ground Zero Files',
   description: 'Access the foundational documents and primary sources, including the original treaty (Kaufvertrag Urkundenrolle 1400/98) and historical context for the sold NATO base.',
   keywords: ['ground zero', 'primary sources', 'original treaty', 'Kaufvertrag 1400/98', 'NATO base', 'Kreuzbergkaserne'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Ground Zero Files',
+    description: 'Access the foundational documents and primary sources.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ground Zero Files',
+    description: 'Access the foundational documents and primary sources.',
+    images: [socialImage],
+  },
 };
 
 export default function GroundZeroPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Ground Zero Files'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

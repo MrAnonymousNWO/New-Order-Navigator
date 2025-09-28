@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Websites'
+);
+const socialImage = generateSocialImage(category?.emoji || '🌐');
 
 export const metadata: Metadata = {
   title: 'Core Websites',
   description: 'Explore the main websites for the World Succession Deed (WSD) and Electric Technocracy in both English and German, along with other strategic domains.',
   keywords: ['websites', 'World Succession Deed', 'WSD', 'Electric Technocracy', 'Staatensukzessionsurkunde'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Core Websites',
+    description: 'Explore the main websites for the World Succession Deed and Electric Technocracy.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Core Websites',
+    description: 'Explore the main websites for the World Succession Deed and Electric Technocracy.',
+    images: [socialImage],
+  },
 };
 
 export default function WebsitesPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Websites'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

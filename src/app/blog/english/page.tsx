@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Blog Posts (English)'
+);
+const socialImage = generateSocialImage(category?.emoji || '🇬🇧');
 
 export const metadata: Metadata = {
   title: 'Blog Posts (English)',
   description: 'Explore a collection of English blog posts covering topics like Universal Basic Income (UBI), Electric Technocracy, AI, sovereignty, and the future of society.',
   keywords: ['blog', 'English', 'UBI', 'Electric Technocracy', 'AI', 'sovereignty', 'future'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Blog Posts (English)',
+    description: 'Explore a collection of English blog posts.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog Posts (English)',
+    description: 'Explore a collection of English blog posts.',
+    images: [socialImage],
+  },
 };
 
 export default function EnglishBlogPostsPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Blog Posts (English)'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

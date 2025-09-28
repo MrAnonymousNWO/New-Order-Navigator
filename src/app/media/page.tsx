@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Media'
+);
+const socialImage = generateSocialImage(category?.emoji || '🎤');
 
 export const metadata: Metadata = {
   title: 'Media Hub',
   description: 'Explore our multimedia content, including the official YouTube channel, podcasts on Spotify and Apple, and AI-generated music on SoundCloud and Riffusion.',
   keywords: ['media', 'YouTube', 'podcast', 'Spotify', 'Apple Podcast', 'AI music', 'SoundCloud'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Media Hub',
+    description: 'Explore our multimedia content, including YouTube, podcasts, and AI-generated music.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Media Hub',
+    description: 'Explore our multimedia content, including YouTube, podcasts, and AI-generated music.',
+    images: [socialImage],
+  },
 };
 
 export default function MediaPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Media'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

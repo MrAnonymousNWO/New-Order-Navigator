@@ -3,19 +3,33 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Micronation'
+);
+const socialImage = generateSocialImage(category?.emoji || '🗺️');
+
 
 export const metadata: Metadata = {
   title: 'Micronation Resources',
   description: 'Learn how to found your own micronation with our resources, including guides, storybooks, and articles on achieving sovereignty with AI.',
   keywords: ['micronation', 'sovereignty', 'found a state', 'nation building', 'AI governance'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Micronation Resources',
+    description: 'Learn how to found your own micronation with our resources.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Micronation Resources',
+    description: 'Learn how to found your own micronation with our resources.',
+    images: [socialImage],
+  },
 };
 
 export default function MicronationPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Micronation'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

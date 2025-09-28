@@ -2,12 +2,26 @@
 import type { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Link as LinkIcon } from 'lucide-react';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const socialImage = generateSocialImage('🔗');
 
 export const metadata: Metadata = {
   title: 'Comprehensive Link Collection',
   description: 'A complete, categorized list of all links related to the World Succession Deed 1400/98 and Electric Technocracy, from main websites to social media and document archives.',
   keywords: ['link collection', 'links', 'directory', 'World Succession Deed', 'Electric Technocracy', 'resources'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Comprehensive Link Collection',
+    description: 'A complete, categorized list of all related links.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Comprehensive Link Collection',
+    description: 'A complete, categorized list of all related links.',
+    images: [socialImage],
+  },
 };
 
 

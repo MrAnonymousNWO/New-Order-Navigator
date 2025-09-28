@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Social Media'
+);
+const socialImage = generateSocialImage(category?.emoji || '💬');
 
 export const metadata: Metadata = {
   title: 'Social Media Channels',
   description: 'Connect with us on various social media platforms, including Facebook, X (formerly Twitter), and Reddit. Join the conversation and stay updated.',
   keywords: ['social media', 'Facebook', 'X', 'Twitter', 'Reddit', 'community'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Social Media Channels',
+    description: 'Connect with us on various social media platforms.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Social Media Channels',
+    description: 'Connect with us on various social media platforms.',
+    images: [socialImage],
+  },
 };
 
 export default function SocialMediaPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Social Media'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

@@ -7,6 +7,9 @@ import { AppHeader } from '@/components/app-header';
 import { SwipeHandler } from '@/components/swipe-handler';
 import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const defaultSocialImage = generateSocialImage('🧭');
 
 export const metadata: Metadata = {
   title: {
@@ -17,6 +20,19 @@ export const metadata: Metadata = {
   keywords: ['New Order', 'Navigator', 'World Succession Deed', 'Electric Technocracy', 'sovereign web', 'decentralized information', 'censorship bypass', 'system-critical analysis'],
   robots: 'index, follow',
   manifest: '/manifest.json',
+  openGraph: {
+    type: 'website',
+    url: 'https://new-order-navigator.com', // Replace with your actual domain
+    title: 'New Order Navigator',
+    description: 'Navigate the sovereign web. An information hub for the World Succession Deed 1400/98 and Electric Technocracy.',
+    images: [defaultSocialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'New Order Navigator',
+    description: 'Navigate the sovereign web. An information hub for the World Succession Deed 1400/98 and Electric Technocracy.',
+    images: [defaultSocialImage],
+  },
 };
 
 export default function RootLayout({

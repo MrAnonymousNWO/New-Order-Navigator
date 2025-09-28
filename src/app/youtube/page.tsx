@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'YouTube Videos'
+);
+const socialImage = generateSocialImage(category?.emoji || '▶️');
 
 export const metadata: Metadata = {
   title: 'YouTube Videos',
   description: 'Watch our collection of YouTube videos explaining concepts like how to start your own country, the anatomy of a modern microstate, and DIY sovereignty.',
   keywords: ['YouTube', 'videos', 'micronation', 'sovereignty', 'start a country', 'DIY nation'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'YouTube Videos',
+    description: 'Watch our collection of YouTube videos explaining key concepts.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'YouTube Videos',
+    description: 'Watch our collection of YouTube videos explaining key concepts.',
+    images: [socialImage],
+  },
 };
 
 export default function YoutubePage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'YouTube Videos'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

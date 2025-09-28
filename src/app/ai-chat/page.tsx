@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'AI Chat'
+);
+const socialImage = generateSocialImage(category?.emoji || '🤖');
 
 export const metadata: Metadata = {
   title: 'AI Chat Tools',
   description: 'Access various AI-powered chat interfaces and assistants related to the World Succession Deed and Electric Technocracy.',
   keywords: ['AI chat', 'chatbot', 'NotebookLM', 'World Succession Deed', 'Electric Technocracy'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'AI Chat Tools',
+    description: 'Engage with AI assistants trained on our core documents.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Chat Tools',
+    description: 'Engage with AI assistants trained on our core documents.',
+    images: [socialImage],
+  },
 };
 
 export default function AiChatPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'AI Chat'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

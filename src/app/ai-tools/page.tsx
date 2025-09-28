@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'AI Tools'
+);
+const socialImage = generateSocialImage(category?.emoji || '✨');
 
 export const metadata: Metadata = {
   title: 'AI Tools Suite',
   description: 'Utilize a collection of powerful AI tools, including a conversational AI agent, strategic prompter, and generators for podcasts, infographics, and mind maps.',
   keywords: ['AI tools', 'generative AI', 'AI agent', 'podcast generator', 'infographic generator', 'mind map'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'AI Tools Suite',
+    description: 'A collection of powerful generative AI tools.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Tools Suite',
+    description: 'A collection of powerful generative AI tools.',
+    images: [socialImage],
+  },
 };
 
 export default function AiToolsPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'AI Tools'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

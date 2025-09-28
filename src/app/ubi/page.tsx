@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'UBI'
+);
+const socialImage = generateSocialImage(category?.emoji || '💰');
 
 export const metadata: Metadata = {
   title: 'Universal Basic Income (UBI)',
   description: 'Explore resources related to Universal Basic Income (UBI), including articles, storybooks, explanatory videos, and podcast episodes on its connection to Electric Technocracy.',
   keywords: ['UBI', 'Universal Basic Income', 'BGE', 'Electric Technocracy', 'economy', 'future of work'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Universal Basic Income (UBI)',
+    description: 'Explore resources related to Universal Basic Income (UBI).',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Universal Basic Income (UBI)',
+    description: 'Explore resources related to Universal Basic Income (UBI).',
+    images: [socialImage],
+  },
 };
 
 export default function UbiPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'UBI'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

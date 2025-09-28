@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Support'
+);
+const socialImage = generateSocialImage(category?.emoji || '❤️');
 
 export const metadata: Metadata = {
   title: 'Support Our Mission',
   description: 'Help support our mission through donations or by purchasing merchandise from our support shops. Your contribution is greatly appreciated.',
   keywords: ['support', 'donate', 'Ko-fi', 'merchandise', 'shop', 'mission'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Support Our Mission',
+    description: 'Help support our mission through donations or by purchasing merchandise.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Support Our Mission',
+    description: 'Help support our mission through donations or by purchasing merchandise.',
+    images: [socialImage],
+  },
 };
 
 export default function SupportPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Support'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

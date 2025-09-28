@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'eBooks & Reading'
+);
+const socialImage = generateSocialImage(category?.emoji || '📚');
 
 export const metadata: Metadata = {
   title: 'eBooks & Reading Material',
   description: 'Access and download free eBooks and reading materials, including "The Buyer\'s Memoir" and other key documents related to the World Succession Deed.',
   keywords: ['eBooks', 'reading', 'download', "The Buyer's Memoir", 'World Succession Deed', 'PDF'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'eBooks & Reading Material',
+    description: 'Access and download free eBooks and key documents.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'eBooks & Reading Material',
+    description: 'Access and download free eBooks and key documents.',
+    images: [socialImage],
+  },
 };
 
 export default function EbooksPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'eBooks & Reading'
-  );
-
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

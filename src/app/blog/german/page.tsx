@@ -3,19 +3,32 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+import { generateSocialImage } from '@/lib/emoji-to-svg';
+
+const category = navigationLinks.find(
+  (category) => category.title === 'Blog Posts (German)'
+);
+const socialImage = generateSocialImage(category?.emoji || '🇩🇪');
 
 export const metadata: Metadata = {
   title: 'Blogartikel (Deutsch)',
   description: 'Entdecken Sie eine Sammlung deutscher Blogartikel zu Themen wie Bedingungsloses Grundeinkommen (BGE), Elektronische Technokratie, KI, Souveränität und die Zukunft der Gesellschaft.',
   keywords: ['blog', 'Deutsch', 'BGE', 'Elektronische Technokratie', 'KI', 'Souveränität', 'Zukunft'],
   robots: 'index, follow',
+  openGraph: {
+    title: 'Blogartikel (Deutsch)',
+    description: 'Entdecken Sie eine Sammlung deutscher Blogartikel.',
+    images: [socialImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blogartikel (Deutsch)',
+    description: 'Entdecken Sie eine Sammlung deutscher Blogartikel.',
+    images: [socialImage],
+  },
 };
 
 export default function GermanBlogPostsPage() {
-  const category = navigationLinks.find(
-    (category) => category.title === 'Blog Posts (German)'
-  );
-  
   if (!category) {
     return (
       <div className="container mx-auto max-w-4xl py-4 px-2">

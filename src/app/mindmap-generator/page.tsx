@@ -1,7 +1,6 @@
 // src/app/mindmap-generator/page.tsx
 'use client';
 
-import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
