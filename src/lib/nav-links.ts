@@ -69,6 +69,11 @@ export const navigationLinks: NavCategory[] = [
         url: '/ai-agent',
         icon: Sparkles,
       },
+      {
+        title: 'Podcast Generator',
+        url: '/podcast-generator',
+        icon: Mic,
+      },
        {
         title: 'AI Chatbot',
         url: '/chatbot',
