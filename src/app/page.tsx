@@ -6,7 +6,7 @@ import { navigationLinks } from '@/lib/nav-links';
 import { Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Calculate rotation for 14 items
+// Calculate rotation for 14 items (360 / 14 = ~25.7 degrees per item)
 const categoryRotations: { [key: string]: string } = {
   'Home': 'rotate-[0deg]',
   'Websites': 'rotate-[25.7deg]',
@@ -24,6 +24,7 @@ const categoryRotations: { [key: string]: string } = {
   'Support': 'rotate-[334.1deg]',
 };
 
+// Counter-rotation to keep the emoji upright
 const contentRotations: { [key: string]: string } = {
     'Home': '-rotate-[0deg]',
     'Websites': '-rotate-[25.7deg]',
@@ -43,7 +44,7 @@ const contentRotations: { [key: string]: string } = {
 
 
 export default function Home() {
-  // Filter out any categories that don't have a defined rotation
+  // Filter out any categories that don't have a defined rotation, ensuring only our 14 items are displayed.
   const displayableLinks = navigationLinks.filter(category => categoryRotations[category.title]);
 
   return (
@@ -63,6 +64,7 @@ export default function Home() {
           const rotationClass = categoryRotations[category.title];
           const contentRotationClass = contentRotations[category.title];
           
+          // Fallback to '#' if url is not defined, which should not happen for these categories
           const categoryUrl = category.url ?? '#';
           
           return (
