@@ -1,4 +1,6 @@
+
 import type { Metadata } from 'next';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
@@ -9,6 +11,19 @@ import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
 import { generateSocialImage } from '@/lib/emoji-to-svg';
 import { OrganizationLd, WebSiteLd } from '@/lib/json-ld';
+import { cn } from '@/lib/utils';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
 
 const defaultSocialImage = generateSocialImage('🧭');
 const siteUrl = 'https://new-order-navigator.com'; // Replace with your actual domain
@@ -47,25 +62,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={cn(inter.variable, spaceGrotesk.variable, 'dark')}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#c026d3" />
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" />
+        <link rel="preload" href="/manifest.json" as="fetch" crossOrigin="anonymous" />
         <script
           async
           src="https://cse.google.com/cse.js?cx=86021a982e3a14848"

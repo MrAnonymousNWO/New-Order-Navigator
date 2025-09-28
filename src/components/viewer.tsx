@@ -1,7 +1,8 @@
 
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import {
@@ -16,11 +17,8 @@ import { cn } from '@/lib/utils';
 
 export function Viewer() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const url = searchParams.get('url');
   const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  const handleBack = () => router.back();
 
   if (!url) {
     return (
@@ -30,8 +28,10 @@ export function Viewer() {
           <p className="text-muted-foreground">
             Please select a valid link from the sidebar.
           </p>
-          <Button onClick={handleBack} className="mt-4">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Go Back
+          <Button asChild className="mt-4">
+            <Link href="/">
+              <ArrowLeft className="mr-2 h-4 w-4" /> Go Home
+            </Link>
           </Button>
         </Card>
       </div>
@@ -44,7 +44,8 @@ export function Viewer() {
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleBack}>
+              {/* The back functionality is handled by router.back() which is more robust than a direct link */}
+              <Button variant="ghost" size="icon" onClick={() => window.history.back()}>
                 <ArrowLeft className="h-5 w-5" />
                 <span className="sr-only">Back</span>
               </Button>
