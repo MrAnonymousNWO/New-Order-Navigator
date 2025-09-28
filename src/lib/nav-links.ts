@@ -21,8 +21,9 @@ import {
   Search,
   List,
   Sparkles,
-  Image as ImageIcon,
+  ImageIcon,
   BrainCircuit,
+  Download,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -49,6 +50,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Bookmarks',
         url: '/bookmarks',
         icon: Bookmark,
+      },
+      {
+        title: 'Downloads',
+        url: 'https://drive.google.com/drive/folders/1aq6KJnGlzD7ZieVDD5wTHbE_2hfoi2pw',
+        icon: Download,
       },
       {
         title: 'Link List',

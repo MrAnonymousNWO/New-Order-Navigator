@@ -58,7 +58,7 @@ export function SidebarNav() {
     'https://youtu.be/WsJetlIjF5Q',
     'https://youtu.be/JSk13GnVMdU',
     'https://youtu.be/cbyME1y4m4o',
-    'https://g.co/gemini/share/4a457895642b',
+    'https://g.co/gemini/share/4a45789b',
     'https://open.spotify.com/episode/1oTeGrNnXazJmkBdyH0Uhz',
     'https://cse.google.com/cse?cx=86021a982e3a14848',
     'https://www.facebook.com/share/1ER7GbN7kM/',
@@ -72,6 +72,7 @@ export function SidebarNav() {
     'https://x.com/NWO_Support',
     'https://x.com/i/lists/1952924134679150999',
     'https://www.reddit.com/u/WSD1400/s/EJXoGigczB',
+    'https://drive.google.com/drive/folders/1aq6KJnGlzD7ZieVDD5wTHbE_2hfoi2pw',
   ];
 
   const handleGetSummary = async (url: string) => {

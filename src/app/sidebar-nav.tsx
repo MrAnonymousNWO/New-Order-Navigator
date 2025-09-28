@@ -72,6 +72,7 @@ export function SidebarNav() {
     'https://x.com/NWO_Support',
     'https://x.com/i/lists/1952924134679150999',
     'https://www.reddit.com/u/WSD1400/s/EJXoGigczB',
+    'https://drive.google.com/drive/folders/1aq6KJnGlzD7ZieVDD5wTHbE_2hfoi2pw',
   ];
 
   const handleGetSummary = async (url: string) => {
