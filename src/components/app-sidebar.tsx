@@ -4,13 +4,17 @@ import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
+  SidebarInput,
 } from '@/components/ui/sidebar';
 import { SidebarNav } from '@/app/sidebar-nav';
 import {
   Globe,
 } from 'lucide-react';
+import { useState } from 'react';
 
 export function AppSidebar() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
     <>
       <Sidebar>
@@ -22,9 +26,16 @@ export function AppSidebar() {
               New Order Navigator
             </h1>
           </div>
+          <div className="pt-4">
+            <SidebarInput 
+              placeholder="Filter navigation..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarNav />
+          <SidebarNav searchTerm={searchTerm} />
         </SidebarContent>
       </Sidebar>
     </>

@@ -22,7 +22,6 @@ import { getWebsiteSummary } from '@/app/actions';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useSidebar } from '@/components/ui/sidebar';
-import { Input } from '@/components/ui/input';
 
 interface SummaryState {
   summary?: string;
@@ -30,14 +29,13 @@ interface SummaryState {
   error?: string;
 }
 
-export function SidebarNav() {
+export function SidebarNav({ searchTerm }: { searchTerm: string }) {
   const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
   const { toast } = useToast();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setOpenMobile } = useSidebar();
   const [isClient, setIsClient] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     setIsClient(true);
@@ -108,6 +106,7 @@ export function SidebarNav() {
     url.startsWith('http://') || url.startsWith('https://');
 
   const isActive = (url: string) => {
+    if (!isClient) return false;
     if (url === '/') {
       return pathname === '/';
     }
@@ -142,96 +141,94 @@ export function SidebarNav() {
   };
 
   return (
-    <>
-      <nav className="flex flex-col">
-        <Accordion
-          type="multiple"
-          value={defaultActiveCategories}
-          className="w-full"
-        >
-          {filteredLinks.map((category) => (
-            <AccordionItem value={category.title} key={category.title}>
-              <AccordionTrigger className="px-2 text-base hover:no-underline">
-                {category.title}
-              </AccordionTrigger>
-              <AccordionContent>
-                <ul className="flex flex-col gap-1 px-2">
-                  {category.links.map((link: NavLink) => {
-                    return (
-                      <li
-                        key={link.url}
-                        className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
-                        data-active={isActive(link.url)}
+    <nav className="flex flex-col">
+      <Accordion
+        type="multiple"
+        value={defaultActiveCategories}
+        className="w-full"
+      >
+        {filteredLinks.map((category) => (
+          <AccordionItem value={category.title} key={category.title}>
+            <AccordionTrigger className="px-2 text-base hover:no-underline">
+              {category.title}
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul className="flex flex-col gap-1 px-2">
+                {category.links.map((link: NavLink) => {
+                  return (
+                    <li
+                      key={link.url}
+                      className="group flex items-center justify-between rounded-md text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent [&[data-active=true]]:bg-sidebar-accent"
+                      data-active={isActive(link.url)}
+                    >
+                      <Link
+                        href={
+                           isExternalUrl(link.url)
+                            ? `/view?url=${encodeURIComponent(link.url)}`
+                            : link.url
+                        }
+                        onClick={(e) => handleLinkClick(e, link)}
+                        className="flex flex-1 items-center gap-3 p-2"
                       >
-                        <Link
-                          href={
-                             isExternalUrl(link.url)
-                              ? `/view?url=${encodeURIComponent(link.url)}`
-                              : link.url
+                        <link.icon className="h-4 w-4 shrink-0 text-accent" />
+                        <span className="truncate">{link.title}</span>
+                      </Link>
+                      {isExternalUrl(link.url) && !linksThatBlockEmbedding.includes(link.url) && (
+                        <Popover
+                          onOpenChange={(open) =>
+                            open && handleGetSummary(link.url)
                           }
-                          onClick={(e) => handleLinkClick(e, link)}
-                          className="flex flex-1 items-center gap-3 p-2"
                         >
-                          <link.icon className="h-4 w-4 shrink-0 text-accent" />
-                          <span className="truncate">{link.title}</span>
-                        </Link>
-                        {isExternalUrl(link.url) && !linksThatBlockEmbedding.includes(link.url) && (
-                          <Popover
-                            onOpenChange={(open) =>
-                              open && handleGetSummary(link.url)
-                            }
-                          >
-                            <PopoverTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
-                                aria-label={`Summarize ${link.title}`}
-                              >
-                                <Sparkles className="h-4 w-4" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent
-                              side="right"
-                              align="start"
-                              className="w-80"
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="mr-1 h-7 w-7 shrink-0 opacity-60 group-hover:opacity-100"
+                              aria-label={`Summarize ${link.title}`}
                             >
-                              <div className="space-y-2">
-                                <h4 className="font-headline font-medium leading-none">
-                                  AI Summary
-                                </h4>
-                                <p className="text-sm font-semibold text-primary">
-                                  {link.title}
+                              <Sparkles className="h-4 w-4" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            side="right"
+                            align="start"
+                            className="w-80"
+                          >
+                            <div className="space-y-2">
+                              <h4 className="font-headline font-medium leading-none">
+                                AI Summary
+                              </h4>
+                              <p className="text-sm font-semibold text-primary">
+                                {link.title}
+                              </p>
+                              {summaries[link.url]?.isLoading && (
+                                <div className="flex items-center gap-2 text-muted-foreground">
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                  <span>Generating summary...</span>
+                                </div>
+                              )}
+                              {summaries[link.url]?.summary && (
+                                <p className="text-sm text-muted-foreground">
+                                  {summaries[link.url]?.summary}
                                 </p>
-                                {summaries[link.url]?.isLoading && (
-                                  <div className="flex items-center gap-2 text-muted-foreground">
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    <span>Generating summary...</span>
-                                  </div>
-                                )}
-                                {summaries[link.url]?.summary && (
-                                  <p className="text-sm text-muted-foreground">
-                                    {summaries[link.url]?.summary}
-                                  </p>
-                                )}
-                                {summaries[link.url]?.error && (
-                                  <p className="text-sm text-destructive">
-                                    {summaries[link.url]?.error}
-                                  </p>
-                                )}
-                              </div>
-                            </PopoverContent>
-                          </Popover>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </nav>
-    </>
+                              )}
+                              {summaries[link.url]?.error && (
+                                <p className="text-sm text-destructive">
+                                  {summaries[link.url]?.error}
+                                </p>
+                              )}
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </nav>
   );
 }

@@ -7,3 +7,4 @@ import '@/ai/flows/podcast-generator-flow.ts';
 import '@/ai/flows/infographic-generator-flow.ts';
 import '@/ai/flows/mindmap-generator-flow.ts';
 import '@/ai/flows/strategic-prompter-flow.ts';
+import '@/ai/flows/chatbot-flow.ts';
