@@ -4,6 +4,13 @@
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
   Printer,
   ExternalLink,
   FileText,
@@ -11,6 +18,11 @@ import {
   Share2,
   Bookmark,
   Code,
+  Link as LinkIcon,
+  Twitter,
+  Facebook,
+  Linkedin,
+  Share,
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -41,6 +53,9 @@ export function AppHeader() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const url = searchParams.get('url');
+  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const urlToShare = pathname === '/view' && url ? url : currentUrl;
+
 
   // Summary state
   const [summary, setSummary] = useState<string | null>(null);
@@ -103,8 +118,6 @@ export function AppHeader() {
   };
 
   const handleShare = async () => {
-    const urlToShare = pathname === '/view' ? url : window.location.href;
-
     if (!urlToShare) {
       toast({
         variant: 'destructive',
@@ -121,33 +134,54 @@ export function AppHeader() {
           url: urlToShare,
         });
       } else {
-        await navigator.clipboard.writeText(urlToShare);
-        toast({
-          title: 'Link Copied',
-          description: 'The URL has been copied to your clipboard.',
-        });
+        await handleCopyLink();
       }
     } catch (error) {
       if (error instanceof Error && error.name === 'AbortError') {
         return;
       }
-
       console.error('Error sharing:', error);
-      try {
-        await navigator.clipboard.writeText(urlToShare);
-        toast({
-          title: 'Link Copied',
-          description:
-            'Sharing failed. The URL has been copied to your clipboard instead.',
-        });
-      } catch (copyError) {
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description: 'Could not share or copy the URL.',
-        });
-      }
+      await handleCopyLink();
     }
+  };
+
+  const handleCopyLink = async () => {
+    if (!urlToShare) return;
+    try {
+      await navigator.clipboard.writeText(urlToShare);
+      toast({
+        title: 'Link Copied',
+        description: 'The URL has been copied to your clipboard.',
+      });
+    } catch (copyError) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not copy the URL.',
+      });
+    }
+  };
+  
+  const socialShare = (platform: 'twitter' | 'facebook' | 'linkedin' | 'reddit') => {
+    const encodedUrl = encodeURIComponent(urlToShare);
+    const text = encodeURIComponent(document.title);
+    let shareUrl = '';
+
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${text}`;
+        break;
+      case 'reddit':
+        shareUrl = `https://www.reddit.com/submit?url=${encodedUrl}&title=${text}`;
+        break;
+    }
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
   };
 
   const handleToggleBookmark = () => {
@@ -233,17 +267,50 @@ export function AppHeader() {
               <p>Summarize Page</p>
             </TooltipContent>
           </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" onClick={handleShare}>
-                <Share2 className="h-5 w-5" />
-                <span className="sr-only">Share Page</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Share Page</p>
-            </TooltipContent>
-          </Tooltip>
+          
+          <DropdownMenu>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Share2 className="h-5 w-5" />
+                    <span className="sr-only">Share Page</span>
+                  </Button>
+                </DropdownMenuTrigger>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Share Page</p>
+              </TooltipContent>
+            </Tooltip>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => socialShare('twitter')}>
+                <Twitter className="mr-2 h-4 w-4" />
+                <span>Share on X</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => socialShare('facebook')}>
+                <Facebook className="mr-2 h-4 w-4" />
+                <span>Share on Facebook</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => socialShare('linkedin')}>
+                <Linkedin className="mr-2 h-4 w-4" />
+                <span>Share on LinkedIn</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => socialShare('reddit')}>
+                <Share className="mr-2 h-4 w-4" />
+                <span>Share on Reddit</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleShare}>
+                <Share2 className="mr-2 h-4 w-4" />
+                <span>Share via...</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={handleCopyLink}>
+                <LinkIcon className="mr-2 h-4 w-4" />
+                <span>Copy Link</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" onClick={handlePrint}>
