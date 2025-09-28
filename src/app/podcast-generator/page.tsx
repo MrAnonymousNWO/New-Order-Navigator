@@ -48,7 +48,7 @@ export default function PodcastGeneratorPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-2xl p-4 sm:p-6 md:p-8">
+    <div className="container mx-auto max-w-2xl py-4 px-2">
       <Card className="shadow-2xl">
         <CardHeader>
           <div className="flex items-center gap-3">

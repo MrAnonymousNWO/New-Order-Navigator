@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 
 export default function SearchPage() {
   return (
-    <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+    <div className="container mx-auto max-w-4xl py-4 px-2">
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">

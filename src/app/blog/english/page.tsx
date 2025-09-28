@@ -10,7 +10,7 @@ export default function EnglishBlogPostsPage() {
 
   if (!category) {
     return (
-      <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+      <div className="container mx-auto max-w-4xl py-4 px-2">
         <h1 className="text-2xl font-bold">Category not found</h1>
       </div>
     );
@@ -21,7 +21,7 @@ export default function EnglishBlogPostsPage() {
 
 
   return (
-    <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+    <div className="container mx-auto max-w-4xl py-4 px-2">
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">

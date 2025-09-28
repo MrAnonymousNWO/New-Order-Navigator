@@ -56,7 +56,7 @@ export default function AIAgentPage() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-background p-4 sm:p-6 md:p-8">
+    <div className="flex h-screen flex-col items-center justify-center bg-background py-4 px-2">
       <Card className="flex w-full max-w-2xl flex-col shadow-2xl h-[80vh]">
         <CardHeader className="border-b">
           <div className="flex items-center gap-3">

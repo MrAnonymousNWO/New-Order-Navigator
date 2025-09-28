@@ -48,7 +48,7 @@ const isExternalUrl = (url: string) =>
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 overflow-hidden">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background py-4 px-2 overflow-hidden">
         <div className="text-center mb-12">
             <h1 className="font-headline text-5xl font-bold text-primary">New Order Compass</h1>
             <p className="text-muted-foreground mt-2 text-lg max-w-2xl">A tool for system-critical analysis and bypassing censorship through decentralized information.</p>
