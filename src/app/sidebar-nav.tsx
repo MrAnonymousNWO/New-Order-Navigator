@@ -122,21 +122,21 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
       return navigationLinks;
     }
     const lowercasedFilter = searchTerm.toLowerCase();
+
     return navigationLinks
       .map((category) => {
-        // Filter links within the category
-        const filtered = category.links.filter((link) =>
+        const categoryTitleMatches = category.title.toLowerCase().includes(lowercasedFilter);
+
+        const filteredCategoryLinks = category.links.filter((link) =>
           link.title.toLowerCase().includes(lowercasedFilter)
         );
 
-        // If any links match, include the category with the filtered links
-        if (filtered.length > 0) {
-          return { ...category, links: filtered };
-        }
-        
-        // If the category title itself matches, include it with all its links
-        if (category.title.toLowerCase().includes(lowercasedFilter)) {
-          return category;
+        if (categoryTitleMatches || filteredCategoryLinks.length > 0) {
+          return {
+            ...category,
+            // If the category title matches, show all links. Otherwise, show only filtered links.
+            links: categoryTitleMatches ? category.links : filteredCategoryLinks,
+          };
         }
 
         return null;
@@ -145,8 +145,13 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
   }, [searchTerm]);
 
   const defaultActiveCategories = useMemo(() => {
-    return filteredLinks.map((c) => c.title);
-  }, [filteredLinks]);
+    // In search mode, all categories should be open to show results.
+    if (searchTerm) {
+        return filteredLinks.map((c) => c.title);
+    }
+    // Default behavior when not searching
+    return navigationLinks.map(c => c.title);
+  }, [searchTerm, filteredLinks]);
 
   const handleLinkClick = (e: React.MouseEvent, link: { url: string }) => {
     if (linksThatBlockEmbedding.includes(link.url)) {
