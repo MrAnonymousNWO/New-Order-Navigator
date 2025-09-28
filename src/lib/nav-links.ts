@@ -24,6 +24,7 @@ import {
   ImageIcon,
   BrainCircuit,
   Download,
+  ShieldAlert,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -95,6 +96,16 @@ export const navigationLinks: NavCategory[] = [
         title: 'AI Chatbot',
         url: '/chatbot',
         icon: MessageSquare,
+      },
+    ],
+  },
+  {
+    title: 'Admin Tools',
+    links: [
+      {
+        title: 'Content Audit',
+        url: '/content-audit',
+        icon: ShieldAlert,
       },
     ],
   },
@@ -393,7 +404,7 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Blog (EN): State Encyclopedia',
-        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/state_encyclopedia-1',
+        url: 'https://worldsold.wixsite.com/world-sold/en/blog/categories/state_ encyclopedia-1',
         icon: Rss,
       },
       {
