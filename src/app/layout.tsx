@@ -8,8 +8,10 @@ import { SwipeHandler } from '@/components/swipe-handler';
 import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
 import { generateSocialImage } from '@/lib/emoji-to-svg';
+import { OrganizationLd, WebSiteLd } from '@/lib/json-ld';
 
 const defaultSocialImage = generateSocialImage('🧭');
+const siteUrl = 'https://new-order-navigator.com'; // Replace with your actual domain
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   openGraph: {
     type: 'website',
-    url: 'https://new-order-navigator.com', // Replace with your actual domain
+    url: siteUrl,
     title: 'New Order Navigator',
     description: 'Navigate the sovereign web. An information hub for the World Succession Deed 1400/98 and Electric Technocracy.',
     images: [defaultSocialImage],
@@ -63,6 +65,16 @@ export default function RootLayout({
           async
           src="https://cse.google.com/cse.js?cx=86021a982e3a14848"
         ></script>
+        <OrganizationLd
+          name="New Order Navigator"
+          url={siteUrl}
+          logo={defaultSocialImage}
+        />
+        <WebSiteLd
+          name="New Order Navigator"
+          url={siteUrl}
+          searchUrl={`${siteUrl}/search?q={search_term_string}`}
+        />
       </head>
       <body className="font-body antialiased">
         <Toaster />

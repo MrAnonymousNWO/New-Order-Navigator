@@ -3,8 +3,10 @@ import type { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Link as LinkIcon } from 'lucide-react';
 import { generateSocialImage } from '@/lib/emoji-to-svg';
+import { BreadcrumbLd } from '@/lib/json-ld';
 
 const socialImage = generateSocialImage('🔗');
+const pageUrl = "https://new-order-navigator.com/link-list"; // Replace with your actual domain
 
 export const metadata: Metadata = {
   title: 'Comprehensive Link Collection',
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
     title: 'Comprehensive Link Collection',
     description: 'A complete, categorized list of all related links.',
     images: [socialImage],
+    url: pageUrl,
   },
   twitter: {
     card: 'summary_large_image',
@@ -217,6 +220,10 @@ const linkGroups = [
 export default function LinkListPage() {
   return (
     <>
+      <BreadcrumbLd items={[
+        { name: 'Home', url: 'https://new-order-navigator.com' },
+        { name: 'Link Collection', url: pageUrl },
+      ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>
           <CardHeader>
