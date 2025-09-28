@@ -4,10 +4,33 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'web/**'
+      - 'web/**/**'
+      - 'web/package.json'
+      - 'package.json'
+      - 'firebase.json'
+      - '.firebaserc'
+      - 'public/**'
+  pull_request:
+    types: [closed]
+    paths:
+      - 'web/**'
+      - 'web/**/**'
+      - 'web/package.json'
+      - 'package.json'
+      - 'firebase.json'
+      - '.firebaserc'
+      - 'public/**'
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-web-${{ github.ref }}
+      cancel-in-progress: true
+    # If this run is triggered by a pull_request closed event, only run when merged
+    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     # use explicit --prefix web for npm commands to avoid relying on defaults
 
     steps:
