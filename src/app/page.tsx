@@ -93,6 +93,11 @@ export default function Home() {
                  <Icon className="h-6 w-6 text-primary transition-colors group-hover:text-accent-foreground" />
               </Button>
           );
+          
+          const hasLinks = category.links && category.links.length > 0;
+          // Home is a special case where we want a direct link, but other categories like Blogs have a direct link AND a list.
+          // For the compass, if there's a list, always show the popover unless it's the unique 'Home' case.
+          const showPopover = hasLinks && category.title !== 'Home';
 
           return (
             <div
@@ -103,11 +108,7 @@ export default function Home() {
               )}
             >
               <div className="absolute left-1/2 top-0 -ml-6 -mt-6 h-12 w-12">
-                 {category.url ? (
-                   <Link href={isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url} passHref>
-                     {CategoryButton}
-                   </Link>
-                 ) : (
+                 {showPopover ? (
                    <Popover>
                     <PopoverTrigger asChild>
                       {CategoryButton}
@@ -138,6 +139,10 @@ export default function Home() {
                        </div>
                     </PopoverContent>
                   </Popover>
+                 ) : (
+                   <Link href={category.url ? (isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url) : '#'} passHref>
+                     {CategoryButton}
+                   </Link>
                  )}
               </div>
             </div>
