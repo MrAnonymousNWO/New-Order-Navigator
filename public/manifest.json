@@ -1,21 +1,22 @@
 {
   "name": "New Order Navigator",
   "short_name": "Navigator",
-  "description": "Navigate the sovereign web.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#222222",
-  "theme_color": "#c026d3",
+  "description": "Navigate the sovereign web. An information hub for the World Succession Deed 1400/98 and the concept of Electric Technocracy.",
   "icons": [
     {
-      "src": "/icons/icon-192x192.svg",
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "/icons/icon-512x512.svg",
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#c026d3",
+  "background_color": "#222222",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }
