@@ -8,8 +8,15 @@ const withPWA = withPWAInit({
   skipWaiting: true,
 });
 
+const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
+const repo = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : '';
+
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  // Configure basePath and assetPrefix for GitHub Pages
+  basePath: isGithubActions ? `/${repo}` : '',
+  assetPrefix: isGithubActions ? `/${repo}/` : '',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -17,6 +24,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
