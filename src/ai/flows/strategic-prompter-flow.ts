@@ -12,7 +12,7 @@ import {
 } from './infographic-generator-flow';
 import {
   generateMindMap,
-  MindMapResponseSchema,
+  type MindMapResponse,
 } from './mindmap-generator-flow';
 import { generatePodcast, PodcastResponseSchema } from './podcast-generator-flow';
 
@@ -31,18 +31,22 @@ const StrategicPromptInputSchema = z.object({
 });
 export type StrategicPromptInput = z.infer<typeof StrategicPromptInputSchema>;
 
+// The mindmap generator flow now only exports the type, not the schema.
+// We can use z.any() here since the type is checked by the underlying flow.
 const StrategicPromptResponseSchema = z.object({
   format: OutputFormatSchema,
   content: z.union([
     z.string(),
     PodcastResponseSchema,
     InfographicResponseSchema,
-    MindMapResponseSchema,
+    z.any(),
   ]),
 });
-export type StrategicPromptResponse = z.infer<
-  typeof StrategicPromptResponseSchema
->;
+export type StrategicPromptResponse = {
+  format: OutputFormat;
+  content: string | z.infer<typeof PodcastResponseSchema> | z.infer<typeof InfographicResponseSchema> | MindMapResponse;
+};
+
 
 export async function strategicPrompt(
   input: StrategicPromptInput

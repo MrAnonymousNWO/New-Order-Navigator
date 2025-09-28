@@ -1,4 +1,3 @@
-// src/app/strategic-prompter/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -22,9 +21,9 @@ import {
   type StrategicPromptResponse,
   type OutputFormat,
 } from '@/ai/flows/strategic-prompter-flow';
-import { InfographicPoint, InfographicResponse } from '@/ai/flows/infographic-generator-flow';
-import { MindMapNode, MindMapResponse } from '@/ai/flows/mindmap-generator-flow';
-import { PodcastResponse } from '@/ai/flows/podcast-generator-flow';
+import { type InfographicResponse } from '@/ai/flows/infographic-generator-flow';
+import { type MindMapNode, type MindMapResponse } from '@/ai/flows/mindmap-generator-flow';
+import { type PodcastResponse } from '@/ai/flows/podcast-generator-flow';
 import { icons } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
