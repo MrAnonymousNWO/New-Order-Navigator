@@ -1,6 +1,7 @@
 // src/app/mindmap-generator/page.tsx
 'use client';
 
+import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -88,7 +89,7 @@ export default function MindMapGeneratorPage() {
             </CardTitle>
           </div>
           <CardDescription>
-            Enter a topic, and the AI will generate a hierarchical mind map to help you organize your thoughts.
+            Enter a topic, and the AI will generate a hierarchical mind map to help you organize your thoughts, explore ideas, and visualize connections.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

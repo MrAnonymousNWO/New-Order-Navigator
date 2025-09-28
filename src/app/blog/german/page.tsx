@@ -1,7 +1,15 @@
 // src/app/blog/german/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Blogartikel (Deutsch)',
+  description: 'Entdecken Sie eine Sammlung deutscher Blogartikel zu Themen wie Bedingungsloses Grundeinkommen (BGE), Elektronische Technokratie, KI, Souveränität und die Zukunft der Gesellschaft.',
+  keywords: ['blog', 'Deutsch', 'BGE', 'Elektronische Technokratie', 'KI', 'Souveränität', 'Zukunft'],
+  robots: 'index, follow',
+};
 
 export default function GermanBlogPostsPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function GermanBlogPostsPage() {
               {category.title}
             </CardTitle>
           </div>
+           <CardDescription>
+            Diese Seite enthält eine umfassende Liste aller deutschsprachigen Blogartikel. Entdecken Sie Beiträge zu BGE, KI, Souveränität und den Prinzipien der Elektronischen Technokratie.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

@@ -1,7 +1,15 @@
 // src/app/ebooks/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'eBooks & Reading Material',
+  description: 'Access and download free eBooks and reading materials, including "The Buyer\'s Memoir" and other key documents related to the World Succession Deed.',
+  keywords: ['eBooks', 'reading', 'download', "The Buyer's Memoir", 'World Succession Deed', 'PDF'],
+  robots: 'index, follow',
+};
 
 export default function EbooksPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function EbooksPage() {
               {category.title}
             </CardTitle>
           </div>
+           <CardDescription>
+            Find essential reading materials here. Access free PDF downloads of our core eBooks and read key texts like "The Buyer's Memoir" directly in your browser.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

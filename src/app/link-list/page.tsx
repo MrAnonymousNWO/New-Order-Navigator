@@ -1,8 +1,15 @@
 // src/app/link-list/page.tsx
-'use client';
-
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Metadata } from 'next';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Link as LinkIcon } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Comprehensive Link Collection',
+  description: 'A complete, categorized list of all links related to the World Succession Deed 1400/98 and Electric Technocracy, from main websites to social media and document archives.',
+  keywords: ['link collection', 'links', 'directory', 'World Succession Deed', 'Electric Technocracy', 'resources'],
+  robots: 'index, follow',
+};
+
 
 const linkGroups = [
   {
@@ -205,13 +212,12 @@ export default function LinkListPage() {
                 Link Collection
               </CardTitle>
             </div>
+            <CardDescription>
+              This is a comprehensive, categorized list of all links related to the World
+              Succession Deed 1400/98 and Electric Technocracy.
+            </CardDescription>
           </CardHeader>
           <CardContent className="prose prose-invert max-w-none">
-            <p>
-              This is a comprehensive list of all links related to the World
-              Succession Deed 1400/98 and Electric Technocracy.
-            </p>
-
             {linkGroups.map((group) => (
               <div key={group.title} className="mt-8">
                 <h2 className="font-headline text-2xl">{group.title}</h2>

@@ -1,7 +1,15 @@
 // src/app/ai-chat/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'AI Chat Tools',
+  description: 'Access various AI-powered chat interfaces and assistants related to the World Succession Deed and Electric Technocracy.',
+  keywords: ['AI chat', 'chatbot', 'NotebookLM', 'World Succession Deed', 'Electric Technocracy'],
+  robots: 'index, follow',
+};
 
 export default function AiChatPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function AiChatPage() {
               {category.title}
             </CardTitle>
           </div>
+           <CardDescription>
+            Explore AI-powered chat assistants trained on our core documents. Ask questions and get instant, context-aware answers about the World Succession Deed, Electric Technocracy, and nation-building.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

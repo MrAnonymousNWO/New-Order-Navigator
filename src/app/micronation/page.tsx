@@ -1,7 +1,15 @@
 // src/app/micronation/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Micronation Resources',
+  description: 'Learn how to found your own micronation with our resources, including guides, storybooks, and articles on achieving sovereignty with AI.',
+  keywords: ['micronation', 'sovereignty', 'found a state', 'nation building', 'AI governance'],
+  robots: 'index, follow',
+};
 
 export default function MicronationPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function MicronationPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This section provides resources for creating your own micronation. Explore guides, storybooks, and articles on how to achieve sovereignty with the help of AI.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

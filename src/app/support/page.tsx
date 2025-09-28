@@ -1,7 +1,15 @@
 // src/app/support/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Support Our Mission',
+  description: 'Help support our mission through donations or by purchasing merchandise from our support shops. Your contribution is greatly appreciated.',
+  keywords: ['support', 'donate', 'Ko-fi', 'merchandise', 'shop', 'mission'],
+  robots: 'index, follow',
+};
 
 export default function SupportPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function SupportPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            If you find this project valuable, please consider supporting our mission. You can make a contribution through Ko-fi or purchase merchandise from our online stores.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

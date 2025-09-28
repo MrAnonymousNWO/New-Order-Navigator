@@ -1,7 +1,15 @@
 // src/app/ai-tools/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'AI Tools Suite',
+  description: 'Utilize a collection of powerful AI tools, including a conversational AI agent, strategic prompter, and generators for podcasts, infographics, and mind maps.',
+  keywords: ['AI tools', 'generative AI', 'AI agent', 'podcast generator', 'infographic generator', 'mind map'],
+  robots: 'index, follow',
+};
 
 export default function AiToolsPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function AiToolsPage() {
               {category.title}
             </CardTitle>
           </div>
+           <CardDescription>
+            Here you can find a suite of powerful generative AI tools. Interact with an AI Agent, create podcasts, infographics, mind maps, or use the Strategic Prompter to process web content in various formats.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

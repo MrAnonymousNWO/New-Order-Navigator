@@ -1,7 +1,14 @@
 import { Suspense } from 'react';
+import type { Metadata } from 'next';
 import { Viewer } from '@/components/viewer';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+
+export const metadata: Metadata = {
+  title: 'Content Viewer',
+  description: 'View external web content securely within the New Order Navigator frame. Explore links without leaving the application.',
+  robots: 'noindex, nofollow', // We don't want search engines indexing the viewer itself
+};
 
 function ViewerSkeleton() {
   return (

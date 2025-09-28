@@ -1,7 +1,15 @@
 // src/app/media/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Media Hub',
+  description: 'Explore our multimedia content, including the official YouTube channel, podcasts on Spotify and Apple, and AI-generated music on SoundCloud and Riffusion.',
+  keywords: ['media', 'YouTube', 'podcast', 'Spotify', 'Apple Podcast', 'AI music', 'SoundCloud'],
+  robots: 'index, follow',
+};
 
 export default function MediaPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function MediaPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This is your hub for all multimedia content. Find our YouTube channel, listen to our podcasts on various platforms, and discover AI-generated anti-war music.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

@@ -1,7 +1,15 @@
 // src/app/ground-zero/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Ground Zero Files',
+  description: 'Access the foundational documents and primary sources, including the original treaty (Kaufvertrag Urkundenrolle 1400/98) and historical context for the sold NATO base.',
+  keywords: ['ground zero', 'primary sources', 'original treaty', 'Kaufvertrag 1400/98', 'NATO base', 'Kreuzbergkaserne'],
+  robots: 'index, follow',
+};
 
 export default function GroundZeroPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function GroundZeroPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This section contains the foundational documents and primary sources. Find links to the original treaty that sold the world and the Wikipedia entry for the sold NATO base.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

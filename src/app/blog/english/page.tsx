@@ -1,7 +1,15 @@
 // src/app/blog/english/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Blog Posts (English)',
+  description: 'Explore a collection of English blog posts covering topics like Universal Basic Income (UBI), Electric Technocracy, AI, sovereignty, and the future of society.',
+  keywords: ['blog', 'English', 'UBI', 'Electric Technocracy', 'AI', 'sovereignty', 'future'],
+  robots: 'index, follow',
+};
 
 export default function EnglishBlogPostsPage() {
   const category = navigationLinks.find(
@@ -30,6 +38,9 @@ export default function EnglishBlogPostsPage() {
               {category.title}
             </CardTitle>
           </div>
+           <CardDescription>
+            This page contains a comprehensive list of all English-language blog posts. Explore articles on UBI, AI, sovereignty, and the principles of Electric Technocracy.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

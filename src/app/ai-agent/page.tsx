@@ -1,9 +1,9 @@
 // src/app/ai-agent/page.tsx
 'use client';
-
+import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Bot, User, Loader2, Sparkles } from 'lucide-react';
 import { chat, type ChatMessage } from '@/ai/flows/chatbot-flow';
@@ -28,7 +28,6 @@ export default function AIAgentPage() {
       const stream = await chat(newMessages);
       let assistantResponse = '';
       
-      // Add an initial empty assistant message
       setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       for await (const chunk of stream) {
@@ -63,6 +62,9 @@ export default function AIAgentPage() {
              <Sparkles className="h-8 w-8 text-primary" />
             <CardTitle className="font-headline text-2xl">AI Agent</CardTitle>
           </div>
+           <CardDescription>
+            Engage in a conversation with our AI assistant. Ask questions, get summaries, and explore the content of this navigator.
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex-1 overflow-y-auto p-0">
           <ScrollArea className="h-full p-6">

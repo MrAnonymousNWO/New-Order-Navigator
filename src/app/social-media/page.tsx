@@ -1,7 +1,15 @@
 // src/app/social-media/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Social Media Channels',
+  description: 'Connect with us on various social media platforms, including Facebook, X (formerly Twitter), and Reddit. Join the conversation and stay updated.',
+  keywords: ['social media', 'Facebook', 'X', 'Twitter', 'Reddit', 'community'],
+  robots: 'index, follow',
+};
 
 export default function SocialMediaPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function SocialMediaPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            Connect with our community across various social media platforms. Follow us on X, join our Facebook groups, and engage with our content on Reddit.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

@@ -1,6 +1,7 @@
 // src/app/podcast-generator/page.tsx
 'use client';
 
+import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -58,7 +59,7 @@ export default function PodcastGeneratorPage() {
             </CardTitle>
           </div>
           <CardDescription>
-            Enter a topic, and the AI will generate a short, two-speaker podcast episode with audio.
+            Enter a topic, and the AI will generate a short, two-speaker podcast episode with a full script and audio. Bring your ideas to life in an engaging audio format.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

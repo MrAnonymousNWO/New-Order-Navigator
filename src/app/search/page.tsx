@@ -1,6 +1,14 @@
 // src/app/search/page.tsx
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Metadata } from 'next';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Search } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Search Results',
+  description: 'Find search results from across the entire New Order Navigator network of sites and documents. Powered by Google Custom Search.',
+  keywords: ['search', 'find', 'results', 'Google Custom Search'],
+  robots: 'index, follow',
+};
 
 export default function SearchPage() {
   return (
@@ -11,6 +19,9 @@ export default function SearchPage() {
             <Search className="h-8 w-8 text-primary" />
             <CardTitle className="font-headline text-3xl">Search Results</CardTitle>
           </div>
+          <CardDescription>
+            Results from your search across the network are displayed below. Use the search bar in the sidebar to start a new search.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="gcse-searchresults-only"></div>

@@ -9,8 +9,13 @@ import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
 
 export const metadata: Metadata = {
-  title: 'New Order Navigator',
-  description: 'Navigate the sovereign web.',
+  title: {
+    default: 'New Order Navigator',
+    template: '%s | New Order Navigator',
+  },
+  description: 'Navigate the sovereign web. An information hub for the World Succession Deed 1400/98 and the concept of Electric Technocracy. Bypass censorship and explore decentralized information.',
+  keywords: ['New Order', 'Navigator', 'World Succession Deed', 'Electric Technocracy', 'sovereign web', 'decentralized information', 'censorship bypass', 'system-critical analysis'],
+  robots: 'index, follow',
   manifest: '/manifest.json',
 };
 

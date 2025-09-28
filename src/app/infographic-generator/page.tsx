@@ -1,6 +1,7 @@
 // src/app/infographic-generator/page.tsx
 'use client';
 
+import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -67,7 +68,7 @@ export default function InfographicGeneratorPage() {
             </CardTitle>
           </div>
           <CardDescription>
-            Enter a topic, and the AI will generate a structured infographic with key points and icons.
+            Enter a topic, and the AI will generate a structured infographic with key points and icons. This tool is perfect for visualizing complex information in a simple, engaging format.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

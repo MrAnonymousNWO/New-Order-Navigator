@@ -1,5 +1,6 @@
 'use client';
 
+import type { Metadata } from 'next';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -190,7 +191,7 @@ export default function StrategicPrompterPage() {
             </CardTitle>
           </div>
           <CardDescription>
-            Provide a URL, a strategic prompt, and an output format to process content with AI.
+            Provide a URL, a strategic prompt, and an output format. The AI will analyze the content from the URL and generate a new piece of content based on your instructions and desired format.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

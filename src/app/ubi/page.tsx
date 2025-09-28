@@ -1,7 +1,15 @@
 // src/app/ubi/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Universal Basic Income (UBI)',
+  description: 'Explore resources related to Universal Basic Income (UBI), including articles, storybooks, explanatory videos, and podcast episodes on its connection to Electric Technocracy.',
+  keywords: ['UBI', 'Universal Basic Income', 'BGE', 'Electric Technocracy', 'economy', 'future of work'],
+  robots: 'index, follow',
+};
 
 export default function UbiPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function UbiPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This section is dedicated to Universal Basic Income (UBI). Find links to articles, storybooks, videos, and podcasts explaining the concept and its role in an Electric Technocracy.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

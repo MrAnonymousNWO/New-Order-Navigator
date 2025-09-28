@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bookmark, Trash2, ExternalLink } from 'lucide-react';
 import {
@@ -28,6 +28,9 @@ export default function BookmarksPage() {
             <Bookmark className="h-8 w-8 text-primary" />
             <CardTitle className="font-headline text-3xl">My Bookmarks</CardTitle>
           </div>
+          <CardDescription>
+            Here are the pages you have saved for later. You can add bookmarks from the viewer page by clicking the bookmark icon.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {bookmarks.length > 0 ? (

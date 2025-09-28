@@ -1,7 +1,15 @@
 // src/app/youtube/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'YouTube Videos',
+  description: 'Watch our collection of YouTube videos explaining concepts like how to start your own country, the anatomy of a modern microstate, and DIY sovereignty.',
+  keywords: ['YouTube', 'videos', 'micronation', 'sovereignty', 'start a country', 'DIY nation'],
+  robots: 'index, follow',
+};
 
 export default function YoutubePage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function YoutubePage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This section features our YouTube video content. Watch guides and explainers on topics like founding your own state, modern microstates, and achieving sovereignty.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">

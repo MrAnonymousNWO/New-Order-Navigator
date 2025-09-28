@@ -1,7 +1,15 @@
 // src/app/websites/page.tsx
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
+
+export const metadata: Metadata = {
+  title: 'Core Websites',
+  description: 'Explore the main websites for the World Succession Deed (WSD) and Electric Technocracy in both English and German, along with other strategic domains.',
+  keywords: ['websites', 'World Succession Deed', 'WSD', 'Electric Technocracy', 'Staatensukzessionsurkunde'],
+  robots: 'index, follow',
+};
 
 export default function WebsitesPage() {
   const category = navigationLinks.find(
@@ -29,6 +37,9 @@ export default function WebsitesPage() {
               {category.title}
             </CardTitle>
           </div>
+          <CardDescription>
+            This page lists our core websites. Visit the main portals for the World Succession Deed and Electric Technocracy, available in both English and German.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">
