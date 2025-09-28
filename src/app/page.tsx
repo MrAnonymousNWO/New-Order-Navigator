@@ -76,16 +76,16 @@ export default function Home() {
               )}
             >
               <div className="absolute left-1/2 top-0 -ml-6 -mt-6 h-12 w-12">
-                 <Link href={categoryUrl} passHref>
-                   <div
-                      className={cn(
-                        'group flex items-center justify-center h-12 w-12 rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
+                 <Link
+                    href={categoryUrl}
+                    passHref
+                    className={cn(
+                        'group flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
                         contentRotationClass
-                      )}
-                       aria-label={category.title}
+                    )}
+                    aria-label={category.title}
                     >
-                       <span className="text-2xl transition-transform group-hover:scale-125">{category.emoji}</span>
-                    </div>
+                    <span className="text-2xl transition-transform group-hover:scale-125">{category.emoji}</span>
                  </Link>
               </div>
             </div>
