@@ -69,6 +69,11 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
         icon: Search,
       },
+    ],
+  },
+  {
+    title: 'Websites',
+    links: [
       {
         title: 'WSD - World Succession Deed',
         url: 'https://worldsold.wixsite.com/world-sold/en',

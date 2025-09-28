@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { navigationLinks } from '@/lib/nav-links';
-import { Compass, type LucideProps } from 'lucide-react';
+import { Compass, type LucideProps, Globe } from 'lucide-react';
 import {
   Popover,
   PopoverContent,
@@ -16,35 +16,37 @@ import type { ComponentType } from 'react';
 // A mapping of category titles to their rotation for the compass layout
 const categoryRotations: { [key: string]: string } = {
   'Home': 'rotate-0',
-  'AI Tools': 'rotate-[30deg]',
-  'eBooks & Reading': 'rotate-[60deg]',
-  'Media': 'rotate-[90deg]',
-  'AI Chat': 'rotate-[120deg]',
+  'Websites': 'rotate-[25deg]',
+  'AI Tools': 'rotate-[50deg]',
+  'eBooks & Reading': 'rotate-[75deg]',
+  'Media': 'rotate-[100deg]',
+  'AI Chat': 'rotate-[125deg]',
   'Social Media': 'rotate-[150deg]',
-  'YouTube Videos': 'rotate-[180deg]',
-  'Ground Zero Files': 'rotate-[210deg]',
-  'UBI': 'rotate-[240deg]',
-  'Blog Posts (English)': 'rotate-[270deg]',
-  'Blog Posts (German)': 'rotate-[300deg]',
-  'Micronation': 'rotate-[330deg]',
-  'Support': 'rotate-[360deg]',
+  'YouTube Videos': 'rotate-[175deg]',
+  'Ground Zero Files': 'rotate-[200deg]',
+  'UBI': 'rotate-[225deg]',
+  'Blog Posts (English)': 'rotate-[250deg]',
+  'Blog Posts (German)': 'rotate-[275deg]',
+  'Micronation': 'rotate-[300deg]',
+  'Support': 'rotate-[325deg]',
 };
 
 // A mapping for the inner content rotation to counteract the parent rotation
 const contentRotations: { [key: string]: string } = {
   'Home': '-rotate-0',
-  'AI Tools': '-rotate-[30deg]',
-  'eBooks & Reading': '-rotate-[60deg]',
-  'Media': '-rotate-[90deg]',
-  'AI Chat': '-rotate-[120deg]',
+  'Websites': '-rotate-[25deg]',
+  'AI Tools': '-rotate-[50deg]',
+  'eBooks & Reading': '-rotate-[75deg]',
+  'Media': '-rotate-[100deg]',
+  'AI Chat': '-rotate-[125deg]',
   'Social Media': '-rotate-[150deg]',
-  'YouTube Videos': '-rotate-[180deg]',
-  'Ground Zero Files': '-rotate-[210deg]',
-  'UBI': '-rotate-[240deg]',
-  'Blog Posts (English)': '-rotate-[270deg]',
-  'Blog Posts (German)': '-rotate-[300deg]',
-  'Micronation': '-rotate-[330deg]',
-  'Support': '-rotate-[360deg]',
+  'YouTube Videos': '-rotate-[175deg]',
+  'Ground Zero Files': '-rotate-[200deg]',
+  'UBI': '-rotate-[225deg]',
+  'Blog Posts (English)': '-rotate-[250deg]',
+  'Blog Posts (German)': '-rotate-[275deg]',
+  'Micronation': '-rotate-[300deg]',
+  'Support': '-rotate-[325deg]',
 };
 
 
