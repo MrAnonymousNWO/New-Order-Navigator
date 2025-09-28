@@ -134,11 +134,6 @@ export const navigationLinks: NavCategory[] = [
         url: '/mindmap-generator',
         icon: BrainCircuit,
       },
-       {
-        title: 'AI Chatbot',
-        url: '/chatbot',
-        icon: MessageSquare,
-      },
     ],
   },
   {
