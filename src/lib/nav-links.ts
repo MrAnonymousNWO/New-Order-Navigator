@@ -37,12 +37,15 @@ export interface NavLink {
 
 export interface NavCategory {
   title: string;
+  icon: ComponentType<LucideProps>;
+  url?: string;
   links: NavLink[];
 }
 
 export const navigationLinks: NavCategory[] = [
   {
     title: 'Home',
+    icon: Home,
     links: [
       {
         title: 'Navigator',
@@ -71,13 +74,14 @@ export const navigationLinks: NavCategory[] = [
       },
       {
         title: 'Search',
-        url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
+        url: '/search',
         icon: Search,
       },
     ],
   },
-    {
+  {
     title: 'Websites',
+    icon: Globe,
     links: [
       {
         title: 'WSD - World Succession Deed',
@@ -108,6 +112,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'AI Tools',
+    icon: Sparkles,
     links: [
       {
         title: 'AI Agent',
@@ -138,6 +143,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'eBooks & Reading',
+    icon: BookOpen,
     links: [
       {
         title: 'Read the eBooks & Download free PDF',
@@ -153,6 +159,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Media',
+    icon: Mic,
     links: [
       {
         title: 'YouTube Channel',
@@ -193,6 +200,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'AI Chat',
+    icon: MessageSquare,
     links: [
       {
         title: 'Join the NotebookLM Chat WSD',
@@ -213,6 +221,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Social Media',
+    icon: MessageSquare,
     links: [
       {
         title: 'Facebook world sold',
@@ -263,6 +272,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'YouTube Videos',
+    icon: Youtube,
     links: [
         {
         title: 'Video: Dream Your Own State',
@@ -293,6 +303,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Ground Zero Files',
+    icon: FileText,
     links: [
       {
         title: 'Wikipedia to Sold NATO Base',
@@ -308,6 +319,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'UBI',
+    icon: DollarSign,
     links: [
       {
         title: 'Universal Basic Income Links',
@@ -333,6 +345,8 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Blog Posts (English)',
+    icon: Rss,
+    url: '/blog/english',
     links: [
       {
         title: 'UBI and Electronic Technocracy',
@@ -438,6 +452,8 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Blog Posts (German)',
+    icon: Rss,
+    url: '/blog/german',
     links: [
       {
         title: 'BGE und die Elektronische Technokratie',
@@ -543,6 +559,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Micronation',
+    icon: Map,
     links: [
       {
         title: 'Micronation Links',
@@ -563,6 +580,7 @@ export const navigationLinks: NavCategory[] = [
   },
   {
     title: 'Support',
+    icon: Heart,
     links: [
       {
         title: 'Support our Mission',
