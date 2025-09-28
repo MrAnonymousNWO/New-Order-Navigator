@@ -12,7 +12,7 @@ import { z } from 'genkit';
 
 // Using a recursive schema for the mind map structure.
 // See: https://zod.dev/?id=recursive-types
-const MindMapNodeSchema: z.ZodType<MindMapNode> = z.lazy(() =>
+export const MindMapNodeSchema: z.ZodType<MindMapNode> = z.lazy(() =>
   z.object({
     title: z.string().describe('The title of this node.'),
     children: z
@@ -27,7 +27,7 @@ export type MindMapNode = {
   children?: MindMapNode[];
 };
 
-const MindMapResponseSchema = z.object({
+export const MindMapResponseSchema = z.object({
   topic: z.string().describe('The central topic of the mind map.'),
   map: MindMapNodeSchema.describe('The root node of the mind map.'),
 });

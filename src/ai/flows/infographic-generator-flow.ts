@@ -13,14 +13,14 @@ import { allIcons } from 'lucide-react';
 
 const iconNames = Object.keys(allIcons) as [string, ...string[]];
 
-const InfographicPointSchema = z.object({
+export const InfographicPointSchema = z.object({
   title: z.string().describe('A short, catchy title for this point.'),
   text: z.string().describe('A brief explanation of this point (1-2 sentences).'),
   iconName: z.enum(iconNames).describe('A relevant icon name from the lucide-react library.'),
 });
 export type InfographicPoint = z.infer<typeof InfographicPointSchema>;
 
-const InfographicResponseSchema = z.object({
+export const InfographicResponseSchema = z.object({
   title: z.string().describe('An engaging main title for the infographic.'),
   description: z.string().describe('A one-sentence summary of the infographic topic.'),
   points: z.array(InfographicPointSchema).describe('An array of 3 to 5 key points for the infographic.'),
