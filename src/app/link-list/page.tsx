@@ -212,7 +212,7 @@ export default function LinkListPage() {
             strategic realignment or a utopian dream, the amount of linked
             material attests to the depth and breadth of this movement. Dive in
             and explore the various facets, documentation, and discussions
-            surrounding these topics. Here is your clickable list of links.
+`surrounding these topics. Here is your clickable list of links.
           </p>
           
           {linkGroups.map((group) => (
