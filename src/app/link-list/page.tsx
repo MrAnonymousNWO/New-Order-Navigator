@@ -1,6 +1,27 @@
 // src/app/link-list/page.tsx
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Link as LinkIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Link as LinkIcon,
+  Loader2,
+  Sparkles,
+  AlertTriangle,
+} from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
+import { useState, useMemo } from 'react';
+import { getWebsiteSummary } from '../actions';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 const linkGroups = [
   {
@@ -191,52 +212,157 @@ const linkGroups = [
   },
 ];
 
-export default function LinkListPage() {
-  return (
-    <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-3">
-            <LinkIcon className="h-8 w-8 text-primary" />
-            <CardTitle className="font-headline text-3xl">Link Collection</CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent className="prose prose-invert max-w-none">
-          <p>
-            Welcome to the future of world order! This blog post delves deeply into
-            two key concepts that could redefine our global structure: the World
-            Succession Deed 1400/98 and Electric Technocracy. Deed 1400/98 is
-            presented as the legal foundation for global succession, while
-            Electric Technocracy is presented as the planned AI-driven
-            administrative system that will build upon it. Whether it is a
-            strategic realignment or a utopian dream, the amount of linked
-            material attests to the depth and breadth of this movement. Dive in
-            and explore the various facets, documentation, and discussions
-`surrounding these topics. Here is your clickable list of links.
-          </p>
-          
-          {linkGroups.map((group) => (
-            <div key={group.title} className="mt-8">
-              <h2 className="font-headline text-2xl">{group.title}</h2>
-              <ul className="list-disc space-y-2 pl-5">
-                {group.links.map((link, index) => (
-                  <li key={`${link}-${index}`}>
-                    <a
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+interface SummaryState {
+  summary?: string;
+  isLoading: boolean;
+  error?: string;
+}
 
-        </CardContent>
-      </Card>
-    </div>
+export default function LinkListPage() {
+  const [summaries, setSummaries] = useState<Record<string, SummaryState>>({});
+  const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
+  const [currentSummary, setCurrentSummary] = useState<SummaryState & { url: string } | null>(null);
+  const { toast } = useToast();
+
+  const handleGetSummary = async (url: string) => {
+    if (summaries[url]?.summary) {
+       setCurrentSummary({ ...summaries[url], url });
+       setIsSummaryDialogOpen(true);
+       return;
+    }
+
+    setSummaries((prev) => ({ ...prev, [url]: { isLoading: true } }));
+    setCurrentSummary({ url, isLoading: true });
+    setIsSummaryDialogOpen(true);
+
+    try {
+      const summary = await getWebsiteSummary(url);
+      const newState = { summary, isLoading: false };
+      setSummaries((prev) => ({ ...prev, [url]: newState }));
+      setCurrentSummary({ ...newState, url });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'An unknown error occurred';
+      const newState = { error: errorMessage, isLoading: false };
+      setSummaries((prev) => ({ ...prev, [url]: newState }));
+      setCurrentSummary({ ...newState, url });
+      toast({
+        variant: 'destructive',
+        title: 'Summarization Failed',
+        description: 'Could not generate a summary for this website.',
+      });
+    }
+  };
+  
+  const allLinks = useMemo(() => linkGroups.flatMap(g => g.links), []);
+  const linkCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const link of allLinks) {
+        counts.set(link, (counts.get(link) || 0) + 1);
+    }
+    return counts;
+  }, [allLinks]);
+
+  const isDuplicate = (link: string) => (linkCounts.get(link) || 0) > 1;
+
+  return (
+    <>
+      <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <LinkIcon className="h-8 w-8 text-primary" />
+              <CardTitle className="font-headline text-3xl">
+                Link Collection & Audit
+              </CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="prose prose-invert max-w-none">
+            <p>
+              This is a comprehensive list of all links related to the World
+              Succession Deed 1400/98 and Electric Technocracy. Use the AI Preview
+              to check indexability and get a quick summary. Duplicate links are
+              highlighted for review.
+            </p>
+
+            {linkGroups.map((group) => (
+              <div key={group.title} className="mt-8">
+                <h2 className="font-headline text-2xl">{group.title}</h2>
+                <ul className="not-prose list-none space-y-2 p-0">
+                  {group.links.map((link, index) => (
+                    <li
+                      key={`${link}-${index}`}
+                      className="group flex items-center justify-between gap-2"
+                    >
+                      <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                          'flex-1 truncate text-primary hover:underline',
+                          isDuplicate(link) && 'text-amber-400'
+                        )}
+                      >
+                        {link}
+                      </a>
+                      {isDuplicate(link) && (
+                         <AlertTriangle className="h-4 w-4 shrink-0 text-amber-400" />
+                      )}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleGetSummary(link)}
+                        disabled={summaries[link]?.isLoading}
+                      >
+                        {summaries[link]?.isLoading ? (
+                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                           <Sparkles className="mr-2 h-4 w-4" />
+                        )}
+                        AI Preview
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
+      <AlertDialog
+        open={isSummaryDialogOpen}
+        onOpenChange={setIsSummaryDialogOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>AI Index Preview</AlertDialogTitle>
+            <AlertDialogDescription className="break-all font-semibold text-primary">
+              {currentSummary?.url}
+            </AlertDialogDescription>
+            <div className="pt-4">
+              {currentSummary?.isLoading && (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Generating summary...</span>
+                </div>
+              )}
+              {currentSummary?.summary && (
+                <p className="text-sm text-muted-foreground">
+                  {currentSummary.summary}
+                </p>
+              )}
+              {currentSummary?.error && (
+                <p className="text-sm text-destructive">
+                  {currentSummary.error}
+                </p>
+              )}
+            </div>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
