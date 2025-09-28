@@ -42,6 +42,6 @@ const chatFlow = ai.defineFlow(
       },
     });
 
-    return { stream: stream.text(), response: response };
+    return { stream: stream.text, response: response };
   }
 );
