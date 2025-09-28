@@ -74,11 +74,6 @@ export const navigationLinks: NavCategory[] = [
         url: '/chatbot',
         icon: MessageSquare,
       },
-      {
-        title: 'Pet Analyzer',
-        url: '/pet-analyzer',
-        icon: Sparkles,
-      },
     ],
   },
   {
