@@ -1,15 +1,20 @@
 // src/app/blog/german/page.tsx
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Rss } from 'lucide-react';
 import { navigationLinks } from '@/lib/nav-links';
 
 export default function GermanBlogPostsPage() {
-  const blogCategory = navigationLinks.find(
+  const category = navigationLinks.find(
     (category) => category.title === 'Blog Posts (German)'
   );
-
-  const blogLinks = blogCategory ? blogCategory.links : [];
+  
+  if (!category) {
+    return (
+      <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+        <h1 className="text-2xl font-bold">Category not found</h1>
+      </div>
+    );
+  }
   
   const isExternalUrl = (url: string) =>
     url.startsWith('http://') || url.startsWith('https://');
@@ -19,15 +24,15 @@ export default function GermanBlogPostsPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
-            <Rss className="h-8 w-8 text-primary" />
+            <span className="text-3xl">{category.emoji}</span>
             <CardTitle className="font-headline text-3xl">
-              Blog Posts (German)
+              {category.title}
             </CardTitle>
           </div>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">
-            {blogLinks.map((link) => (
+            {category.links.map((link) => (
               <li
                 key={link.url}
                 className="group flex items-center justify-between gap-4 rounded-md border p-4 transition-colors hover:bg-muted/50"

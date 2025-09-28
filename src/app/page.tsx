@@ -3,15 +3,8 @@
 
 import Link from 'next/link';
 import { navigationLinks } from '@/lib/nav-links';
-import { Compass, type LucideProps, Globe } from 'lucide-react';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
+import { Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { ComponentType } from 'react';
 
 // A mapping of category titles to their rotation for the compass layout
 const categoryRotations: { [key: string]: string } = {
@@ -50,12 +43,6 @@ const contentRotations: { [key: string]: string } = {
 };
 
 
-interface NavLink {
-  title: string;
-  url: string;
-  icon: ComponentType<LucideProps>;
-}
-
 const isExternalUrl = (url: string) =>
   url.startsWith('http://') || url.startsWith('https://');
 
@@ -76,7 +63,6 @@ export default function Home() {
 
         {/* Navigation Points */}
         {navigationLinks.map((category) => {
-          const Icon = category.icon || Globe;
           const rotationClass = categoryRotations[category.title] || 'rotate-0';
           const contentRotationClass = contentRotations[category.title] || '-rotate-0';
           
@@ -92,17 +78,15 @@ export default function Home() {
             >
               <div className="absolute left-1/2 top-0 -ml-6 -mt-6 h-12 w-12">
                  <Link href={isExternalUrl(categoryUrl) ? `/view?url=${encodeURIComponent(categoryUrl)}` : categoryUrl} passHref>
-                   <Button
-                      variant="outline"
-                      size="icon"
+                   <div
                       className={cn(
-                        'group h-12 w-12 rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
+                        'group flex items-center justify-center h-12 w-12 rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
                         contentRotationClass
                       )}
                        aria-label={category.title}
                     >
-                       <Icon className="h-6 w-6 text-primary transition-colors group-hover:text-accent-foreground" />
-                    </Button>
+                       <span className="text-2xl transition-transform group-hover:scale-125">{category.emoji}</span>
+                    </div>
                  </Link>
               </div>
             </div>

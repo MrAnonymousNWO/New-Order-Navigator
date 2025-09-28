@@ -38,6 +38,7 @@ export interface NavLink {
 export interface NavCategory {
   title: string;
   icon: ComponentType<LucideProps>;
+  emoji: string;
   url?: string;
   links: NavLink[];
 }
@@ -46,13 +47,9 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Home',
     icon: Home,
+    emoji: '🏠',
     url: '/',
     links: [
-      {
-        title: 'Navigator',
-        url: '/',
-        icon: Home,
-      },
       {
         title: 'Startpage',
         url: 'https://electric-paradise.start.page/',
@@ -83,6 +80,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Websites',
     icon: Globe,
+    emoji: '🌐',
+    url: '/websites',
     links: [
       {
         title: 'WSD - World Succession Deed',
@@ -114,6 +113,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'AI Tools',
     icon: Sparkles,
+    emoji: '✨',
+    url: '/ai-tools',
     links: [
       {
         title: 'AI Agent',
@@ -145,6 +146,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'eBooks & Reading',
     icon: BookOpen,
+    emoji: '📚',
+    url: '/ebooks',
     links: [
       {
         title: 'Read the eBooks & Download free PDF',
@@ -161,6 +164,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Media',
     icon: Mic,
+    emoji: '🎤',
+    url: '/media',
     links: [
       {
         title: 'YouTube Channel',
@@ -202,6 +207,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'AI Chat',
     icon: MessageSquare,
+    emoji: '🤖',
+    url: '/ai-chat',
     links: [
       {
         title: 'Join the NotebookLM Chat WSD',
@@ -223,6 +230,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Social Media',
     icon: MessageSquare,
+    emoji: '💬',
+    url: '/social-media',
     links: [
       {
         title: 'Facebook world sold',
@@ -274,6 +283,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'YouTube Videos',
     icon: Youtube,
+    emoji: '▶️',
+    url: '/youtube',
     links: [
         {
         title: 'Video: Dream Your Own State',
@@ -305,6 +316,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Ground Zero Files',
     icon: FileText,
+    emoji: '📁',
+    url: '/ground-zero',
     links: [
       {
         title: 'Wikipedia to Sold NATO Base',
@@ -321,6 +334,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'UBI',
     icon: DollarSign,
+    emoji: '💰',
+    url: '/ubi',
     links: [
       {
         title: 'Universal Basic Income Links',
@@ -347,6 +362,7 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Blog Posts (English)',
     icon: Rss,
+    emoji: '🇬🇧',
     url: '/blog/english',
     links: [
       {
@@ -454,6 +470,7 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Blog Posts (German)',
     icon: Rss,
+    emoji: '🇩🇪',
     url: '/blog/german',
     links: [
       {
@@ -561,6 +578,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Micronation',
     icon: Map,
+    emoji: '🗺️',
+    url: '/micronation',
     links: [
       {
         title: 'Micronation Links',
@@ -582,6 +601,8 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Support',
     icon: Heart,
+    emoji: '❤️',
+    url: '/support',
     links: [
       {
         title: 'Support our Mission',

@@ -1,11 +1,11 @@
-// src/app/blog/english/page.tsx
+// src/app/ebooks/page.tsx
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { navigationLinks } from '@/lib/nav-links';
 
-export default function EnglishBlogPostsPage() {
+export default function EbooksPage() {
   const category = navigationLinks.find(
-    (category) => category.title === 'Blog Posts (English)'
+    (category) => category.title === 'eBooks & Reading'
   );
 
   if (!category) {
@@ -18,7 +18,6 @@ export default function EnglishBlogPostsPage() {
 
   const isExternalUrl = (url: string) =>
     url.startsWith('http://') || url.startsWith('https://');
-
 
   return (
     <div className="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">

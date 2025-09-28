@@ -165,18 +165,14 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
       >
         {filteredLinks.map((category) => (
             <AccordionItem value={category.title} key={category.title}>
-              <AccordionTrigger className="px-2 text-base hover:no-underline">
-                 {category.url ? (
-                   <Link 
-                     href={category.url} 
-                     className="hover:underline flex-1 text-left"
-                     onClick={() => setOpenMobile(false)}
-                   >
-                     {category.title}
-                   </Link>
-                 ) : (
-                   <span className="flex-1 text-left">{category.title}</span>
-                 )}
+              <AccordionTrigger className="px-2 text-base hover:no-underline [&_a:hover]:underline">
+                 <Link 
+                   href={category.url ?? '#'} 
+                   className="flex-1 text-left"
+                   onClick={() => setOpenMobile(false)}
+                 >
+                   {category.title}
+                 </Link>
               </AccordionTrigger>
               <AccordionContent>
                 <ul className="flex flex-col gap-1 px-2">
