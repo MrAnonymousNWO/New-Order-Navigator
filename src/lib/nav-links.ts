@@ -101,21 +101,6 @@ export const navigationLinks: NavCategory[] = [
     ],
   },
   {
-    title: 'Admin Tools',
-    links: [
-      {
-        title: 'Content Audit',
-        url: '/content-audit',
-        icon: ShieldAlert,
-      },
-      {
-        title: 'Metadata Generator',
-        url: '/metadata-generator',
-        icon: Tags,
-      },
-    ],
-  },
-  {
     title: 'Websites',
     links: [
       {
