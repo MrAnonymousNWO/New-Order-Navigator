@@ -14,7 +14,7 @@ import {
   generateMindMap,
   type MindMapResponse,
 } from './mindmap-generator-flow';
-import { generatePodcast, PodcastResponseSchema } from './podcast-generator-flow';
+import { generatePodcast, type PodcastResponse } from './podcast-generator-flow';
 
 const OutputFormatSchema = z.enum([
   'text',
@@ -31,20 +31,20 @@ const StrategicPromptInputSchema = z.object({
 });
 export type StrategicPromptInput = z.infer<typeof StrategicPromptInputSchema>;
 
-// The mindmap generator flow now only exports the type, not the schema.
+// The mindmap and podcast generator flows now only export types, not the schemas.
 // We can use z.any() here since the type is checked by the underlying flow.
 const StrategicPromptResponseSchema = z.object({
   format: OutputFormatSchema,
   content: z.union([
     z.string(),
-    PodcastResponseSchema,
+    z.any(), // For PodcastResponse
     InfographicResponseSchema,
-    z.any(),
+    z.any(), // For MindMapResponse
   ]),
 });
 export type StrategicPromptResponse = {
   format: OutputFormat;
-  content: string | z.infer<typeof PodcastResponseSchema> | z.infer<typeof InfographicResponseSchema> | MindMapResponse;
+  content: string | PodcastResponse | z.infer<typeof InfographicResponseSchema> | MindMapResponse;
 };
 
 

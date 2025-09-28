@@ -19,10 +19,11 @@ const PodcastScriptSchema = z.object({
     ),
 });
 
-export const PodcastResponseSchema = PodcastScriptSchema.extend({
-  audioDataUri: z.string().optional().describe('The generated audio as a base64-encoded data URI.'),
-});
-export type PodcastResponse = z.infer<typeof PodcastResponseSchema>;
+// We can export the TypeScript type, but not the Zod schema constant.
+export type PodcastResponse = z.infer<typeof PodcastScriptSchema> & {
+    audioDataUri?: string;
+};
+
 
 export async function generatePodcast(topic: string): Promise<PodcastResponse> {
   return podcastGeneratorFlow(topic);
@@ -46,7 +47,10 @@ const podcastGeneratorFlow = ai.defineFlow(
   {
     name: 'podcastGeneratorFlow',
     inputSchema: z.string(),
-    outputSchema: PodcastResponseSchema,
+    // Define the schema inline here instead of exporting it.
+    outputSchema: PodcastScriptSchema.extend({
+      audioDataUri: z.string().optional().describe('The generated audio as a base64-encoded data URI.'),
+    }),
   },
   async (topic) => {
     // Step 1: Generate the podcast script.
