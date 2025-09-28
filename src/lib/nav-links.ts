@@ -25,6 +25,7 @@ import {
   BrainCircuit,
   Download,
   ShieldAlert,
+  Tags,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -106,6 +107,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Content Audit',
         url: '/content-audit',
         icon: ShieldAlert,
+      },
+      {
+        title: 'Metadata Generator',
+        url: '/metadata-generator',
+        icon: Tags,
       },
     ],
   },
