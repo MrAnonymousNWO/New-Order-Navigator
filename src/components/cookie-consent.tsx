@@ -5,20 +5,11 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Cookie } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 
 const COOKIE_NAME = 'sovereign_navigator_cookie_consent';
 
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
-  const pathname = usePathname();
-
-  const handleAccept = () => {
-    const expiryDate = new Date();
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-    document.cookie = `${COOKIE_NAME}=true; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax; Secure`;
-    setIsVisible(false);
-  };
 
   useEffect(() => {
     // Only run this logic on the client
@@ -26,23 +17,23 @@ export function CookieConsent() {
       return;
     }
 
+    // Check if the cookie has already been set
     const consent = document.cookie
       .split('; ')
       .find((row) => row.startsWith(`${COOKIE_NAME}=`));
 
-    if (consent) {
-      setIsVisible(false);
-      return;
-    }
-
-    // If on the /view page and no consent is given, automatically accept.
-    if (pathname === '/view') {
-      handleAccept();
-    } else {
+    // If consent has not been given, show the banner
+    if (!consent) {
       setIsVisible(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]); // Rerun check on navigation
+  }, []); // Empty dependency array ensures this runs only once on mount
+
+  const handleAccept = () => {
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1); // Set cookie for 1 year
+    document.cookie = `${COOKIE_NAME}=true; path=/; expires=${expiryDate.toUTCString()}; SameSite=Lax; Secure`;
+    setIsVisible(false);
+  };
 
   if (!isVisible) {
     return null;
