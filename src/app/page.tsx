@@ -80,25 +80,8 @@ export default function Home() {
           const rotationClass = categoryRotations[category.title] || 'rotate-0';
           const contentRotationClass = contentRotations[category.title] || '-rotate-0';
           
-          const CategoryButton = (
-             <Button
-                variant="outline"
-                size="icon"
-                className={cn(
-                  'group h-12 w-12 rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
-                  contentRotationClass
-                )}
-                 aria-label={category.title}
-              >
-                 <Icon className="h-6 w-6 text-primary transition-colors group-hover:text-accent-foreground" />
-              </Button>
-          );
+          const categoryUrl = category.url ?? '#';
           
-          const hasLinks = category.links && category.links.length > 0;
-          // Home is a special case where we want a direct link, but other categories like Blogs have a direct link AND a list.
-          // For the compass, if there's a list, always show the popover unless it's the unique 'Home' case.
-          const showPopover = hasLinks && category.title !== 'Home';
-
           return (
             <div
               key={category.title}
@@ -108,42 +91,19 @@ export default function Home() {
               )}
             >
               <div className="absolute left-1/2 top-0 -ml-6 -mt-6 h-12 w-12">
-                 {showPopover ? (
-                   <Popover>
-                    <PopoverTrigger asChild>
-                      {CategoryButton}
-                    </PopoverTrigger>
-                    <PopoverContent 
-                      side="right" 
-                      align="start" 
+                 <Link href={isExternalUrl(categoryUrl) ? `/view?url=${encodeURIComponent(categoryUrl)}` : categoryUrl} passHref>
+                   <Button
+                      variant="outline"
+                      size="icon"
                       className={cn(
-                          "w-72 transform",
-                          contentRotationClass
+                        'group h-12 w-12 rounded-full border-2 border-primary/50 bg-background transition-all hover:scale-110 hover:bg-accent',
+                        contentRotationClass
                       )}
-                     >
-                       <div className="space-y-2">
-                          <h4 className="font-headline text-lg font-medium leading-none text-primary">{category.title}</h4>
-                          <ul className="space-y-1">
-                            {category.links.map((link: NavLink) => (
-                              <li key={link.url} className="text-sm">
-                                <Link 
-                                  href={isExternalUrl(link.url) ? `/view?url=${encodeURIComponent(link.url)}` : link.url}
-                                  className="flex items-center gap-2 rounded-md p-1 hover:bg-muted"
-                                >
-                                  <link.icon className="h-4 w-4 shrink-0 text-accent" />
-                                  <span className="truncate">{link.title}</span>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                       </div>
-                    </PopoverContent>
-                  </Popover>
-                 ) : (
-                   <Link href={category.url ? (isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url) : '#'} passHref>
-                     {CategoryButton}
-                   </Link>
-                 )}
+                       aria-label={category.title}
+                    >
+                       <Icon className="h-6 w-6 text-primary transition-colors group-hover:text-accent-foreground" />
+                    </Button>
+                 </Link>
               </div>
             </div>
           );

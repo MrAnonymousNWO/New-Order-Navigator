@@ -107,9 +107,12 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
 
   const isActive = (url: string) => {
     if (!isClient) return false;
+    // Special case for the homepage link
     if (url === '/' && pathname === '/') return true;
-    if (pathname === url) return true;
+    // For other internal links, check the pathname directly
+    if (url.startsWith('/') && url !== '/' && pathname === url) return true;
     
+    // For external links viewed in the app, check the 'url' search param
     const currentUrl = searchParams.get('url');
     return pathname === '/view' && currentUrl === url;
   };
@@ -121,11 +124,6 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
     const lowercasedFilter = searchTerm.toLowerCase();
     return navigationLinks
       .map((category) => {
-        // If category has a URL, check if the category title matches
-        if (category.url && category.title.toLowerCase().includes(lowercasedFilter)) {
-            return category;
-        }
-
         // Filter links within the category
         const filtered = category.links.filter((link) =>
           link.title.toLowerCase().includes(lowercasedFilter)
@@ -165,26 +163,20 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
         value={defaultActiveCategories}
         className="w-full"
       >
-        {filteredLinks.map((category) => {
-           if (category.url) {
-             return (
-               <div key={category.title} className="border-b px-2 text-base font-medium">
-                 <Link
-                   href={isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url}
-                   onClick={(e) => handleLinkClick(e, { url: category.url! })}
-                   className="flex h-full w-full items-center py-4 text-left"
-                   data-active={isActive(category.url)}
-                 >
-                   {category.title}
-                 </Link>
-               </div>
-             );
-           }
-
-          return (
+        {filteredLinks.map((category) => (
             <AccordionItem value={category.title} key={category.title}>
               <AccordionTrigger className="px-2 text-base hover:no-underline">
-                {category.title}
+                 {category.url ? (
+                   <Link 
+                     href={category.url} 
+                     className="hover:underline flex-1 text-left"
+                     onClick={() => setOpenMobile(false)}
+                   >
+                     {category.title}
+                   </Link>
+                 ) : (
+                   <span className="flex-1 text-left">{category.title}</span>
+                 )}
               </AccordionTrigger>
               <AccordionContent>
                 <ul className="flex flex-col gap-1 px-2">
@@ -261,8 +253,7 @@ export function SidebarNav({ searchTerm }: { searchTerm: string }) {
                 </ul>
               </AccordionContent>
             </AccordionItem>
-          );
-        })}
+        ))}
       </Accordion>
     </nav>
   );
