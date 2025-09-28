@@ -46,6 +46,7 @@ export const navigationLinks: NavCategory[] = [
   {
     title: 'Home',
     icon: Home,
+    url: '/',
     links: [
       {
         title: 'Navigator',

@@ -102,9 +102,9 @@ export default function Home() {
                 rotationClass
               )}
             >
-              <div className="absolute left-1/2 top-0 -ml-5 -mt-5 h-10 w-10">
+              <div className="absolute left-1/2 top-0 -ml-6 -mt-6 h-12 w-12">
                  {category.url ? (
-                   <Link href={isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url}>
+                   <Link href={isExternalUrl(category.url) ? `/view?url=${encodeURIComponent(category.url)}` : category.url} passHref>
                      {CategoryButton}
                    </Link>
                  ) : (
