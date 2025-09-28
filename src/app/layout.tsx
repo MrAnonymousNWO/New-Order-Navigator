@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { AppHeader } from '@/components/app-header';
 import { SwipeHandler } from '@/components/swipe-handler';
 import { CookieConsent } from '@/components/cookie-consent';
-import { BookmarkProvider } from '@/hooks/use-bookmarks';
+import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
 import Script from 'next/script';
 
 export const metadata: Metadata = {

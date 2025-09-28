@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useBookmarks } from '@/hooks/use-bookmarks';
+import { useBookmarks } from '@/hooks/use-bookmarks.tsx';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Bookmark, Trash2, ExternalLink } from 'lucide-react';
