@@ -1,4 +1,3 @@
-
 import type { ComponentType } from 'react';
 import {
   Globe,
@@ -22,6 +21,7 @@ import {
   Search,
   List,
   Sparkles,
+  Image as ImageIcon,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -73,6 +73,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Podcast Generator',
         url: '/podcast-generator',
         icon: Mic,
+      },
+      {
+        title: 'Infographic Generator',
+        url: '/infographic-generator',
+        icon: ImageIcon,
       },
        {
         title: 'AI Chatbot',
