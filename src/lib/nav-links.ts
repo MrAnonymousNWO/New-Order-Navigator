@@ -22,6 +22,7 @@ import {
   List,
   Sparkles,
   Image as ImageIcon,
+  BrainCircuit,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -78,6 +79,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'Infographic Generator',
         url: '/infographic-generator',
         icon: ImageIcon,
+      },
+      {
+        title: 'Mind Map Generator',
+        url: '/mindmap-generator',
+        icon: BrainCircuit,
       },
        {
         title: 'AI Chatbot',
