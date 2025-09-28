@@ -26,6 +26,7 @@ import {
   Download,
   ShieldAlert,
   Tags,
+  Wand2,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -77,6 +78,11 @@ export const navigationLinks: NavCategory[] = [
         title: 'AI Agent',
         url: '/ai-agent',
         icon: Sparkles,
+      },
+      {
+        title: 'Strategic Prompter',
+        url: '/strategic-prompter',
+        icon: Wand2,
       },
       {
         title: 'Podcast Generator',
