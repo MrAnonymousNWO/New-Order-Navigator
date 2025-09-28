@@ -69,6 +69,31 @@ export const navigationLinks: NavCategory[] = [
         url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
         icon: Search,
       },
+      {
+        title: 'WSD - World Succession Deed',
+        url: 'https://worldsold.wixsite.com/world-sold/en',
+        icon: Globe,
+      },
+       {
+        title: 'Staatensukzessionsurkunde 1400/98',
+        url: 'https://worldsold.wixsite.com/world-sold',
+        icon: Globe,
+      },
+      {
+        title: 'Electric Technocracy',
+        url: 'https://worldsold.wixsite.com/electric-technocracy',
+        icon: Globe,
+      },
+      {
+        title: 'Elektronische Technokratie',
+        url: 'https://worldsold.wixsite.com/electric-technocracy/de',
+        icon: Globe,
+      },
+      {
+        title: 'Bit.ly Links',
+        url: 'https://bit.ly/m/world-succession-deed',
+        icon: Link,
+      },
     ],
   },
   {
@@ -103,36 +128,6 @@ export const navigationLinks: NavCategory[] = [
         title: 'AI Chatbot',
         url: '/chatbot',
         icon: MessageSquare,
-      },
-    ],
-  },
-  {
-    title: 'Websites',
-    links: [
-      {
-        title: 'WSD - World Succession Deed',
-        url: 'https://worldsold.wixsite.com/world-sold/en',
-        icon: Globe,
-      },
-       {
-        title: 'Staatensukzessionsurkunde 1400/98',
-        url: 'https://worldsold.wixsite.com/world-sold',
-        icon: Globe,
-      },
-      {
-        title: 'Electric Technocracy',
-        url: 'https://worldsold.wixsite.com/electric-technocracy',
-        icon: Globe,
-      },
-      {
-        title: 'Elektronische Technokratie',
-        url: 'https://worldsold.wixsite.com/electric-technocracy/de',
-        icon: Globe,
-      },
-      {
-        title: 'Bit.ly Links',
-        url: 'https://bit.ly/m/world-succession-deed',
-        icon: Link,
       },
     ],
   },
