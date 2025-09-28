@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'YouTube Videos'
 );
 const socialImage = generateSocialImage(category?.emoji || '▶️');
-const pageUrl = "https://new-order-navigator.com/youtube"; // Replace with your actual domain
+const pageUrl = "/youtube";
 
 export const metadata: Metadata = {
   title: 'YouTube Videos',
   description: 'Watch our collection of YouTube videos explaining concepts like how to start your own country, the anatomy of a modern microstate, and DIY sovereignty.',
   keywords: ['YouTube', 'videos', 'micronation', 'sovereignty', 'start a country', 'DIY nation'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'YouTube Videos',
     description: 'Watch our collection of YouTube videos explaining key concepts.',
@@ -47,7 +50,7 @@ export default function YoutubePage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'YouTube Videos', url: pageUrl },
+        { name: 'YouTube Videos', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

@@ -6,13 +6,16 @@ import { generateSocialImage } from '@/lib/emoji-to-svg';
 import { BreadcrumbLd } from '@/lib/json-ld';
 
 const socialImage = generateSocialImage('🔗');
-const pageUrl = "https://new-order-navigator.com/link-list"; // Replace with your actual domain
+const pageUrl = "/link-list";
 
 export const metadata: Metadata = {
   title: 'Comprehensive Link Collection',
   description: 'A complete, categorized list of all links related to the World Succession Deed 1400/98 and Electric Technocracy, from main websites to social media and document archives.',
   keywords: ['link collection', 'links', 'directory', 'World Succession Deed', 'Electric Technocracy', 'resources'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Comprehensive Link Collection',
     description: 'A complete, categorized list of all related links.',
@@ -222,7 +225,7 @@ export default function LinkListPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Link Collection', url: pageUrl },
+        { name: 'Link Collection', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Blog Posts (English)'
 );
 const socialImage = generateSocialImage(category?.emoji || '🇬🇧');
-const pageUrl = "https://new-order-navigator.com/blog/english"; // Replace with your actual domain
+const pageUrl = "/blog/english";
 
 export const metadata: Metadata = {
   title: 'Blog Posts (English)',
   description: 'Explore a collection of English blog posts covering topics like Universal Basic Income (UBI), Electric Technocracy, AI, sovereignty, and the future of society.',
   keywords: ['blog', 'English', 'UBI', 'Electric Technocracy', 'AI', 'sovereignty', 'future'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Blog Posts (English)',
     description: 'Explore a collection of English blog posts.',
@@ -48,7 +51,7 @@ export default function EnglishBlogPostsPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Blog Posts (English)', url: pageUrl },
+        { name: 'Blog Posts (English)', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

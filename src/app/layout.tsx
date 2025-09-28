@@ -14,6 +14,7 @@ const defaultSocialImage = generateSocialImage('🧭');
 const siteUrl = 'https://new-order-navigator.com'; // Replace with your actual domain
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: 'New Order Navigator',
     template: '%s | New Order Navigator',
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
   keywords: ['New Order', 'Navigator', 'World Succession Deed', 'Electric Technocracy', 'sovereign web', 'decentralized information', 'censorship bypass', 'system-critical analysis'],
   robots: 'index, follow',
   manifest: '/manifest.json',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     url: siteUrl,

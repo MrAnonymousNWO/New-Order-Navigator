@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Blog Posts (German)'
 );
 const socialImage = generateSocialImage(category?.emoji || '🇩🇪');
-const pageUrl = "https://new-order-navigator.com/blog/german"; // Replace with your actual domain
+const pageUrl = "/blog/german";
 
 export const metadata: Metadata = {
   title: 'Blogartikel (Deutsch)',
   description: 'Entdecken Sie eine Sammlung deutscher Blogartikel zu Themen wie Bedingungsloses Grundeinkommen (BGE), Elektronische Technokratie, KI, Souveränität und die Zukunft der Gesellschaft.',
   keywords: ['blog', 'Deutsch', 'BGE', 'Elektronische Technokratie', 'KI', 'Souveränität', 'Zukunft'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Blogartikel (Deutsch)',
     description: 'Entdecken Sie eine Sammlung deutscher Blogartikel.',
@@ -47,7 +50,7 @@ export default function GermanBlogPostsPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Blogartikel (Deutsch)', url: pageUrl },
+        { name: 'Blogartikel (Deutsch)', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

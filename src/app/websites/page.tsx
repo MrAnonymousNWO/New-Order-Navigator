@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Websites'
 );
 const socialImage = generateSocialImage(category?.emoji || '🌐');
-const pageUrl = "https://new-order-navigator.com/websites"; // Replace with your actual domain
+const pageUrl = "/websites";
 
 export const metadata: Metadata = {
   title: 'Core Websites',
   description: 'Explore the main websites for the World Succession Deed (WSD) and Electric Technocracy in both English and German, along with other strategic domains.',
   keywords: ['websites', 'World Succession Deed', 'WSD', 'Electric Technocracy', 'Staatensukzessionsurkunde'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Core Websites',
     description: 'Explore the main websites for the World Succession Deed and Electric Technocracy.',
@@ -47,7 +50,7 @@ export default function WebsitesPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Websites', url: pageUrl },
+        { name: 'Websites', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

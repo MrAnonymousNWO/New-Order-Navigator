@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Social Media'
 );
 const socialImage = generateSocialImage(category?.emoji || '💬');
-const pageUrl = "https://new-order-navigator.com/social-media"; // Replace with your actual domain
+const pageUrl = "/social-media";
 
 export const metadata: Metadata = {
   title: 'Social Media Channels',
   description: 'Connect with us on various social media platforms, including Facebook, X (formerly Twitter), and Reddit. Join the conversation and stay updated.',
   keywords: ['social media', 'Facebook', 'X', 'Twitter', 'Reddit', 'community'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Social Media Channels',
     description: 'Connect with us on various social media platforms.',
@@ -47,7 +50,7 @@ export default function SocialMediaPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Social Media', url: pageUrl },
+        { name: 'Social Media', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

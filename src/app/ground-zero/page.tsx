@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Ground Zero Files'
 );
 const socialImage = generateSocialImage(category?.emoji || '📁');
-const pageUrl = "https://new-order-navigator.com/ground-zero"; // Replace with your actual domain
+const pageUrl = "/ground-zero";
 
 export const metadata: Metadata = {
   title: 'Ground Zero Files',
   description: 'Access the foundational documents and primary sources, including the original treaty (Kaufvertrag Urkundenrolle 1400/98) and historical context for the sold NATO base.',
   keywords: ['ground zero', 'primary sources', 'original treaty', 'Kaufvertrag 1400/98', 'NATO base', 'Kreuzbergkaserne'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Ground Zero Files',
     description: 'Access the foundational documents and primary sources.',
@@ -47,7 +50,7 @@ export default function GroundZeroPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Ground Zero Files', url: pageUrl },
+        { name: 'Ground Zero Files', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

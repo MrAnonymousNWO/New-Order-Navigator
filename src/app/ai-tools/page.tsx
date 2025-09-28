@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'AI Tools'
 );
 const socialImage = generateSocialImage(category?.emoji || '✨');
-const pageUrl = "https://new-order-navigator.com/ai-tools"; // Replace with your actual domain
+const pageUrl = "/ai-tools";
 
 export const metadata: Metadata = {
   title: 'AI Tools Suite',
   description: 'Utilize a collection of powerful AI tools, including a conversational AI agent, strategic prompter, and generators for podcasts, infographics, and mind maps.',
   keywords: ['AI tools', 'generative AI', 'AI agent', 'podcast generator', 'infographic generator', 'mind map'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'AI Tools Suite',
     description: 'A collection of powerful generative AI tools.',
@@ -47,7 +50,7 @@ export default function AiToolsPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'AI Tools', url: pageUrl },
+        { name: 'AI Tools', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

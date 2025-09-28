@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'UBI'
 );
 const socialImage = generateSocialImage(category?.emoji || '💰');
-const pageUrl = "https://new-order-navigator.com/ubi"; // Replace with your actual domain
+const pageUrl = "/ubi";
 
 export const metadata: Metadata = {
   title: 'Universal Basic Income (UBI)',
   description: 'Explore resources related to Universal Basic Income (UBI), including articles, storybooks, explanatory videos, and podcast episodes on its connection to Electric Technocracy.',
   keywords: ['UBI', 'Universal Basic Income', 'BGE', 'Electric Technocracy', 'economy', 'future of work'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Universal Basic Income (UBI)',
     description: 'Explore resources related to Universal Basic Income (UBI).',
@@ -47,7 +50,7 @@ export default function UbiPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'UBI', url: pageUrl },
+        { name: 'UBI', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

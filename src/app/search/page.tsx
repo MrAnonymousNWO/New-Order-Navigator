@@ -6,13 +6,16 @@ import { generateSocialImage } from '@/lib/emoji-to-svg';
 import { BreadcrumbLd } from '@/lib/json-ld';
 
 const socialImage = generateSocialImage('🔍');
-const pageUrl = "https://new-order-navigator.com/search"; // Replace with your actual domain
+const pageUrl = "/search";
 
 export const metadata: Metadata = {
   title: 'Search Results',
   description: 'Find search results from across the entire New Order Navigator network of sites and documents. Powered by Google Custom Search.',
   keywords: ['search', 'find', 'results', 'Google Custom Search'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Search Results',
     description: 'Find search results from across the entire New Order Navigator network.',
@@ -32,7 +35,7 @@ export default function SearchPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Search', url: pageUrl },
+        { name: 'Search', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

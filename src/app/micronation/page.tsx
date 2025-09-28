@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Micronation'
 );
 const socialImage = generateSocialImage(category?.emoji || '🗺️');
-const pageUrl = "https://new-order-navigator.com/micronation"; // Replace with your actual domain
+const pageUrl = "/micronation";
 
 export const metadata: Metadata = {
   title: 'Micronation Resources',
   description: 'Learn how to found your own micronation with our resources, including guides, storybooks, and articles on achieving sovereignty with AI.',
   keywords: ['micronation', 'sovereignty', 'found a state', 'nation building', 'AI governance'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Micronation Resources',
     description: 'Learn how to found your own micronation with our resources.',
@@ -47,7 +50,7 @@ export default function MicronationPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Micronation', url: pageUrl },
+        { name: 'Micronation', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

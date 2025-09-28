@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Support'
 );
 const socialImage = generateSocialImage(category?.emoji || '❤️');
-const pageUrl = "https://new-order-navigator.com/support"; // Replace with your actual domain
+const pageUrl = "/support";
 
 export const metadata: Metadata = {
   title: 'Support Our Mission',
   description: 'Help support our mission through donations or by purchasing merchandise from our support shops. Your contribution is greatly appreciated.',
   keywords: ['support', 'donate', 'Ko-fi', 'merchandise', 'shop', 'mission'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Support Our Mission',
     description: 'Help support our mission through donations or by purchasing merchandise.',
@@ -47,7 +50,7 @@ export default function SupportPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Support', url: pageUrl },
+        { name: 'Support', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

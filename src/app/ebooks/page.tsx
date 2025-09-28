@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'eBooks & Reading'
 );
 const socialImage = generateSocialImage(category?.emoji || '📚');
-const pageUrl = "https://new-order-navigator.com/ebooks"; // Replace with your actual domain
+const pageUrl = "/ebooks";
 
 export const metadata: Metadata = {
   title: 'eBooks & Reading Material',
   description: 'Access and download free eBooks and reading materials, including "The Buyer\'s Memoir" and other key documents related to the World Succession Deed.',
   keywords: ['eBooks', 'reading', 'download', "The Buyer's Memoir", 'World Succession Deed', 'PDF'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'eBooks & Reading Material',
     description: 'Access and download free eBooks and key documents.',
@@ -47,7 +50,7 @@ export default function EbooksPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'eBooks & Reading', url: pageUrl },
+        { name: 'eBooks & Reading', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'Media'
 );
 const socialImage = generateSocialImage(category?.emoji || '🎤');
-const pageUrl = "https://new-order-navigator.com/media"; // Replace with your actual domain
+const pageUrl = "/media";
 
 export const metadata: Metadata = {
   title: 'Media Hub',
   description: 'Explore our multimedia content, including the official YouTube channel, podcasts on Spotify and Apple, and AI-generated music on SoundCloud and Riffusion.',
   keywords: ['media', 'YouTube', 'podcast', 'Spotify', 'Apple Podcast', 'AI music', 'SoundCloud'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'Media Hub',
     description: 'Explore our multimedia content, including YouTube, podcasts, and AI-generated music.',
@@ -47,7 +50,7 @@ export default function MediaPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'Media', url: pageUrl },
+        { name: 'Media', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>

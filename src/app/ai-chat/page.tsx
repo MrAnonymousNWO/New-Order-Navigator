@@ -10,13 +10,16 @@ const category = navigationLinks.find(
   (category) => category.title === 'AI Chat'
 );
 const socialImage = generateSocialImage(category?.emoji || '🤖');
-const pageUrl = "https://new-order-navigator.com/ai-chat"; // Replace with your actual domain
+const pageUrl = "/ai-chat";
 
 export const metadata: Metadata = {
   title: 'AI Chat Tools',
   description: 'Access various AI-powered chat interfaces and assistants related to the World Succession Deed and Electric Technocracy.',
   keywords: ['AI chat', 'chatbot', 'NotebookLM', 'World Succession Deed', 'Electric Technocracy'],
   robots: 'index, follow',
+  alternates: {
+    canonical: pageUrl,
+  },
   openGraph: {
     title: 'AI Chat Tools',
     description: 'Engage with AI assistants trained on our core documents.',
@@ -47,7 +50,7 @@ export default function AiChatPage() {
     <>
       <BreadcrumbLd items={[
         { name: 'Home', url: 'https://new-order-navigator.com' },
-        { name: 'AI Chat', url: pageUrl },
+        { name: 'AI Chat', url: `https://new-order-navigator.com${pageUrl}` },
       ]} />
       <div className="container mx-auto max-w-4xl py-4 px-2">
         <Card>
