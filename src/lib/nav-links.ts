@@ -45,9 +45,14 @@ export const navigationLinks: NavCategory[] = [
     title: 'Home',
     links: [
       {
-        title: 'Startpage',
+        title: 'Navigator',
         url: '/',
         icon: Home,
+      },
+      {
+        title: 'Startpage',
+        url: 'https://electric-paradise.start.page/',
+        icon: Globe,
       },
        {
         title: 'Bookmarks',
@@ -71,7 +76,7 @@ export const navigationLinks: NavCategory[] = [
       },
     ],
   },
-  {
+    {
     title: 'Websites',
     links: [
       {
