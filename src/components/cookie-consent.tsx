@@ -21,6 +21,11 @@ export function CookieConsent() {
   };
 
   useEffect(() => {
+    // Only run this logic on the client
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const consent = document.cookie
       .split('; ')
       .find((row) => row.startsWith(`${COOKIE_NAME}=`));
@@ -36,7 +41,8 @@ export function CookieConsent() {
     } else {
       setIsVisible(true);
     }
-  }, [pathname]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]); // Rerun check on navigation
 
   if (!isVisible) {
     return null;
