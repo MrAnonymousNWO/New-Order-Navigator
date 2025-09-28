@@ -13,7 +13,7 @@ on:
       - '.firebaserc'
       - 'public/**'
   pull_request:
-    types: [closed]
+    types: [opened, reopened, synchronize, closed]
     paths:
       - 'web/**'
       - 'web/**/**'
@@ -29,10 +29,10 @@ jobs:
     concurrency:
       group: deploy-web-${{ github.ref }}
       cancel-in-progress: true
-    # If this run is triggered by a pull_request closed event, only run when merged
-    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
-    # use explicit --prefix web for npm commands to avoid relying on defaults
+    # Allow pull_request runs for previews (opened/synchronize/reopened) and run on closed only if merged
+    if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && (github.event.action != 'closed' || github.event.pull_request.merged == true))
 
+    # use explicit --prefix web for npm commands to avoid relying on defaults
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,21 +65,43 @@ jobs:
       - name: Install Firebase Tools
         run: npm install -g firebase-tools
 
+      - name: Determine deploy channel
+        id: vars
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "Determining deploy channel..."
+          if [ "$EVENT_NAME" = "pull_request" ] && [ -n "$PR_NUMBER" ]; then
+            # PR preview channel
+            echo "channel=pr-$PR_NUMBER" >> $GITHUB_OUTPUT
+          else
+            # live for pushes to main
+            echo "channel=live" >> $GITHUB_OUTPUT
+          fi
+
       - name: Deploy with Service Account Action
         if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR != '' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}'
-          channelId: live
+          channelId: ${{ steps.vars.outputs.channel }}
 
       - name: Deploy to Firebase Hosting (token fallback)
         if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
+          CHANNEL: ${{ steps.vars.outputs.channel }}
         run: |
           if [ -n "$FIREBASE_PROJECT" ]; then
             firebase use "$FIREBASE_PROJECT" --add || true
           fi
-          firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+          if [ "$CHANNEL" != "live" ]; then
+            echo "Deploying to preview channel: $CHANNEL"
+            firebase hosting:channel:deploy "$CHANNEL" --token "$FIREBASE_TOKEN"
+          else
+            echo "Deploying to live channel"
+            firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+          fi
