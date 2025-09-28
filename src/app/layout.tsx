@@ -7,7 +7,6 @@ import { AppHeader } from '@/components/app-header';
 import { SwipeHandler } from '@/components/swipe-handler';
 import { CookieConsent } from '@/components/cookie-consent';
 import { BookmarkProvider } from '@/hooks/use-bookmarks.tsx';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'New Order Navigator',
@@ -39,12 +38,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-      </head>
-      <body className="font-body antialiased">
-        <Script
+        <script
           async
           src="https://cse.google.com/cse.js?cx=86021a982e3a14848"
-        ></Script>
+        ></script>
+      </head>
+      <body className="font-body antialiased">
         <Toaster />
         <BookmarkProvider>
           <SidebarProvider>

@@ -9,9 +9,9 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { allIcons } from 'lucide-react';
+import { icons } from 'lucide-react';
 
-const iconNames = Object.keys(allIcons) as [string, ...string[]];
+const iconNames = Object.keys(icons) as [string, ...string[]];
 
 export const InfographicPointSchema = z.object({
   title: z.string().describe('A short, catchy title for this point.'),
