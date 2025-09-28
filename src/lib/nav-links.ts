@@ -111,39 +111,6 @@ export const navigationLinks: NavCategory[] = [
     ],
   },
   {
-    title: 'AI Tools',
-    icon: Sparkles,
-    emoji: '✨',
-    url: '/ai-tools',
-    links: [
-      {
-        title: 'AI Agent',
-        url: '/ai-agent',
-        icon: Sparkles,
-      },
-      {
-        title: 'Strategic Prompter',
-        url: '/strategic-prompter',
-        icon: Wand2,
-      },
-      {
-        title: 'Podcast Generator',
-        url: '/podcast-generator',
-        icon: Mic,
-      },
-      {
-        title: 'Infographic Generator',
-        url: '/infographic-generator',
-        icon: ImageIcon,
-      },
-      {
-        title: 'Mind Map Generator',
-        url: '/mindmap-generator',
-        icon: BrainCircuit,
-      },
-    ],
-  },
-  {
     title: 'eBooks & Reading',
     icon: BookOpen,
     emoji: '📚',
@@ -618,6 +585,39 @@ export const navigationLinks: NavCategory[] = [
         title: 'Support Store',
         url: 'https://nwo-9.creator-spring.com',
         icon: ShoppingCart,
+      },
+    ],
+  },
+  {
+    title: 'AI Tools',
+    icon: Sparkles,
+    emoji: '✨',
+    url: '/ai-tools',
+    links: [
+      {
+        title: 'AI Agent',
+        url: '/ai-agent',
+        icon: Sparkles,
+      },
+      {
+        title: 'Strategic Prompter',
+        url: '/strategic-prompter',
+        icon: Wand2,
+      },
+      {
+        title: 'Podcast Generator',
+        url: '/podcast-generator',
+        icon: Mic,
+      },
+      {
+        title: 'Infographic Generator',
+        url: '/infographic-generator',
+        icon: ImageIcon,
+      },
+      {
+        title: 'Mind Map Generator',
+        url: '/mindmap-generator',
+        icon: BrainCircuit,
       },
     ],
   },
