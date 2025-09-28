@@ -1,57 +1,51 @@
 // src/app/page.tsx
 'use client';
 
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { navigationLinks } from '@/lib/nav-links';
 import { Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
 
+// Calculate rotation for 14 items
 const categoryRotations: { [key: string]: string } = {
-  'Home': 'rotate-0',
-  'Websites': 'rotate-[25deg]',
-  'AI Tools': 'rotate-[50deg]',
-  'eBooks & Reading': 'rotate-[75deg]',
-  'Media': 'rotate-[100deg]',
-  'AI Chat': 'rotate-[125deg]',
-  'Social Media': 'rotate-[150deg]',
-  'YouTube Videos': 'rotate-[175deg]',
-  'Ground Zero Files': 'rotate-[200deg]',
-  'UBI': 'rotate-[225deg]',
-  'Blog Posts (English)': 'rotate-[250deg]',
-  'Blog Posts (German)': 'rotate-[275deg]',
-  'Micronation': 'rotate-[300deg]',
-  'Support': 'rotate-[325deg]',
+  'Home': 'rotate-[0deg]',
+  'Websites': 'rotate-[25.7deg]',
+  'AI Tools': 'rotate-[51.4deg]',
+  'eBooks & Reading': 'rotate-[77.1deg]',
+  'Media': 'rotate-[102.8deg]',
+  'AI Chat': 'rotate-[128.5deg]',
+  'Social Media': 'rotate-[154.2deg]',
+  'YouTube Videos': 'rotate-[179.9deg]',
+  'Ground Zero Files': 'rotate-[205.6deg]',
+  'UBI': 'rotate-[231.3deg]',
+  'Blog Posts (English)': 'rotate-[257deg]',
+  'Blog Posts (German)': 'rotate-[282.7deg]',
+  'Micronation': 'rotate-[308.4deg]',
+  'Support': 'rotate-[334.1deg]',
 };
 
 const contentRotations: { [key: string]: string } = {
-  'Home': '-rotate-0',
-  'Websites': '-rotate-[25deg]',
-  'AI Tools': '-rotate-[50deg]',
-  'eBooks & Reading': '-rotate-[75deg]',
-  'Media': '-rotate-[100deg]',
-  'AI Chat': '-rotate-[125deg]',
-  'Social Media': '-rotate-[150deg]',
-  'YouTube Videos': '-rotate-[175deg]',
-  'Ground Zero Files': '-rotate-[200deg]',
-  'UBI': '-rotate-[225deg]',
-  'Blog Posts (English)': '-rotate-[250deg]',
-  'Blog Posts (German)': '-rotate-[275deg]',
-  'Micronation': '-rotate-[300deg]',
-  'Support': '-rotate-[325deg]',
+    'Home': '-rotate-[0deg]',
+    'Websites': '-rotate-[25.7deg]',
+    'AI Tools': '-rotate-[51.4deg]',
+    'eBooks & Reading': '-rotate-[77.1deg]',
+    'Media': '-rotate-[102.8deg]',
+    'AI Chat': '-rotate-[128.5deg]',
+    'Social Media': '-rotate-[154.2deg]',
+    'YouTube Videos': '-rotate-[179.9deg]',
+    'Ground Zero Files': '-rotate-[205.6deg]',
+    'UBI': '-rotate-[231.3deg]',
+    'Blog Posts (English)': '-rotate-[257deg]',
+    'Blog Posts (German)': '-rotate-[282.7deg]',
+    'Micronation': '-rotate-[308.4deg]',
+    'Support': '-rotate-[334.1deg]',
 };
 
 
-const isExternalUrl = (url: string) =>
-  url.startsWith('http://') || url.startsWith('https://');
-
 export default function Home() {
+  // Filter out any categories that don't have a defined rotation
+  const displayableLinks = navigationLinks.filter(category => categoryRotations[category.title]);
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background py-4 px-2 overflow-hidden">
         <div className="text-center mb-12">
@@ -65,9 +59,9 @@ export default function Home() {
         <div className="absolute h-[90%] w-[90%] rounded-full border border-dashed border-border"></div>
         <div className="absolute h-[60%] w-[60%] rounded-full border border-dashed border-border"></div>
 
-        {navigationLinks.map((category) => {
-          const rotationClass = categoryRotations[category.title] || 'rotate-0';
-          const contentRotationClass = contentRotations[category.title] || '-rotate-0';
+        {displayableLinks.map((category) => {
+          const rotationClass = categoryRotations[category.title];
+          const contentRotationClass = contentRotations[category.title];
           
           const categoryUrl = category.url ?? '#';
           
