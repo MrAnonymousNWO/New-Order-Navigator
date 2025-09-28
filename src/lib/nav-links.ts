@@ -21,6 +21,7 @@ import {
   Bookmark,
   Search,
   List,
+  Sparkles,
 } from 'lucide-react';
 
 export interface NavLink {
@@ -57,6 +58,26 @@ export const navigationLinks: NavCategory[] = [
         title: 'Search',
         url: 'https://cse.google.com/cse?cx=86021a982e3a14848',
         icon: Search,
+      },
+    ],
+  },
+  {
+    title: 'AI Tools',
+    links: [
+      {
+        title: 'AI Agent',
+        url: '/ai-agent',
+        icon: Sparkles,
+      },
+       {
+        title: 'AI Chatbot',
+        url: '/chatbot',
+        icon: MessageSquare,
+      },
+      {
+        title: 'Pet Analyzer',
+        url: '/pet-analyzer',
+        icon: Sparkles,
       },
     ],
   },
