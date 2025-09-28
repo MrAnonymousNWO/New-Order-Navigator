@@ -64,7 +64,7 @@ export default function Home() {
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-background p-4 overflow-hidden">
         <div className="text-center mb-12">
             <h1 className="font-headline text-5xl font-bold text-primary">Navigator Compass</h1>
-            <p className="text-muted-foreground mt-2 text-lg">Explore the content clusters of the New Order.</p>
+            <p className="text-muted-foreground mt-2 text-lg max-w-2xl">A tool for system-critical analysis and bypassing censorship through decentralized information.</p>
         </div>
       <div className="relative flex h-[350px] w-[350px] items-center justify-center rounded-full md:h-[450px] md:w-[450px]">
         {/* Central Compass Rose */}
