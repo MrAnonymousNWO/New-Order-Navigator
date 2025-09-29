@@ -25,12 +25,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci --prefix web || npm install --prefix web --no-audit --no-fund
+          cd web
+          npm ci || npm install --no-audit --no-fund
 
       - name: Build and export
         run: |
-          npm run build --prefix web
-          npm run export --prefix web
+          cd web
+          npm run build
+          npm run export
 
       - name: Prepare public
         run: |
