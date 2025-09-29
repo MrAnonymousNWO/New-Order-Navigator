@@ -24,17 +24,20 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
+        if: ${{ github.event.inputs.do_deploy == 'true' }}
         run: |
           cd web
           npm ci || npm install --no-audit --no-fund
 
       - name: Build and export
+        if: ${{ github.event.inputs.do_deploy == 'true' }}
         run: |
           cd web
           npm run build
           npm run export
 
       - name: Prepare public
+        if: ${{ github.event.inputs.do_deploy == 'true' }}
         run: |
           rm -rf public || true
           mkdir -p public
