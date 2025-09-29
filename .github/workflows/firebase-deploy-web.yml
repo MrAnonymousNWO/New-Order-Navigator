@@ -79,7 +79,6 @@ jobs:
             # live for pushes to main
             echo "channel=live" >> $GITHUB_OUTPUT
           fi
-
       - name: Deploy with Service Account Action
         if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR != '' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -88,12 +87,20 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}'
           channelId: ${{ steps.vars.outputs.channel }}
 
-      - name: Deploy with token via Action
+      - name: Deploy with Firebase_cli token
         if: ${{ secrets.Firebase_cli != '' && secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           token: ${{ secrets.Firebase_cli }}
+          channelId: ${{ steps.vars.outputs.channel }}
+
+      - name: Deploy with FIREBASE_TOKEN
+        if: ${{ secrets.FIREBASE_TOKEN != '' && secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' && secrets.Firebase_cli == '' }}
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
           channelId: ${{ steps.vars.outputs.channel }}
 
       - name: Deploy to Firebase Hosting (token fallback)
