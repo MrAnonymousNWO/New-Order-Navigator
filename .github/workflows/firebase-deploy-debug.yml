@@ -43,16 +43,46 @@ jobs:
         run: |
           echo "GITHUB_REF=$GITHUB_REF"
           echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "Secrets:"
-          echo "  FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR=${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR != '' }}"
-          echo "  Firebase_cli=${{ secrets.Firebase_cli != '' }}"
-          echo "  FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN != '' }}"
+          echo "(placeholder - secret presence will be printed after secret checks)"
 
       - name: Install firebase-tools
         run: npm install -g firebase-tools
 
+      - name: Check secrets
+        id: check_secrets
+        run: |
+          # Check service account secret
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}" ]; then
+            echo "has_service_account=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_service_account=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Check Firebase CLI token secret (action)
+          if [ -z "${{ secrets.Firebase_cli }}" ]; then
+            echo "has_firebase_cli=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_firebase_cli=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          # Check legacy FIREBASE_TOKEN
+          if [ -z "${{ secrets.FIREBASE_TOKEN }}" ]; then
+            echo "has_firebase_token=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_firebase_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Print debug info (after checks)
+        run: |
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "Secrets present:"
+          echo "  FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR=${{ steps.check_secrets.outputs.has_service_account }}"
+          echo "  Firebase_cli=${{ steps.check_secrets.outputs.has_firebase_cli }}"
+          echo "  FIREBASE_TOKEN=${{ steps.check_secrets.outputs.has_firebase_token }}"
+
       - name: Optional Deploy (action)
-        if: ${{ github.event.inputs.do_deploy == 'true' }}
+        if: ${{ github.event.inputs.do_deploy == 'true' && steps.check_secrets.outputs.has_service_account == 'true' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +90,7 @@ jobs:
           channelId: ${{ github.event.inputs.channel }}
 
       - name: Optional Deploy (cli)
-        if: ${{ github.event.inputs.do_deploy == 'true' && (!secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR) }}
+        if: ${{ github.event.inputs.do_deploy == 'true' && steps.check_secrets.outputs.has_service_account == 'false' }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           CHANNEL: ${{ github.event.inputs.channel }}
