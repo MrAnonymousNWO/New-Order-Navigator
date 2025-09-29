@@ -18,85 +18,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci --prefix web
-
-      - name: Build and export
+      - name: Minimal run to verify runner
         run: |
-          npm run build --prefix web
-          npm run export --prefix web
-
-      - name: Prepare public
-        run: |
-          rm -rf public || true
-          mkdir -p public
-          cp -a web/out/. public/
-          ls -la public | sed -n '1,120p'
-
-      - name: Print debug info
-        run: |
+          echo "Runner check OK"
           echo "GITHUB_REF=$GITHUB_REF"
           echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "(placeholder - secret presence will be printed after secret checks)"
-
-      - name: Install firebase-tools
-        run: npm install -g firebase-tools
-
-      - name: Check secrets
-        id: check_secrets
-        run: |
-          # Check service account secret
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}" ]; then
-            echo "has_service_account=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_service_account=true" >> "$GITHUB_OUTPUT"
-          fi
-
-          # Check Firebase CLI token secret (action)
-          if [ -z "${{ secrets.Firebase_cli }}" ]; then
-            echo "has_firebase_cli=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_firebase_cli=true" >> "$GITHUB_OUTPUT"
-          fi
-
-          # Check legacy FIREBASE_TOKEN
-          if [ -z "${{ secrets.FIREBASE_TOKEN }}" ]; then
-            echo "has_firebase_token=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_firebase_token=true" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Print debug info (after checks)
-        run: |
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "Secrets present:"
-          echo "  FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR=${{ steps.check_secrets.outputs.has_service_account }}"
-          echo "  Firebase_cli=${{ steps.check_secrets.outputs.has_firebase_cli }}"
-          echo "  FIREBASE_TOKEN=${{ steps.check_secrets.outputs.has_firebase_token }}"
-
-      - name: Optional Deploy (action)
-        if: ${{ github.event.inputs.do_deploy == 'true' && steps.check_secrets.outputs.has_service_account == 'true' }}
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}'
-          channelId: ${{ github.event.inputs.channel }}
-
-      - name: Optional Deploy (cli)
-        if: ${{ github.event.inputs.do_deploy == 'true' && steps.check_secrets.outputs.has_service_account == 'false' }}
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          CHANNEL: ${{ github.event.inputs.channel }}
-        run: |
-          if [ "$CHANNEL" != "live" ]; then
-            firebase hosting:channel:deploy "$CHANNEL" --token "$FIREBASE_TOKEN"
-          else
-            firebase deploy --only hosting --token "$FIREBASE_TOKEN"
-          fi
+          echo "FIREBASE_SERVICE_ACCOUNT exists=$( [ -n "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}" ] && echo true || echo false )"
+          echo "Firebase_cli exists=$( [ -n "${{ secrets.Firebase_cli }}" ] && echo true || echo false )"
+          echo "FIREBASE_TOKEN exists=$( [ -n "${{ secrets.FIREBASE_TOKEN }}" ] && echo true || echo false )"
