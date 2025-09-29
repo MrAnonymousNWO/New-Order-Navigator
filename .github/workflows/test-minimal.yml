@@ -1,0 +1,18 @@
+name: Minimal Actions Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Print node
+        run: |
+          echo "Hello from Actions"
+          echo "GITHUB_REF=$GITHUB_REF"
+          echo "GITHUB_SHA=$GITHUB_SHA"
+          echo "Secrets present: FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN != '' }} FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR != '' }}"
