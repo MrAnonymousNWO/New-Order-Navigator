@@ -37,12 +37,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
       - name: Install dependencies
         run: npm ci --prefix web
 
@@ -66,6 +64,30 @@ jobs:
       - name: Install Firebase Tools
         run: npm install -g firebase-tools
 
+      - name: Check secrets
+        id: check_secrets
+        run: |
+          sa="${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR }}"
+          if [ -z "$sa" ]; then
+            echo "has_service_account=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_service_account=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          cli="${{ secrets.Firebase_cli }}"
+          if [ -z "$cli" ]; then
+            echo "has_firebase_cli=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_firebase_cli=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          tok="${{ secrets.FIREBASE_TOKEN }}"
+          if [ -z "$tok" ]; then
+            echo "has_firebase_token=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_firebase_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Determine deploy channel
         id: vars
         env:
@@ -81,7 +103,7 @@ jobs:
             echo "channel=live" >> $GITHUB_OUTPUT
           fi
       - name: Deploy with Service Account Action
-        if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR != '' }}
+        if: ${{ steps.check_secrets.outputs.has_service_account == 'true' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -89,7 +111,7 @@ jobs:
           channelId: ${{ steps.vars.outputs.channel }}
 
       - name: Deploy with Firebase_cli token
-        if: ${{ secrets.Firebase_cli != '' && secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' }}
+        if: ${{ steps.check_secrets.outputs.has_firebase_cli == 'true' && steps.check_secrets.outputs.has_service_account != 'true' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -97,7 +119,7 @@ jobs:
           channelId: ${{ steps.vars.outputs.channel }}
 
       - name: Deploy with FIREBASE_TOKEN
-        if: ${{ secrets.FIREBASE_TOKEN != '' && secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' && secrets.Firebase_cli == '' }}
+        if: ${{ steps.check_secrets.outputs.has_firebase_token == 'true' && steps.check_secrets.outputs.has_service_account != 'true' && steps.check_secrets.outputs.has_firebase_cli != 'true' }}
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -105,7 +127,7 @@ jobs:
           channelId: ${{ steps.vars.outputs.channel }}
 
       - name: Deploy to Firebase Hosting (token fallback)
-        if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEW_ORDER_NAVIGATOR == '' }}
+        if: ${{ steps.check_secrets.outputs.has_service_account != 'true' }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
